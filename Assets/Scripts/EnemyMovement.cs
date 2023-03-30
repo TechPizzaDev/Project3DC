@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
-    [SerializeField] Vector3 direction;
-    [SerializeField] Rigidbody rigidBody;
+    [SerializeField] private float speed;
+    [SerializeField] private Vector3 direction;
+    
+    private Rigidbody rigidBody;
+    private Vector3 startingPos;
+    private Vector3 endingPos;
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        startingPos = transform.position;
+        endingPos.x = 5;
+
 
     }
 
@@ -21,6 +27,13 @@ public class EnemyMovement : MonoBehaviour
         direction.x = 1;
 
         transform.Translate(direction * speed * Time.deltaTime);
+
+        if (transform.position.x == endingPos.x)
+        {
+            direction.x = -1;
+            transform.Translate(direction * speed * Time.deltaTime);
+
+        }
 
     }
 }
