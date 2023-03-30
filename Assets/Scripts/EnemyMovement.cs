@@ -5,35 +5,51 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private Vector3 direction;
-    
-    private Rigidbody rigidBody;
-    private Vector3 startingPos;
-    private Vector3 endingPos;
+    [SerializeField] private Vector2 direction;
+    [SerializeField] private Vector2 startingPos;
+    [SerializeField] private Vector2 endPos;
+    [SerializeField] private Vector2 walkingToPos;
+    private float margin = 1;
+    bool destination = false;
 
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
         startingPos = transform.position;
-        endingPos.x = 5;
+        speed = 1;
 
+        endPos = new Vector2 (0,5);
+        walkingToPos = endPos;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        speed = 1;
-        direction.x = 1;
 
-        transform.Translate(direction * speed * Time.deltaTime);
-
-        if (transform.position.x == endingPos.x)
+        if (transform.position.x < walkingToPos.x + margin &&
+            transform.position.x > walkingToPos.x - margin &&
+            transform.position.z < walkingToPos.y + margin &&
+            transform.position.z > walkingToPos.y - margin)
         {
-            direction.x = -1;
-            transform.Translate(direction * speed * Time.deltaTime);
-
+            if (destination)
+            {
+                walkingToPos = startingPos;
+                destination = false;
+            }
+            else
+            {
+                walkingToPos = endPos;
+                destination = true;
+            }
+            
         }
+
+
+        Vector2 v = new Vector2(transform.position.x, transform.position.z);
+        direction = walkingToPos - v;
+        direction = direction.normalized;
+        Vector3 movementDirection = new Vector3(direction.x, 0, direction.y);
+        transform.position += movementDirection * speed * Time.deltaTime; 
 
     }
 }
