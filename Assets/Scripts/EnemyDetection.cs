@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyDetection : MonoBehaviour
 {
-    public float viewRadius;
-    public float viewAngle;
+    [SerializeField] private float viewRadius; 
+    [SerializeField] private float viewAngle;
+    public bool detected;
     
     //Player layer
     public LayerMask targetPlayer; 
@@ -17,7 +18,7 @@ public class EnemyDetection : MonoBehaviour
     {
         
     }
-
+    
     void Update()
     {
         //Responsible for angle of player & enemy
@@ -33,6 +34,7 @@ public class EnemyDetection : MonoBehaviour
                 //If there is no obstacle in the way = enemy has detected the player. 
                 if(Physics.Raycast(transform.position, playerTarget, distanceToTarget, obstacleMask) == false )
                 {
+                    detected = true;
                     Debug.Log("You have been spotted.");
                 }
             }

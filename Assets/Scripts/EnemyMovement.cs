@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -9,11 +10,20 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Vector2 startingPos;
     [SerializeField] private Vector2 endPos;
     [SerializeField] private Vector2 walkingToPos;
+    [SerializeField] private Transform movePosTransform;
+   
+    private NavMeshAgent agent;
     private float margin = 1;
     bool destination = false;
 
+    EnemyDetection enemyDetection;
+
     void Start()
     {
+        enemyDetection = GetComponent<EnemyDetection>();
+        agent = GetComponent<NavMeshAgent>();
+        
+
         startingPos = transform.position;
         speed = 1;
 
@@ -49,7 +59,13 @@ public class EnemyMovement : MonoBehaviour
         direction = walkingToPos - v;
         direction = direction.normalized;
         Vector3 movementDirection = new Vector3(direction.x, 0, direction.y);
-        transform.position += movementDirection * speed * Time.deltaTime; 
+        transform.position += movementDirection * speed * Time.deltaTime;
+
+        if (enemyDetection.detected == true)
+        {
+            agent.destination = movePosTransform.position;
+
+        }
 
     }
 }
