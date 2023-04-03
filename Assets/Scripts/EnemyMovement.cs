@@ -5,16 +5,16 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private Vector2 direction;
-    [SerializeField] private Vector2 startingPos;
-    [SerializeField] private Vector2 endPos;
-    [SerializeField] private Vector2 walkingToPos;
+    [SerializeField] private Vector3 direction;
+    [SerializeField] private Vector3 startingPos;
+    [SerializeField] private Vector3 endPos;
+    [SerializeField] private Vector3 walkingToPos;
     [SerializeField] private Transform movePosTransform;
    
     private NavMeshAgent agent;
-    private float margin = 1;
-    bool destination = false;
+    [SerializeField] private float margin = 5f;
+    [SerializeField] private float distenceToTarget;
+    [SerializeField] bool destination = false;
 
     EnemyDetection enemyDetection;
 
@@ -22,50 +22,39 @@ public class EnemyMovement : MonoBehaviour
     {
         enemyDetection = GetComponent<EnemyDetection>();
         agent = GetComponent<NavMeshAgent>();
-        
 
-        startingPos = transform.position;
-        speed = 1;
-
-        endPos = new Vector2 (0,5);
         walkingToPos = endPos;
-
+        startingPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (transform.position.x < walkingToPos.x + margin &&
-            transform.position.x > walkingToPos.x - margin &&
-            transform.position.z < walkingToPos.y + margin &&
-            transform.position.z > walkingToPos.y - margin)
-        {
-            if (destination)
-            {
-                walkingToPos = startingPos;
-                destination = false;
-            }
-            else
-            {
-                walkingToPos = endPos;
-                destination = true;
-            }
-            
-        }
-
-
-        Vector2 v = new Vector2(transform.position.x, transform.position.z);
-        direction = walkingToPos - v;
-        direction = direction.normalized;
-        Vector3 movementDirection = new Vector3(direction.x, 0, direction.y);
-        transform.position += movementDirection * speed * Time.deltaTime;
+        distenceToTarget = Vector3.Distance(transform.position, walkingToPos);
 
         if (enemyDetection.detected == true)
         {
             agent.destination = movePosTransform.position;
 
         }
+        else
+        {
+            agent.destination = walkingToPos;
 
+
+            if (Vector3.Distance(transform.position, walkingToPos) < margin)
+            {
+                if (destination)
+                {
+                    walkingToPos = startingPos;
+                    destination = false;
+                }
+                else
+                {
+                    walkingToPos = endPos;
+                    destination = true;
+                }
+            }
+        }
     }
 }
