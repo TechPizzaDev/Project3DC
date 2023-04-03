@@ -1,6 +1,7 @@
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,10 +11,20 @@ public class Pistol : MonoBehaviour
     //REMEMBER, THE FIRST PERSON CONTROLLER HAS A CAMERA MOVEMENT THRESHOLD.
     //REMOVE IT!!!
 
-    //bullet
+    //references
     [SerializeField]
     private GameObject projectilePrefab;
-    
+    public GameObject ProjectilePrefab
+    {
+        get { return projectilePrefab; }
+    }
+    [SerializeField]
+    private Camera fpsCam;
+    [SerializeField]
+    private Transform attackPoint;
+    [SerializeField]
+    private BulletManager bulletManager;
+
     //force
     [SerializeField]
     private float projectileForce, upwardForce;
@@ -25,19 +36,17 @@ public class Pistol : MonoBehaviour
     private int magSize, bulletsPerClick;
     [SerializeField]
     private bool holdToFire;
-
     [SerializeField]
     private int bulletsLeft, bulletsShot;
-    
+
+    //upgrades
+    [SerializeField]
+    private bool bouncingBullets = false;
+
+
     //bools
     [SerializeField]
     private bool shooting, readyToShoot, reloading;
-    
-    //references
-    [SerializeField]
-    private Camera fpsCam;
-    [SerializeField]
-    private Transform attackPoint;
 
     //debug
     [SerializeField]
@@ -139,7 +148,18 @@ public class Pistol : MonoBehaviour
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
         //Instantiate projectile
-        GameObject currentProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject currentProjectile = Instantiate(projectilePrefab, bulletManager.transform);
+        if (bouncingBullets)
+        {
+            Bullet bullet = currentProjectile.GetComponent<Bullet>();
+            bullet.MaxBounceCount = 2;
+        }
+        currentProjectile.transform.position = transform.position;
+        currentProjectile.transform.rotation = Quaternion.identity;
+
+        //Add bullet to bulletManager
+        bulletManager.AddBullet(currentProjectile);
+        
         //Rotate bullet
         currentProjectile.transform.forward = directionWithSpread.normalized;
 
@@ -159,10 +179,10 @@ public class Pistol : MonoBehaviour
         }
 
         //if more than one bulletPerClick repeat shoot function
-        if (bulletsShot < bulletsPerClick && bulletsLeft < 0)
-        {
-            Invoke("Shoot", timeBetweenShots);
-        }
+        //if (bulletsShot < bulletsPerClick && bulletsLeft > 0)
+        //{
+        //    Invoke("Fire", timeBetweenShooting);
+        //}
     }
 
     private void ResetShot()
