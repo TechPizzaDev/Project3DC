@@ -16,9 +16,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private int bounceCount;
 
-    public void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("collision");
         bounceCount++;
         
         if (bounceCount >= maxBounceCount)

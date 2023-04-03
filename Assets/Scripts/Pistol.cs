@@ -40,6 +40,9 @@ public class Pistol : MonoBehaviour
     private int bulletsLeft, bulletsShot;
 
     //upgrades
+    public enum Upgrade { Damage, FireRate, ReloadSpeed, MagSize, BouncingBullets }
+    List<Upgrade> upgrades = new List<Upgrade>();
+    
     [SerializeField]
     private bool bouncingBullets = false;
 
@@ -148,7 +151,7 @@ public class Pistol : MonoBehaviour
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
         //Instantiate projectile
-        GameObject currentProjectile = Instantiate(projectilePrefab, bulletManager.transform);
+        GameObject currentProjectile = Instantiate(projectilePrefab);
         if (bouncingBullets)
         {
             Bullet bullet = currentProjectile.GetComponent<Bullet>();
@@ -158,7 +161,7 @@ public class Pistol : MonoBehaviour
         currentProjectile.transform.rotation = Quaternion.identity;
 
         //Add bullet to bulletManager
-        bulletManager.AddBullet(currentProjectile);
+        //bulletManager.AddBullet(currentProjectile);
         
         //Rotate bullet
         currentProjectile.transform.forward = directionWithSpread.normalized;
@@ -202,5 +205,35 @@ public class Pistol : MonoBehaviour
     {
         bulletsLeft = magSize;
         reloading = false;
+    }
+
+    public void AddUpgrade(Upgrade upgrade)
+    {
+        upgrades.Add(upgrade);
+        ApplyUpgrades();
+    }
+
+    private void ApplyUpgrades()
+    {
+        foreach (Upgrade upgrade in upgrades)
+        {
+            switch (upgrade)
+            {
+                case Upgrade.Damage:
+                    break;
+                case Upgrade.FireRate:
+                    Rpm = rpm * 0.02f;
+                    break;
+                case Upgrade.ReloadSpeed:
+                    reloadTime = reloadTime - 0.02f;
+                    break;
+                case Upgrade.MagSize:
+                    magSize = magSize + 10;
+                    break;
+                case Upgrade.BouncingBullets:
+                    bouncingBullets = true;
+                    break;
+            }
+        }
     }
 }

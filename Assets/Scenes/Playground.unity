@@ -542,50 +542,6 @@ LightProbeGroup:
   - {x: 7.1518564, y: 2.7763042, z: -11.2319765}
   - {x: 8.993203, y: 2.3566551, z: -8.796325}
   m_Dering: 1
---- !u!1 &967054000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 967054002}
-  - component: {fileID: 967054001}
-  m_Layer: 6
-  m_Name: BulletManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &967054001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967054000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790b6a2e7e864364d9d870974460b127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &967054002
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967054000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.128, y: 8.238, z: -1.2090709}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978603247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1267,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletManager
       value: 
-      objectReference: {fileID: 967054001}
+      objectReference: {fileID: 0}
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
       propertyPath: bouncingBullets
@@ -1325,7 +1281,7 @@ PrefabInstance:
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
       propertyPath: projectileForce
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
