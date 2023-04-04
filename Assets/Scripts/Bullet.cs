@@ -18,6 +18,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Destroy(other.gameObject);
+        }
+
         bounceCount++;
         
         if (bounceCount >= maxBounceCount)

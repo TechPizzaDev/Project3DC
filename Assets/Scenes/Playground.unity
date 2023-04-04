@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 1482066405}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1405,7 +1405,7 @@ PrefabInstance:
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
       propertyPath: projectileForce
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
