@@ -227,5 +227,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30db2589e1abcb46bbb76608e21b79a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBounceCount: 3
+  maxBounceCount: 0
   bounceCount: 0

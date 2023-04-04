@@ -22,8 +22,8 @@ public class Pistol : MonoBehaviour
     private Camera fpsCam;
     [SerializeField]
     private Transform attackPoint;
-    [SerializeField]
-    private BulletManager bulletManager;
+    //[SerializeField]
+    //private BulletManager bulletManager;
 
     //force
     [SerializeField]
@@ -40,7 +40,7 @@ public class Pistol : MonoBehaviour
     private int bulletsLeft, bulletsShot;
 
     //upgrades
-    public enum Upgrade { Damage, FireRate, ReloadSpeed, MagSize, BouncingBullets }
+    public enum Upgrade { Damage, FireRate, ReloadSpeed, MagSize, BouncingBullets, FullAuto}
     List<Upgrade> upgrades = new List<Upgrade>();
     
     [SerializeField]
@@ -220,18 +220,26 @@ public class Pistol : MonoBehaviour
             switch (upgrade)
             {
                 case Upgrade.Damage:
+                    
                     break;
                 case Upgrade.FireRate:
                     Rpm = rpm * 0.02f;
                     break;
                 case Upgrade.ReloadSpeed:
-                    reloadTime = reloadTime - 0.02f;
+                    if (reloadTime >= 0.2f)
+                    {
+                        reloadTime = reloadTime - 0.2f;
+                    }
+                    else reloadTime = 0;
                     break;
                 case Upgrade.MagSize:
                     magSize = magSize + 10;
                     break;
                 case Upgrade.BouncingBullets:
                     bouncingBullets = true;
+                    break;
+                case Upgrade.FullAuto:
+                    holdToFire= true;
                     break;
             }
         }
