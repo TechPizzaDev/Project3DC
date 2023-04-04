@@ -718,7 +718,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 978603263}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1482066405
 BoxCollider:
@@ -1395,7 +1395,7 @@ PrefabInstance:
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
       propertyPath: bouncingBullets
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
@@ -1405,7 +1405,7 @@ PrefabInstance:
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
       propertyPath: projectileForce
-      value: 500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 85275570275944114, guid: ab56547d0b412ae4b8909aacf57c4184,
         type: 3}
@@ -2016,6 +2016,11 @@ PrefabInstance:
     - target: {fileID: 7692032259475220339, guid: 8e8eea6abe9040c43b3edbdf5897f4b1,
         type: 3}
       propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692032259475220339, guid: 8e8eea6abe9040c43b3edbdf5897f4b1,
+        type: 3}
+      propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7692032259475220342, guid: 8e8eea6abe9040c43b3edbdf5897f4b1,
