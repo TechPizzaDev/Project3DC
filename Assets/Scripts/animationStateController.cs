@@ -4,28 +4,55 @@ using UnityEngine;
 
 public class animationStateController : MonoBehaviour
 {
-    Animator animator;
-    EnemyDetection detection;
+    Animator anim;
+    EnemyMovement enemyMovement;
 
-    void Start()
+    // Use this for initialization
+    void Awake()
     {
-        animator = GetComponent<Animator> ();  
-        detection = GetComponent<EnemyDetection> ();
+        anim = gameObject.GetComponent<Animator>();
+        enemyMovement = gameObject.GetComponent<EnemyMovement>();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (detection.detected)
-        {
-            animator.SetBool("Roll_Animation", true);
-            animator.SetBool("Walking_Animation", false);
-        }
-        if(!detection.detected) 
-        {
-            animator.SetBool("Walking_Animation", true);
-            animator.SetBool("Roll_Animation", false);
-
-
-        }
+        CheckKey();
     }
+
+    void CheckKey()
+    {
+        // Walk
+        if (enemyMovement.animationWalking)
+        {
+            anim.SetBool("Walk_Anim", true);
+        }
+        else if (!enemyMovement.animationWalking)
+        {
+            anim.SetBool("Walk_Anim", false);
+
+        }
+
+        // Roll
+        if (enemyMovement.animationRolling)
+        {
+            
+            anim.SetBool("Roll_Anim", true);
+            
+        }
+
+        //// Close
+        //if (Input.GetKeyDown(KeyCode.LeftControl))
+        //{
+        //    if (!anim.GetBool("Open_Anim"))
+        //    {
+        //        anim.SetBool("Open_Anim", true);
+        //    }
+        //    else
+        //    {
+        //        anim.SetBool("Open_Anim", false);
+        //    }
+        //}
+    }
+
 }

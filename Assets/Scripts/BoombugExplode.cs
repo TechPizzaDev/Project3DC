@@ -41,7 +41,6 @@ public class BoombugExplode : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //timer 
         if (enemyDetection.detected && other.gameObject.tag == "Player")
         {
             Debug.Log("triggered");

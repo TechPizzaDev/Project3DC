@@ -21,6 +21,10 @@ public class EnemyMovement : MonoBehaviour
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
+    public bool animationWalking;
+    public bool animationIdle;
+    public bool animationRolling;
+
     enum State
     {
         isPatrolling,
@@ -44,11 +48,11 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         switch (state)
         {
             case State.isPatrolling:
                 {
+                    animationWalking = true;
                     distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
                     agent.destination = walkingToPos;
                     agent.speed = regularSpeed;
@@ -68,6 +72,7 @@ public class EnemyMovement : MonoBehaviour
                     }
                     if (enemyDetection.detected)
                     {
+                        animationWalking = false;
                         state = State.isAggro;
                     }
                 }
@@ -75,6 +80,7 @@ public class EnemyMovement : MonoBehaviour
 
             case State.isAggro:
                 {
+                    animationRolling = true;
                     agent.destination = movePosTransform.position;
 
                     agent.speed = aggressiveSpeed;
