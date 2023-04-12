@@ -50,7 +50,7 @@ public class EnemyDetection : MonoBehaviour
         else
         {
             detected = false;
-            Debug.Log("Enemy stoped chasing you");
+            Debug.Log("Enemy stopped chasing you");
         }
     }
 }
