@@ -14,11 +14,12 @@ public class EnemyDetection : MonoBehaviour
     public LayerMask targetPlayer; 
     public LayerMask obstacleMask;
 
-    public GameObject player; 
+    public GameObject player;
+    private EnemyHealth enemyHealth;
 
     void Start()
     {
-        
+        enemyHealth = GetComponent<EnemyHealth>();
     }
     
     void Update()
@@ -28,7 +29,7 @@ public class EnemyDetection : MonoBehaviour
         
         //Checks if enemies forward position & playertarget is less than the viewing angle / 2. Divide by 2 to create 45 degrees towards
         //both left and right.
-        if (Vector3.Angle(transform.forward, playerTarget) < viewAngle / 2) 
+        if (Vector3.Angle(transform.forward, playerTarget) < viewAngle / 2 || enemyHealth.health < enemyHealth.maxHealth) 
         {
             float distanceToTarget = Vector3.Distance(transform.position, player.transform.position);
             if(distanceToTarget <= viewRadius)
