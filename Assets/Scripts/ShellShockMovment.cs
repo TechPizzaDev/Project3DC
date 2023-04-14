@@ -14,6 +14,7 @@ public class ShellShockMovment : MonoBehaviour
     public NavMeshAgent agent;
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
+    [SerializeField] public float distanceToPlayer;
     [SerializeField] bool reachedDestination = false;
 
     EnemyDetection enemyDetection;
@@ -43,12 +44,17 @@ public class ShellShockMovment : MonoBehaviour
     void Update()
     {
 
-        distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
+        distanceToPlayer = Vector3.Distance(transform.position, movePosTransform.position);
+        if (!enemyDetection.detected)
+        {
+            state = State.isPatrolling;
+        }
 
         switch (state)
         {
             case State.isPatrolling:
                 {
+                    distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
                     agent.destination = walkingToPos;
                     agent.speed = regularSpeed;
 
@@ -78,12 +84,7 @@ public class ShellShockMovment : MonoBehaviour
 
                     agent.speed = aggressiveSpeed;
 
-                    if (!enemyDetection.detected)
-                    {
-                        state = State.isPatrolling;
-                    }
-
-                    if (distanceToTarget < 10)
+                    if (distanceToPlayer < 10)
                     {
                         state = State.isAttacking;
                     }
@@ -93,8 +94,11 @@ public class ShellShockMovment : MonoBehaviour
             case State.isAttacking:
                 {
                     agent.destination = transform.position;
+                    Vector3 targetVector = movePosTransform.position - transform.position;
+                    var targetAngle = Mathf.Atan2(targetVector.x, targetVector.z) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(0 ,targetAngle, 0);
 
-                    if (distanceToTarget > 15)
+                    if (distanceToPlayer > 12)
                     {
                         state = State.isAggro;
                     }
