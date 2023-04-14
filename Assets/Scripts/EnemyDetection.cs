@@ -7,7 +7,7 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] private float viewRadius; 
     [SerializeField] private float viewAngle;
     [SerializeField] private float stopChasingTimer = 0f;
-    [SerializeField] private float stopChasingTimerReset = 5f;
+    [SerializeField] private float stopChasingTimerReset;
     public bool detected;
     
     //Player layer

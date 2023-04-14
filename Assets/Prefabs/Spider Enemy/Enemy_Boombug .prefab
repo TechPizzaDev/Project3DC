@@ -121,13 +121,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2460596215575192289}
-  - component: {fileID: 2460596215575192295}
   - component: {fileID: 2460596215575192292}
-  - component: {fileID: 2460596215575192293}
   - component: {fileID: 2460596215575192300}
   - component: {fileID: 2460596215575192298}
   - component: {fileID: 2460596215575192301}
   - component: {fileID: 978603264}
+  - component: {fileID: 2460596215575192293}
+  - component: {fileID: 2460596215575192295}
   m_Layer: 0
   m_Name: 'Enemy_Boombug '
   m_TagString: Enemy
@@ -153,27 +153,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2460596215575192295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2460596215575192317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96f525b35769aff48bcc6f63789f8707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
-  startingPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 4.99, y: 0.48, z: 19.84}
-  walkingToPos: {x: 0, y: 0, z: 0}
-  movePosTransform: {fileID: 0}
-  agent: {fileID: 0}
-  margin: 5
-  distanceToTarget: 0
-  reachedDestination: 0
 --- !u!54 &2460596215575192292
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,30 +169,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2460596215575192293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2460596215575192317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 503944ce30e44984995ee0fc7154b745, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 30
-  viewAngle: 90
-  stopChasingTimer: 0
-  stopChasingTimerReset: 5
-  detected: 0
-  targetPlayer:
-    serializedVersion: 2
-    m_Bits: 256
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 8
-  player: {fileID: 0}
 --- !u!135 &2460596215575192300
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -278,6 +233,51 @@ MonoBehaviour:
   maxHealth: 100
   healthBarUI: {fileID: 2460596216938437553}
   healthSlider: {fileID: 2460596216199168426}
+--- !u!114 &2460596215575192293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460596215575192317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503944ce30e44984995ee0fc7154b745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 30
+  viewAngle: 90
+  stopChasingTimer: 0
+  stopChasingTimerReset: 5
+  detected: 0
+  targetPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
+  player: {fileID: 0}
+--- !u!114 &2460596215575192295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460596215575192317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f525b35769aff48bcc6f63789f8707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0, z: 0}
+  startingPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 4.99, y: 0.48, z: 19.84}
+  walkingToPos: {x: 0, y: 0, z: 0}
+  movePosTransform: {fileID: 0}
+  agent: {fileID: 0}
+  margin: 5
+  distanceToTarget: 0
+  reachedDestination: 0
 --- !u!1 &2460596215647271411
 GameObject:
   m_ObjectHideFlags: 0

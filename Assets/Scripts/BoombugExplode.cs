@@ -6,7 +6,7 @@ public class BoombugExplode : MonoBehaviour
 {
     int explosionDamage = 45;
     float damageRange = 3;
-    EnemyMovement enemyMovement;
+    BoombugMovement enemyMovement;
     EnemyDetection enemyDetection;
     float timer = 1f;
     public bool explosionMode;
@@ -14,7 +14,7 @@ public class BoombugExplode : MonoBehaviour
     void Start()
     {
         enemyDetection = GetComponent<EnemyDetection>();    
-        enemyMovement = GetComponent<EnemyMovement>();  
+        enemyMovement = GetComponent<BoombugMovement>();  
     }
 
     void Update()
