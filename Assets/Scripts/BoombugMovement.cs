@@ -84,7 +84,7 @@ public class BoombugMovement : MonoBehaviour
 
                     agent.speed = aggressiveSpeed;
 
-                    if (isChasing)
+                    if (!isChasing)
                     {
                         state = State.isPatrolling;
                     }
@@ -93,6 +93,7 @@ public class BoombugMovement : MonoBehaviour
                     {
                         state = State.isExploding;
                     }
+                    StopChasing();
                 }
                 break;
             
@@ -102,6 +103,28 @@ public class BoombugMovement : MonoBehaviour
                 }
                 break;
         }
-        
+
+    }
+    private void StopChasing()
+    {
+        if (enemyDetection.detected)
+        {
+            stopChasingTimer = stopChasingTimerReset;
+        }
+
+        if (stopChasingTimer > 0f)
+        {
+            stopChasingTimer -= Time.deltaTime;
+        }
+        else
+        {
+            isChasing = false;
+            Debug.Log("ShellShock stopped chasing you");
+        }
+
+        if (!isChasing)
+        {
+            state = State.isPatrolling;
+        }
     }
 }
