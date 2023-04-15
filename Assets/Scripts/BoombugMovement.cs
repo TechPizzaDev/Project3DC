@@ -14,7 +14,10 @@ public class BoombugMovement : MonoBehaviour
     public NavMeshAgent agent;
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
+    [SerializeField] private float stopChasingTimer = 0f;
+    [SerializeField] private float stopChasingTimerReset = 5f;
     [SerializeField] bool reachedDestination = false;
+    bool isChasing;
 
     EnemyDetection enemyDetection;
     BoombugExplode boombugExplode;
@@ -69,6 +72,8 @@ public class BoombugMovement : MonoBehaviour
                     if (enemyDetection.detected)
                     {
                         state = State.isAggro;
+                        stopChasingTimer = stopChasingTimerReset;
+                        isChasing = true;
                     }
                 }
                 break;
@@ -79,7 +84,7 @@ public class BoombugMovement : MonoBehaviour
 
                     agent.speed = aggressiveSpeed;
 
-                    if (!enemyDetection.detected)
+                    if (isChasing)
                     {
                         state = State.isPatrolling;
                     }

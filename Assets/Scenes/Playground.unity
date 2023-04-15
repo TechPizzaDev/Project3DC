@@ -589,8 +589,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 30
   viewAngle: 90
-  stopChasingTimer: 0
-  stopChasingTimerReset: 5
   detected: 0
   targetPlayer:
     serializedVersion: 2
@@ -620,7 +618,13 @@ MonoBehaviour:
   margin: 2
   distanceToTarget: 0
   distanceToPlayer: 0
+  stopChasingTimer: 0
+  stopChasingTimerReset: 0
   reachedDestination: 0
+  isChasing: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!195 &871058697
 NavMeshAgent:
   m_ObjectHideFlags: 0

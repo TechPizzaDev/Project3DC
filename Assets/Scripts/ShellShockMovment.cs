@@ -15,7 +15,13 @@ public class ShellShockMovment : MonoBehaviour
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
     [SerializeField] public float distanceToPlayer;
+    [SerializeField] private float stopChasingTimer = 0f;
+    [SerializeField] private float stopChasingTimerReset = 5f;
+    private float rotateSpeed = 5f;
     [SerializeField] bool reachedDestination = false;
+    [SerializeField] bool isChasing;
+
+    public LayerMask obstacleMask;
 
     EnemyDetection enemyDetection;
     float aggressiveSpeed = 3.0f;
@@ -45,10 +51,6 @@ public class ShellShockMovment : MonoBehaviour
     {
 
         distanceToPlayer = Vector3.Distance(transform.position, movePosTransform.position);
-        if (!enemyDetection.detected)
-        {
-            state = State.isPatrolling;
-        }
 
         switch (state)
         {
@@ -73,6 +75,8 @@ public class ShellShockMovment : MonoBehaviour
                     }
                     if (enemyDetection.detected)
                     {
+                        stopChasingTimer = stopChasingTimerReset;
+                        isChasing = true;
                         state = State.isAggro;
                     }
                 }
@@ -84,27 +88,60 @@ public class ShellShockMovment : MonoBehaviour
 
                     agent.speed = aggressiveSpeed;
 
-                    if (distanceToPlayer < 10)
+                    if (distanceToPlayer < 10 && enemyDetection.detected)
                     {
                         state = State.isAttacking;
                     }
+
+                     StopChasing();
                 }
                 break;
 
             case State.isAttacking:
                 {
                     agent.destination = transform.position;
-                    Vector3 targetVector = movePosTransform.position - transform.position;
-                    var targetAngle = Mathf.Atan2(targetVector.x, targetVector.z) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.Euler(0 ,targetAngle, 0);
+                    LookAtPlayer();
 
-                    if (distanceToPlayer > 12)
+                    if (distanceToPlayer > 12 || !enemyDetection.detected)
                     {
                         state = State.isAggro;
                     }
+
+                    StopChasing();
                 }
                 break;
         }
 
+    }
+    private void LookAtPlayer()
+    {
+        direction = (movePosTransform.position - transform.position);
+        direction.y = 0;
+        direction = direction.normalized;
+        Quaternion rotGoal = Quaternion.LookRotation(direction);
+        Quaternion rotation = Quaternion.Slerp(transform.rotation, rotGoal, rotateSpeed * Time.deltaTime);
+        transform.rotation = rotation;
+    }
+    private void StopChasing()
+    {
+        if (enemyDetection.detected)
+        {
+            stopChasingTimer = stopChasingTimerReset;
+        }
+
+        if (stopChasingTimer > 0f)
+        {
+            stopChasingTimer -= Time.deltaTime;
+        }
+        else
+        {
+            isChasing = false;
+            Debug.Log("ShellShock stopped chasing you");
+        }
+
+        if (!isChasing)
+        {
+            state = State.isPatrolling;
+        }
     }
 }
