@@ -7,10 +7,6 @@ using UnityEngine.InputSystem;
 
 public class Pistol : MonoBehaviour
 {
-
-    //REMEMBER, THE FIRST PERSON CONTROLLER HAS A CAMERA MOVEMENT THRESHOLD.
-    //REMOVE IT!!!
-
     //references
     [SerializeField]
     private GameObject projectilePrefab;
@@ -128,6 +124,7 @@ public class Pistol : MonoBehaviour
         //Find hit position with raycast 
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //ray through middle of screen
         RaycastHit hit;
+        
 
         //Check for hit
         Vector3 targetPoint;
@@ -139,6 +136,8 @@ public class Pistol : MonoBehaviour
         {
             targetPoint = ray.GetPoint(100); //Point far away in case of shooting air
         }
+
+        Debug.DrawRay(ray.origin, hit.point, Color.cyan, 2f);
 
         //Direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
@@ -157,7 +156,7 @@ public class Pistol : MonoBehaviour
             Bullet bullet = currentProjectile.GetComponent<Bullet>();
             bullet.MaxBounceCount = 2;
         }
-        currentProjectile.transform.position = transform.position;
+        currentProjectile.transform.position = attackPoint.position;
         currentProjectile.transform.rotation = Quaternion.identity;
 
         //Add bullet to bulletManager
