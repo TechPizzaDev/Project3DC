@@ -22,8 +22,8 @@ public class Pistol : MonoBehaviour
     private Camera fpsCam;
     [SerializeField]
     private Transform attackPoint;
-    //[SerializeField]
-    //private BulletManager bulletManager;
+    [SerializeField]
+    private ParticleSystem muzzleFlash;
 
     //force
     [SerializeField]
@@ -124,6 +124,9 @@ public class Pistol : MonoBehaviour
     private void Fire()
     {
         readyToShoot= false;
+
+        //muzzle flash
+        muzzleFlash.Play();
 
         //Find hit position with raycast 
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //ray through middle of screen
