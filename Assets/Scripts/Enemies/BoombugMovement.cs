@@ -119,7 +119,7 @@ public class BoombugMovement : MonoBehaviour
         else
         {
             isChasing = false;
-            Debug.Log("ShellShock stopped chasing you");
+            Debug.Log("Boombug stopped chasing you");
         }
 
         if (!isChasing)

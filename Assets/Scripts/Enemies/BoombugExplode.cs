@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class BoombugExplode : MonoBehaviour
 {
-    int explosionDamage = 45;
+    float explosionDamage = 45;
     float damageRange = 3;
     BoombugMovement enemyMovement;
     EnemyDetection enemyDetection;
-    float timer = 1f;
+    PlayerHealth playerHealth;
+    [SerializeField] float timer = 1f;
     public bool explosionMode;
 
     void Start()
     {
         enemyDetection = GetComponent<EnemyDetection>();    
         enemyMovement = GetComponent<BoombugMovement>();  
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -32,6 +34,7 @@ public class BoombugExplode : MonoBehaviour
             if(distanceToPlayer <= damageRange)
             {
                 Debug.Log("You lost 45HP");
+                //playerHealth.health -= explosionDamage;
             }
             Destroy(this.gameObject);
             
