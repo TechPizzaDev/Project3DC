@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+public class ShellShockMovment : MonoBehaviour
 {
     [SerializeField] private Vector3 direction;
     [SerializeField] private Vector3 startingPos;
     [SerializeField] private Vector3 endPos;
     [SerializeField] private Vector3 walkingToPos;
     [SerializeField] public Transform movePosTransform;
-   
+
     public NavMeshAgent agent;
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
+    [SerializeField] public float distanceToPlayer;
+    [SerializeField] private float stopChasingTimer = 0f;
+    [SerializeField] private float stopChasingTimerReset = 5f;
+    private float rotateSpeed = 5f;
     [SerializeField] bool reachedDestination = false;
+    [SerializeField] bool isChasing;
+
+    public LayerMask obstacleMask;
 
     EnemyDetection enemyDetection;
-    BoombugExplode boombugExplode;
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
@@ -25,14 +31,13 @@ public class EnemyMovement : MonoBehaviour
     {
         isPatrolling,
         isAggro,
-        isExploding
+        isAttacking
     }
     State state;
 
     void Start()
     {
         enemyDetection = GetComponent<EnemyDetection>();
-        boombugExplode = GetComponent<BoombugExplode>();
         agent = GetComponent<NavMeshAgent>();
 
         walkingToPos = endPos;
@@ -44,6 +49,8 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        distanceToPlayer = Vector3.Distance(transform.position, movePosTransform.position);
 
         switch (state)
         {
@@ -68,6 +75,8 @@ public class EnemyMovement : MonoBehaviour
                     }
                     if (enemyDetection.detected)
                     {
+                        stopChasingTimer = stopChasingTimerReset;
+                        isChasing = true;
                         state = State.isAggro;
                     }
                 }
@@ -79,24 +88,60 @@ public class EnemyMovement : MonoBehaviour
 
                     agent.speed = aggressiveSpeed;
 
-                    if (!enemyDetection.detected)
+                    if (distanceToPlayer < 10 && enemyDetection.detected)
                     {
-                        state = State.isPatrolling;
+                        state = State.isAttacking;
                     }
 
-                    if (boombugExplode.explosionMode)
-                    {
-                        state = State.isExploding;
-                    }
+                     StopChasing();
                 }
                 break;
-            
-            case State.isExploding:
+
+            case State.isAttacking:
                 {
                     agent.destination = transform.position;
+                    LookAtPlayer();
+
+                    if (distanceToPlayer > 12 || !enemyDetection.detected)
+                    {
+                        state = State.isAggro;
+                    }
+
+                    StopChasing();
                 }
                 break;
         }
-        
+
+    }
+    private void LookAtPlayer()
+    {
+        direction = (movePosTransform.position - transform.position);
+        direction.y = 0;
+        direction = direction.normalized;
+        Quaternion rotGoal = Quaternion.LookRotation(direction);
+        Quaternion rotation = Quaternion.Slerp(transform.rotation, rotGoal, rotateSpeed * Time.deltaTime);
+        transform.rotation = rotation;
+    }
+    private void StopChasing()
+    {
+        if (enemyDetection.detected)
+        {
+            stopChasingTimer = stopChasingTimerReset;
+        }
+
+        if (stopChasingTimer > 0f)
+        {
+            stopChasingTimer -= Time.deltaTime;
+        }
+        else
+        {
+            isChasing = false;
+            Debug.Log("ShellShock stopped chasing you");
+        }
+
+        if (!isChasing)
+        {
+            state = State.isPatrolling;
+        }
     }
 }

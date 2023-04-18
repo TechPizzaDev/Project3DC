@@ -6,8 +6,6 @@ public class EnemyDetection : MonoBehaviour
 {
     [SerializeField] private float viewRadius; 
     [SerializeField] private float viewAngle;
-    [SerializeField] private float stopChasingTimer = 0f;
-    [SerializeField] private float stopChasingTimerReset = 5f;
     public bool detected;
     
     //Player layer
@@ -35,23 +33,24 @@ public class EnemyDetection : MonoBehaviour
             if(distanceToTarget <= viewRadius)
             {
                 //If there is no obstacle in the way = enemy has detected the player. 
-                if(Physics.Raycast(transform.position, playerTarget, distanceToTarget, obstacleMask) == false )
+                if(!Physics.Raycast(transform.position, playerTarget, distanceToTarget, obstacleMask))
                 {
                     detected = true;
-                    stopChasingTimer = stopChasingTimerReset;
                     Debug.Log("You have been spotted.");
                 }
+                else
+                {
+                    detected = false;
+                }
             }
-        }
-
-        if (stopChasingTimer > 0f)
-        {
-            stopChasingTimer -= Time.deltaTime;
+            else
+            {
+                detected = false;
+            }
         }
         else
         {
             detected = false;
-            Debug.Log("Enemy stopped chasing you");
         }
     }
 }
