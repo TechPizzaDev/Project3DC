@@ -10,6 +10,7 @@ public class ShellShockMovment : MonoBehaviour
     [SerializeField] private Vector3 endPos;
     [SerializeField] private Vector3 walkingToPos;
     [SerializeField] public Transform movePosTransform;
+    public AnimationShellshockScript shellAnimation;
 
     public NavMeshAgent agent;
     [SerializeField] private float margin = 5f;
@@ -39,6 +40,7 @@ public class ShellShockMovment : MonoBehaviour
     {
         enemyDetection = GetComponent<EnemyDetection>();
         agent = GetComponent<NavMeshAgent>();
+        shellAnimation = GetComponent<AnimationShellshockScript>();
 
         walkingToPos = endPos;
         startingPos = transform.position;
@@ -56,6 +58,8 @@ public class ShellShockMovment : MonoBehaviour
         {
             case State.isPatrolling:
                 {
+                    shellAnimation.walking = true;
+
                     distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
                     agent.destination = walkingToPos;
                     agent.speed = regularSpeed;
@@ -77,6 +81,7 @@ public class ShellShockMovment : MonoBehaviour
                     {
                         stopChasingTimer = stopChasingTimerReset;
                         isChasing = true;
+                        shellAnimation.walking = false;
                         state = State.isAggro;
                     }
                 }
@@ -84,6 +89,8 @@ public class ShellShockMovment : MonoBehaviour
 
             case State.isAggro:
                 {
+                    shellAnimation.running = true;
+
                     agent.destination = movePosTransform.position;
 
                     agent.speed = aggressiveSpeed;
@@ -91,6 +98,7 @@ public class ShellShockMovment : MonoBehaviour
                     if (distanceToPlayer < 10 && enemyDetection.detected)
                     {
                         state = State.isAttacking;
+                        shellAnimation.running = false;
                     }
 
                      StopChasing();
@@ -99,11 +107,14 @@ public class ShellShockMovment : MonoBehaviour
 
             case State.isAttacking:
                 {
+                    shellAnimation.attacking=true;
+
                     agent.destination = transform.position;
                     LookAtPlayer();
 
                     if (distanceToPlayer > 12 || !enemyDetection.detected)
                     {
+                        shellAnimation.attacking = false;
                         state = State.isAggro;
                     }
 
