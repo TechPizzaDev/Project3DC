@@ -445,6 +445,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73a8ef9ef027b5546b75d6b270db1d3f, type: 3}
+--- !u!1 &786400072 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2753111996949560168, guid: 73a8ef9ef027b5546b75d6b270db1d3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 786400071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &786400073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786400072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01870afd4a1591e43a5c962b1e348750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletRange: 15.1
+  bulletSpread: 20.02
+  shootingCooldownTime: 0
+  shootingCooldown: 0
+  shootingAtPlayer: 0
+  targetPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  player: {fileID: 2114958625}
 --- !u!1 &874605735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,6 +1790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Enemy_Boombug '
       objectReference: {fileID: 0}
+    - target: {fileID: 8858131730245495, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8858132220861128, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1793,7 +1824,7 @@ PrefabInstance:
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.375
+      value: 1.375001
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
@@ -2386,7 +2417,7 @@ PrefabInstance:
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
@@ -2455,7 +2486,7 @@ PrefabInstance:
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.375
+      value: 1.375001
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81,
         type: 3}

@@ -25,6 +25,7 @@ public class ShellShockMovment : MonoBehaviour
     public LayerMask obstacleMask;
 
     EnemyDetection enemyDetection;
+    Shooting shooting;
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
@@ -41,6 +42,7 @@ public class ShellShockMovment : MonoBehaviour
         enemyDetection = GetComponent<EnemyDetection>();
         agent = GetComponent<NavMeshAgent>();
         shellAnimation = GetComponent<AnimationShellshockScript>();
+        shooting = GetComponent<Shooting>();
 
         walkingToPos = endPos;
         startingPos = transform.position;
@@ -107,6 +109,7 @@ public class ShellShockMovment : MonoBehaviour
 
             case State.isAttacking:
                 {
+                    shooting.shootingAtPlayer = true;
                     shellAnimation.attacking=true;
 
                     agent.destination = transform.position;
@@ -114,6 +117,7 @@ public class ShellShockMovment : MonoBehaviour
 
                     if (distanceToPlayer > 12 || !enemyDetection.detected)
                     {
+                        shooting.shootingAtPlayer=false;
                         shellAnimation.attacking = false;
                         state = State.isAggro;
                     }
@@ -152,6 +156,7 @@ public class ShellShockMovment : MonoBehaviour
 
         if (!isChasing)
         {
+            shooting.shootingAtPlayer = false;
             state = State.isPatrolling;
         }
     }
