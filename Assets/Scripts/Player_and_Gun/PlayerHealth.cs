@@ -9,11 +9,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] public float maxHealth;
 
     [SerializeField] Slider healthSlider;
+    [SerializeField] GameObject healthBarUI;
+
 
     void Start()
     {
         health = maxHealth;
-        //healthSlider.value = CalculateHealth();
+        healthBarUI.SetActive(true);
+        
     }
 
     void Update()
@@ -30,5 +33,9 @@ public class PlayerHealth : MonoBehaviour
     private float CalculateHealth()
     {
         return health / maxHealth;
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 }

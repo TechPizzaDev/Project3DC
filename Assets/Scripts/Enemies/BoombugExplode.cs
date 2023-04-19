@@ -8,6 +8,8 @@ public class BoombugExplode : MonoBehaviour
     float damageRange = 3;
     BoombugMovement enemyMovement;
     EnemyDetection enemyDetection;
+    [SerializeField]
+    GameObject player;
     PlayerHealth playerHealth;
     [SerializeField] float timer = 1f;
     public bool explosionMode;
@@ -16,7 +18,8 @@ public class BoombugExplode : MonoBehaviour
     {
         enemyDetection = GetComponent<EnemyDetection>();    
         enemyMovement = GetComponent<BoombugMovement>();  
-        playerHealth = GetComponent<PlayerHealth>();
+        playerHealth = player.GetComponent<PlayerHealth>();
+        
     }
 
     void Update()
@@ -35,6 +38,7 @@ public class BoombugExplode : MonoBehaviour
             {
                 Debug.Log("You lost 45HP");
                 //playerHealth.health -= explosionDamage;
+                playerHealth.TakeDamage(45);
             }
             Destroy(this.gameObject);
             
