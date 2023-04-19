@@ -10,7 +10,7 @@ public class ShellShockMovment : MonoBehaviour
     [SerializeField] private Vector3 endPos;
     [SerializeField] private Vector3 walkingToPos;
     [SerializeField] public Transform movePosTransform;
-    public AnimationShellshockScript shellAnimation;
+    AnimationShellshockScript shellAnimation;
 
     public NavMeshAgent agent;
     [SerializeField] private float margin = 5f;
