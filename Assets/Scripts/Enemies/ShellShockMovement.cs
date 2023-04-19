@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ShellShockMovment : MonoBehaviour
+public class ShellShockMovement : MonoBehaviour
 {
     [SerializeField] private Vector3 direction;
     [SerializeField] private Vector3 startingPos;
@@ -16,8 +16,12 @@ public class ShellShockMovment : MonoBehaviour
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
     [SerializeField] public float distanceToPlayer;
+    [SerializeField]private float distanceToStartAttacking = 10f;
+    [SerializeField] private float distancetoStartAggro = 14f;
     [SerializeField] private float stopChasingTimer = 0f;
     [SerializeField] private float stopChasingTimerReset = 5f;
+    [SerializeField] private float stopShootingTimer = 0f;
+    [SerializeField] private float stopShootingTimerReset = 6f;
     private float rotateSpeed = 5f;
     [SerializeField] bool reachedDestination = false;
     [SerializeField] bool isChasing;
@@ -53,7 +57,6 @@ public class ShellShockMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         distanceToPlayer = Vector3.Distance(transform.position, movePosTransform.position);
 
         switch (state)
@@ -97,9 +100,10 @@ public class ShellShockMovment : MonoBehaviour
 
                     agent.speed = aggressiveSpeed;
 
-                    if (distanceToPlayer < 10 && enemyDetection.detected)
+                    if (distanceToPlayer < distanceToStartAttacking && enemyDetection.detected)
                     {
                         state = State.isAttacking;
+                        stopShootingTimer = stopShootingTimerReset;
                         shellAnimation.running = false;
                     }
 
@@ -109,20 +113,23 @@ public class ShellShockMovment : MonoBehaviour
 
             case State.isAttacking:
                 {
-                    shooting.shootingAtPlayer = true;
                     shellAnimation.attacking=true;
 
                     agent.destination = transform.position;
                     LookAtPlayer();
 
-                    if (distanceToPlayer > 12 || !enemyDetection.detected)
+                    shooting.shootingAtPlayer = true;
+                    if (distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
                     {
                         shooting.shootingAtPlayer=false;
                         shellAnimation.attacking = false;
                         state = State.isAggro;
                     }
+                    else if (!enemyDetection.detected)
+                    {
+                        stopShootingTimer -= Time.deltaTime;
+                    }
 
-                    StopChasing();
                 }
                 break;
         }
@@ -156,7 +163,6 @@ public class ShellShockMovment : MonoBehaviour
 
         if (!isChasing)
         {
-            shooting.shootingAtPlayer = false;
             state = State.isPatrolling;
         }
     }

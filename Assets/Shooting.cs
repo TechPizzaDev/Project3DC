@@ -11,13 +11,18 @@ public class Shooting : MonoBehaviour
 
     public bool shootingAtPlayer;
 
+    int bulletDamage = 20;
+
     //Player layer
     public LayerMask targetPlayer;
 
     public GameObject player;
+    PlayerHealth playerHealth;
     void Start()
     {
         shootingCooldown = shootingCooldownTime;
+        playerHealth = player.GetComponent<PlayerHealth>();
+
     }
 
     void Update()
@@ -34,7 +39,8 @@ public class Shooting : MonoBehaviour
                     //If there is no obstacle in the way = enemy has detected the player. 
                     if (Physics.Raycast(transform.position, playerTarget, distanceToTarget, targetPlayer))
                     {
-                        Debug.Log("You are shot!!!!");
+                        Debug.Log("Shot");
+                        playerHealth.TakeDamage(bulletDamage);
                     }
                 } 
             }

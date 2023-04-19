@@ -209,7 +209,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1831979125}
   m_HandleRect: {fileID: 0}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -463,9 +463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01870afd4a1591e43a5c962b1e348750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletRange: 15.1
-  bulletSpread: 20.02
-  shootingCooldownTime: 0
+  bulletRange: 15
+  bulletSpread: 20
+  shootingCooldownTime: 3
   shootingCooldown: 0
   shootingAtPlayer: 0
   targetPlayer:

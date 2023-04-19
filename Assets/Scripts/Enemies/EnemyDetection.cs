@@ -36,7 +36,7 @@ public class EnemyDetection : MonoBehaviour
                 if(!Physics.Raycast(transform.position, playerTarget, distanceToTarget, obstacleMask))
                 {
                     detected = true;
-                    Debug.Log("You have been spotted.");
+                    //Debug.Log("You have been spotted.");
                 }
                 else
                 {

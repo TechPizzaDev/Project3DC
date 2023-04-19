@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoombugExplode : MonoBehaviour
 {
-    float explosionDamage = 45;
+    int explosionDamage = 45;
     float damageRange = 3;
     BoombugMovement enemyMovement;
     EnemyDetection enemyDetection;
@@ -37,8 +37,7 @@ public class BoombugExplode : MonoBehaviour
             if(distanceToPlayer <= damageRange)
             {
                 Debug.Log("You lost 45HP");
-                //playerHealth.health -= explosionDamage;
-                playerHealth.TakeDamage(45);
+                playerHealth.TakeDamage(explosionDamage);
             }
             Destroy(this.gameObject);
             
