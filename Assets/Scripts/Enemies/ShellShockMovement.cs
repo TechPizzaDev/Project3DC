@@ -16,7 +16,7 @@ public class ShellShockMovement : MonoBehaviour
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
     [SerializeField] public float distanceToPlayer;
-    [SerializeField]private float distanceToStartAttacking = 10f;
+    [SerializeField] private float distanceToStartAttacking = 10f;
     [SerializeField] private float distancetoStartAggro = 14f;
     [SerializeField] private float stopChasingTimer = 0f;
     [SerializeField] private float stopChasingTimerReset = 5f;
