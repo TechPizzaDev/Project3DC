@@ -57,4 +57,8 @@ public class Shooting : MonoBehaviour
             shootingCooldown = shootingCooldownTime;
         }
     }
+    public void CharacterShooting()
+    {
+        Debug.Log("BOOM");
+    }
 }
