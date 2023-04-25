@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class Pistol : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class Pistol : MonoBehaviour
     private Camera fpsCam;
     [SerializeField]
     private Transform attackPoint;
-    //[SerializeField]
-    //private BulletManager bulletManager;
+    [SerializeField]
+    VisualEffect muzzleFlash;
 
     //force
     [SerializeField]
@@ -31,9 +32,14 @@ public class Pistol : MonoBehaviour
 
     //weapon stats
     [SerializeField]
+    private int damage;
+    //private int currentDamage;
+    [SerializeField]
     private float timeBetweenShooting, spread, reloadTime, timeBetweenShots, rpm;
+    //private float currentRpm;
     [SerializeField]
     private int magSize, bulletsPerClick;
+    //private int currentMagSize;
     [SerializeField]
     private bool holdToFire;
     [SerializeField]
@@ -67,9 +73,14 @@ public class Pistol : MonoBehaviour
 
     private void Awake()
     {
-        if (rpm != 0)
+        //currentDamage = damage;
+        //currentRpm = rpm;
+        //currentMagSize = magSize;
+
+
+        if (Rpm != 0)
         {
-            timeBetweenShooting = 60 / rpm;
+            timeBetweenShooting = 60 / Rpm;
         }
         bulletsLeft = magSize;
         readyToShoot = true;
@@ -88,6 +99,30 @@ public class Pistol : MonoBehaviour
         if (value.started && bulletsLeft < magSize && !reloading)
         {
             Reload();
+        }
+    }
+
+    public void ToggleFullAuto(InputAction.CallbackContext value)
+    {
+        if (value.started && !upgrades.Contains(Upgrade.FullAuto))
+        {
+            AddUpgrade(Upgrade.FullAuto);
+        }
+        else if (value.started && upgrades.Contains(Upgrade.FullAuto))
+        {
+            RemoveUpgrade(Upgrade.FullAuto);
+        }
+    }
+    
+    public void ToggleBouncingBullets(InputAction.CallbackContext value)
+    {
+        if (value.started && !upgrades.Contains(Upgrade.BouncingBullets))
+        {
+            AddUpgrade(Upgrade.BouncingBullets);
+        }
+        else if (value.started && upgrades.Contains(Upgrade.BouncingBullets))
+        {
+            RemoveUpgrade(Upgrade.BouncingBullets);
         }
     }
 
@@ -123,6 +158,7 @@ public class Pistol : MonoBehaviour
 
     private void Fire()
     {
+        muzzleFlash.Play();
         readyToShoot= false;
 
         //Find hit position with raycast 
@@ -157,7 +193,7 @@ public class Pistol : MonoBehaviour
             Bullet bullet = currentProjectile.GetComponent<Bullet>();
             bullet.MaxBounceCount = 2;
         }
-        currentProjectile.transform.position = transform.position;
+        currentProjectile.transform.position = attackPoint.position;
         currentProjectile.transform.rotation = Quaternion.identity;
 
         //Add bullet to bulletManager
@@ -213,8 +249,30 @@ public class Pistol : MonoBehaviour
         ApplyUpgrades();
     }
 
+    public void RemoveUpgrade(Upgrade upgrade) 
+    {
+        upgrades.Remove(upgrade);
+        ApplyUpgrades();
+    }
+
+    public void ResetUpgrades()
+    {
+        //currentDamage = damage;
+        //currentMagSize = magSize;
+        //currentRpm = rpm;
+        if (holdToFire)
+        {
+            holdToFire = false;
+        }
+        if (bouncingBullets)
+        {
+            bouncingBullets = false;
+        }
+    }
+
     private void ApplyUpgrades()
     {
+        ResetUpgrades();
         foreach (Upgrade upgrade in upgrades)
         {
             switch (upgrade)
@@ -223,7 +281,7 @@ public class Pistol : MonoBehaviour
                     
                     break;
                 case Upgrade.FireRate:
-                    Rpm = rpm * 0.02f;
+                    Rpm *= 1.02f;
                     break;
                 case Upgrade.ReloadSpeed:
                     if (reloadTime >= 0.2f)
@@ -233,7 +291,7 @@ public class Pistol : MonoBehaviour
                     else reloadTime = 0;
                     break;
                 case Upgrade.MagSize:
-                    magSize = magSize + 10;
+                    magSize += 5;
                     break;
                 case Upgrade.BouncingBullets:
                     bouncingBullets = true;
