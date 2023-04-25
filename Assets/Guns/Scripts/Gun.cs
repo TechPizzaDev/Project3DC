@@ -17,7 +17,12 @@ public class Gun : ScriptableObject
 
     private MonoBehaviour activeMonoBehaviour;
     private GameObject model;
+
     private float lastShootTime;
+    private float initialClickTime;
+    private float stopShootingTime;
+    private bool lastFrameWantedToShoot;
+
     private ParticleSystem shootSystem;
     private VisualEffect muzzleFlash;
     private ObjectPool<TrailRenderer> trailPool;
@@ -43,22 +48,9 @@ public class Gun : ScriptableObject
             lastShootTime = Time.time;
             shootSystem.Play();
             muzzleFlash.Play();
-            Vector3 shootDirection = shootSystem.transform.forward
-                + new Vector3(
-                    Random.Range(
-                        -shootConfig.spread.x,
-                        shootConfig.spread.x
-                    ),
-                    Random.Range(
-                        -shootConfig.spread.y,
-                        shootConfig.spread.y
-                    ),
-                    Random.Range(
-                        -shootConfig.spread.z,
-                        shootConfig.spread.z
-                    )
-                );
-            shootDirection.Normalize();
+
+            Vector3 spreadAmount = shootConfig.GetSpread();
+            Vector3 shootDirection = model.transform.parent.forward + spreadAmount;
 
             if (Physics.Raycast(
                 shootSystem.transform.position,
@@ -86,6 +78,20 @@ public class Gun : ScriptableObject
                     )
                 );
             }
+        }
+    }
+
+    public void Tick(bool wantsToShoot)
+    {
+        if (wantsToShoot)
+        {
+            lastFrameWantedToShoot = true;
+            Shoot();
+        }
+        else if (!wantsToShoot && lastFrameWantedToShoot)
+        {
+            stopShootingTime = Time.time;
+            lastFrameWantedToShoot = false;
         }
     }
 
