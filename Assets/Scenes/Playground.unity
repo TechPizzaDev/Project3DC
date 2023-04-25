@@ -879,7 +879,7 @@ PrefabInstance:
         type: 3}
       propertyPath: movePosTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1689894437}
     - target: {fileID: 2753111996949560175, guid: 73a8ef9ef027b5546b75d6b270db1d3f,
         type: 3}
       propertyPath: m_RootOrder
@@ -1053,6 +1053,12 @@ RectTransform:
 --- !u!1 &1689894436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4749655179395279638, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
+    type: 3}
+  m_PrefabInstance: {fileID: 609453012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1689894437 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5377854944017871276, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
     type: 3}
   m_PrefabInstance: {fileID: 609453012}
   m_PrefabAsset: {fileID: 0}
@@ -1775,7 +1781,7 @@ PrefabInstance:
     - target: {fileID: 8858131730245488, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
       propertyPath: movePosTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1689894437}
     - target: {fileID: 8858131730245489, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
       propertyPath: player
       value: 
@@ -1783,7 +1789,7 @@ PrefabInstance:
     - target: {fileID: 8858131730245491, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1689894436}
     - target: {fileID: 8858131730245491, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
       propertyPath: playerHealth
       value: 
