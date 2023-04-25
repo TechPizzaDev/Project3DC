@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class Pistol : MonoBehaviour
 {
@@ -22,8 +23,11 @@ public class Pistol : MonoBehaviour
     private Camera fpsCam;
     [SerializeField]
     private Transform attackPoint;
-    //[SerializeField]
-    //private BulletManager bulletManager;
+    [SerializeField]
+    VisualEffect muzzleFlash;
+    [SerializeField]
+    Animator animator;
+    
 
     //force
     [SerializeField]
@@ -124,6 +128,9 @@ public class Pistol : MonoBehaviour
     private void Fire()
     {
         readyToShoot= false;
+        muzzleFlash.Play();
+        animator.Play("Fire");
+
 
         //Find hit position with raycast 
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //ray through middle of screen
@@ -157,7 +164,7 @@ public class Pistol : MonoBehaviour
             Bullet bullet = currentProjectile.GetComponent<Bullet>();
             bullet.MaxBounceCount = 2;
         }
-        currentProjectile.transform.position = transform.position;
+        currentProjectile.transform.position = attackPoint.position;
         currentProjectile.transform.rotation = Quaternion.identity;
 
         //Add bullet to bulletManager
@@ -197,6 +204,7 @@ public class Pistol : MonoBehaviour
 
     private void Reload()
     {
+        animator.Play("Fire");
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
