@@ -25,6 +25,7 @@ public class ShellShockMovement : MonoBehaviour
     private float rotateSpeed = 5f;
     [SerializeField] bool reachedDestination = false;
     [SerializeField] bool isChasing;
+    [SerializeField] bool reloadAnimationDone;
 
     public LayerMask obstacleMask;
 
@@ -63,6 +64,7 @@ public class ShellShockMovement : MonoBehaviour
         {
             case State.isPatrolling:
                 {
+
                     shellAnimation.walking = true;
 
                     distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
@@ -86,6 +88,7 @@ public class ShellShockMovement : MonoBehaviour
                     {
                         stopChasingTimer = stopChasingTimerReset;
                         isChasing = true;
+                        shellAnimation.running = true;
                         shellAnimation.walking = false;
                         state = State.isAggro;
                     }
@@ -94,7 +97,6 @@ public class ShellShockMovement : MonoBehaviour
 
             case State.isAggro:
                 {
-                    shellAnimation.running = true;
 
                     agent.destination = movePosTransform.position;
 
@@ -104,7 +106,6 @@ public class ShellShockMovement : MonoBehaviour
                     {
                         state = State.isAttacking;
                         stopShootingTimer = stopShootingTimerReset;
-                        shellAnimation.running = false;
                     }
 
                      StopChasing();
@@ -113,21 +114,31 @@ public class ShellShockMovement : MonoBehaviour
 
             case State.isAttacking:
                 {
+                    shellAnimation.running = false;
                     shellAnimation.attacking=true;
 
                     agent.destination = transform.position;
                     LookAtPlayer();
 
-                    shooting.shootingAtPlayer = true;
-                    if (distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
+                    if(distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
                     {
-                        shooting.shootingAtPlayer=false;
-                        shellAnimation.attacking = false;
-                        state = State.isAggro;
+                        if (reloadAnimationDone)
+                        {
+                            shellAnimation.attacking = false;
+                            shellAnimation.running = true;
+                            state = State.isAggro;
+                        }
+
                     }
-                    else if (!enemyDetection.detected)
+                    reloadAnimationDone = false;
+
+                    if (!enemyDetection.detected)
                     {
                         stopShootingTimer -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        stopShootingTimer = stopShootingTimerReset;
                     }
 
                 }
@@ -163,7 +174,12 @@ public class ShellShockMovement : MonoBehaviour
 
         if (!isChasing)
         {
+            shellAnimation.running = false;
             state = State.isPatrolling;
         }
+    }
+    public void ReloadAnimationDone()
+    {
+        reloadAnimationDone = true;
     }
 }
