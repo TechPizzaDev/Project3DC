@@ -21,6 +21,7 @@ public class BoombugMovement : MonoBehaviour
 
     EnemyDetection enemyDetection;
     BoombugExplode boombugExplode;
+    EnemyHealth health;
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
@@ -28,7 +29,8 @@ public class BoombugMovement : MonoBehaviour
     {
         isPatrolling,
         isAggro,
-        isExploding
+        isExploding,
+        killed
     }
     State state;
 
@@ -37,6 +39,7 @@ public class BoombugMovement : MonoBehaviour
         enemyDetection = GetComponent<EnemyDetection>();
         boombugExplode = GetComponent<BoombugExplode>();
         agent = GetComponent<NavMeshAgent>();
+        health = GetComponent<EnemyHealth>();
 
         walkingToPos = endPos;
         startingPos = transform.position;
@@ -47,6 +50,10 @@ public class BoombugMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health.killed)
+        {
+            state = State.killed;
+        }
 
         switch (state)
         {
@@ -100,6 +107,12 @@ public class BoombugMovement : MonoBehaviour
             case State.isExploding:
                 {
                     agent.destination = transform.position;
+                }
+                break;
+
+            case State.killed:
+                {
+                    health.DestroyObj();
                 }
                 break;
         }

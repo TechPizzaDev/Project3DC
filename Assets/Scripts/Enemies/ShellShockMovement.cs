@@ -30,7 +30,7 @@ public class ShellShockMovement : MonoBehaviour
     public LayerMask obstacleMask;
 
     EnemyDetection enemyDetection;
-    Shooting shooting;
+    EnemyHealth health;
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
@@ -38,7 +38,8 @@ public class ShellShockMovement : MonoBehaviour
     {
         isPatrolling,
         isAggro,
-        isAttacking
+        isAttacking,
+        killed
     }
     State state;
 
@@ -47,7 +48,7 @@ public class ShellShockMovement : MonoBehaviour
         enemyDetection = GetComponent<EnemyDetection>();
         agent = GetComponent<NavMeshAgent>();
         shellAnimation = GetComponent<AnimationShellshockScript>();
-        shooting = GetComponent<Shooting>();
+        health = GetComponent<EnemyHealth>();
 
         walkingToPos = endPos;
         startingPos = transform.position;
@@ -59,6 +60,11 @@ public class ShellShockMovement : MonoBehaviour
     void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position, movePosTransform.position);
+
+        if (health.killed)
+        {
+            state = State.killed;
+        }
 
         switch (state)
         {
@@ -104,6 +110,8 @@ public class ShellShockMovement : MonoBehaviour
 
                     if (distanceToPlayer < distanceToStartAttacking && enemyDetection.detected)
                     {
+                        shellAnimation.running = false;
+                        shellAnimation.attacking = true;
                         state = State.isAttacking;
                         stopShootingTimer = stopShootingTimerReset;
                     }
@@ -114,9 +122,6 @@ public class ShellShockMovement : MonoBehaviour
 
             case State.isAttacking:
                 {
-                    shellAnimation.running = false;
-                    shellAnimation.attacking=true;
-
                     agent.destination = transform.position;
                     LookAtPlayer();
 
@@ -143,6 +148,18 @@ public class ShellShockMovement : MonoBehaviour
 
                 }
                 break;
+
+            case State.killed:
+                {
+                    agent.destination = transform.position;
+
+                    shellAnimation.die = true;
+                    shellAnimation.attacking = false;
+                    shellAnimation.running = false;
+                    shellAnimation.walking = false;
+                }
+                break;
+
         }
 
     }

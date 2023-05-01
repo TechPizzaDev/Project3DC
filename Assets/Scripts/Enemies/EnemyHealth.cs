@@ -8,9 +8,12 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
     private float gunDamage = 60;
+    public bool killed;
 
     [SerializeField] GameObject healthBarUI;
     [SerializeField] Slider healthSlider;
+
+    bool die = false;
 
     void Start()
     {
@@ -33,7 +36,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (health <= 0)
         {
-            Destroy(gameObject);
+            killed = true;
         }
 
     }
@@ -48,5 +51,9 @@ public class EnemyHealth : MonoBehaviour
         {
             health -= gunDamage;
         }
+    }
+    public void DestroyObj()
+    {
+        Destroy(gameObject);
     }
 }

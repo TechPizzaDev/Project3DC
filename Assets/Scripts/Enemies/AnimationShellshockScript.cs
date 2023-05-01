@@ -6,7 +6,7 @@ public class AnimationShellshockScript : MonoBehaviour
 {
     Animator animator;
     [SerializeField]
-    public bool walking, running, attacking;
+    public bool walking, running, attacking, die;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +16,9 @@ public class AnimationShellshockScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Killed();
+
         if (walking)
         {
             animator.SetBool("Walking", true);
@@ -42,6 +45,7 @@ public class AnimationShellshockScript : MonoBehaviour
         {
             animator.SetBool("Attacking", false);
         }
+
     }
     private void StandingStill()
     {
@@ -49,5 +53,16 @@ public class AnimationShellshockScript : MonoBehaviour
         animator.SetBool("Walking", false);
         animator.SetBool("Running", false);
         animator.SetBool("Attacking", false);
+    }
+    private void Killed()
+    {
+
+        if (die)
+        {
+            animator.SetBool("Killed", true);
+            animator.SetBool("Walking", false);
+            animator.SetBool("Running", false);
+            animator.SetBool("Attacking", false);
+        }
     }
 }
