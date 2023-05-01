@@ -161,7 +161,7 @@ public class Pistol : MonoBehaviour
         GameObject currentProjectile = Instantiate(projectilePrefab);
         if (bouncingBullets)
         {
-            Bullet bullet = currentProjectile.GetComponent<Bullet>();
+            old_Bullet bullet = currentProjectile.GetComponent<old_Bullet>();
             bullet.MaxBounceCount = 2;
         }
         currentProjectile.transform.position = attackPoint.position;

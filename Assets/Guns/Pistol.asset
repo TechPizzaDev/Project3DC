@@ -18,5 +18,6 @@ MonoBehaviour:
     type: 3}
   spawnPoint: {x: 0.72, y: -0.561, z: 1.989}
   spawnRotation: {x: 0, y: 0, z: 0}
+  ammoConfig: {fileID: 11400000, guid: bf1bcba10d4e01b4680ce04904a2185c, type: 2}
   shootConfig: {fileID: 11400000, guid: ec3e692340b9ef2449bfa4538a3fc39e, type: 2}
   trailConfig: {fileID: 11400000, guid: 5918f9622f041d44697566b9e9edbecc, type: 2}

@@ -8,6 +8,12 @@ public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
     private PlayerGunSelector gunSelector;
+    [SerializeField]
+    private bool autoReload = true;
+    [SerializeField]
+    private Animator playerAnimator;
+
+    private bool isReloading;
 
     //public void OnShoot()
     //{
@@ -20,5 +26,32 @@ public class PlayerAction : MonoBehaviour
         {
             gunSelector.activeGun.Tick(Mouse.current.leftButton.isPressed);
         }
+
+        if (ShouldManualReload() || ShouldAutoReload())
+        {
+            isReloading = true;
+            playerAnimator.SetTrigger("Reload");
+        }
+    }
+
+    private void EndReload()
+    {
+        gunSelector.activeGun.EndReload();
+        isReloading = false;
+    }
+
+    private bool ShouldManualReload()
+    {
+        return !isReloading 
+            && Keyboard.current.rKey.wasPressedThisFrame
+            && gunSelector.activeGun.CanReload();
+    }
+
+    private bool ShouldAutoReload()
+    {
+        return !isReloading 
+            && autoReload
+            && gunSelector.activeGun.ammoConfig.currentClipAmmo == 0
+            && gunSelector.activeGun.CanReload();
     }
 }

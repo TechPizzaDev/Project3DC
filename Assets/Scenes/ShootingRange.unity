@@ -2012,6 +2012,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSelector: {fileID: 135756641613574984}
+  autoReload: 1
+  playerAnimator: {fileID: 135756641613574989}
+--- !u!95 &135756641613574989
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114958625}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7d23a6ebbb3fe824e963be2c0897a288, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &2114283753834967212
 GameObject:
   m_ObjectHideFlags: 0
