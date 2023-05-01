@@ -22,7 +22,8 @@ public class PlayerAction : MonoBehaviour
 
     private void Update()
     {
-        if (gunSelector.activeGun != null)
+        if (gunSelector.activeGun != null
+            && !isReloading)
         {
             gunSelector.activeGun.Tick(Mouse.current.leftButton.isPressed);
         }
