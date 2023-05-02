@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.VFX;
 
 [CreateAssetMenu(fileName = "Gun", menuName = "Guns/Gun", order = 0)]
-public class Gun : ScriptableObject
+public class Gun : ScriptableObject, ICloneable
 {
     public GunType type;
     public string gunName;
@@ -261,5 +262,25 @@ public class Gun : ScriptableObject
     private Bullet CreateBullet()
     {
         return Instantiate(shootConfig.bulletPrefab);
+    }
+
+    public object Clone()
+    {
+        Gun config = CreateInstance<Gun>();
+
+        //config.impactType = impactType;
+        config.type = type;
+        config.gunName = gunName;
+        //config.damageConfig = damageConfig.Clone() as DamageConfig;
+        config.shootConfig = shootConfig.Clone() as ShootConfig;
+        config.ammoConfig = ammoConfig.Clone() as AmmoConfig;
+        config.trailConfig = trailConfig.Clone() as TrailConfig;
+        //config.audioConfig = audioConfig.Clone() as AudioConfig;
+
+        config.modelPrefab = modelPrefab;
+        config.spawnPoint = spawnPoint;
+        config.spawnRotation = spawnRotation;
+
+        return config;
     }
 }

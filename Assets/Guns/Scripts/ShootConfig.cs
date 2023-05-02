@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Shoot Config", menuName = "Guns/Shoot Configuration", order = 2)]
-public class ShootConfig : ScriptableObject
+public class ShootConfig : ScriptableObject, System.ICloneable
 {
     public bool isHitscan = true;
     public Bullet bulletPrefab;
@@ -20,6 +20,7 @@ public class ShootConfig : ScriptableObject
     [Range(0.001f, 5f)]
     public float spreadMultiplier = 0.1f;
     public Texture2D spreadTexture;
+
 
     public Vector3 GetSpread(float shootTime = 0)
     {
@@ -98,4 +99,14 @@ public class ShootConfig : ScriptableObject
 
         return direction;
     }
+
+    public object Clone()
+    {
+        ShootConfig config = CreateInstance<ShootConfig>();
+
+        Utilities.CopyValues(this, config);
+
+        return config;
+    }
+
 }

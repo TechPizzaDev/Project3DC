@@ -25,7 +25,7 @@ public class PlayerGunSelector : MonoBehaviour
             return;
         }
 
-        activeGun = gun;
-        gun.Spawn(gunParent, this);
+        activeGun = gun.Clone() as Gun;
+        activeGun.Spawn(gunParent, this);
     }
 }
