@@ -15,7 +15,7 @@ public class PlayerGunSelector : MonoBehaviour
     [Header("Runtime Filled")]
     public Gun activeGun;
 
-    private void Start()
+    private void Awake()
     {
         Gun gun = guns.Find(gun => gun.type == Gun);
 
