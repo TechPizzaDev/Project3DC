@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 0
+  maxHealth: 200
   damaged: 0
   killed: 0
 --- !u!114 &6415075113222443612
@@ -2957,6 +2957,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8899760116327755536}
     m_Modifications:
+    - target: {fileID: 1171773887405513759, guid: fe2c7dba61bc80c45bbea78795a63f26,
+        type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1435402645220263599}
     - target: {fileID: 5289849002415925048, guid: fe2c7dba61bc80c45bbea78795a63f26,
         type: 3}
       propertyPath: m_Name
