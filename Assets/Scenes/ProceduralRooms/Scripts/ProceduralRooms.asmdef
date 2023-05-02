@@ -1,7 +1,11 @@
 {
     "name": "ProceduralRooms",
     "rootNamespace": "ProceduralRooms",
-    "references": [],
+    "references": [
+        "GUID:1826c0224c0d048b88112c79bbb0cd85",
+        "GUID:03ca3ee4acaf74592bc6d299ca86aa27",
+        "GUID:8c4dd21966739024fbd72155091d199e"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
