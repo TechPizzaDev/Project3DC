@@ -21,5 +21,12 @@ public class GunModifierApplier : MonoBehaviour
             attributeName = "ShootConfig/spread"
         };
         spreadModifier.Apply(gunSelector.activeGun);
+
+        FloatModifier textureSpreadMultiplierModifier = new()
+        {
+            amount = 0f,
+            attributeName = "shootConfig/spreadMultiplier"
+        };
+        textureSpreadMultiplierModifier.Apply(gunSelector.activeGun);
     }
 }
