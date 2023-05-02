@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5289849002415925028}
   - component: {fileID: 5289849002415925031}
   - component: {fileID: 5289849002415925030}
+  - component: {fileID: 1171773887405513759}
   m_Layer: 5
-  m_Name: Health Bar Canvas
+  m_Name: Enemy Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 3.02, y: -0.47300363}
+  m_AnchoredPosition: {x: 3.0200195, y: -0.47299194}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5289849002415925028
@@ -101,6 +102,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1171773887405513759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289849002415925048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019c973f28520c245927c8b9bce7b655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 5289849002922763777}
 --- !u!1 &5289849002922763776
 GameObject:
   m_ObjectHideFlags: 0

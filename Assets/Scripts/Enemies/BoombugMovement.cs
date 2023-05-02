@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,8 +7,7 @@ public class BoombugMovement : MonoBehaviour
     [SerializeField] private Vector3 startingPos;
     [SerializeField] private Vector3 endPos;
     [SerializeField] private Vector3 walkingToPos;
-    [SerializeField] public Transform movePosTransform;
-   
+
     public NavMeshAgent agent;
     [SerializeField] private float margin = 5f;
     [SerializeField] public float distanceToTarget;
@@ -21,7 +18,7 @@ public class BoombugMovement : MonoBehaviour
 
     EnemyDetection enemyDetection;
     BoombugExplode boombugExplode;
-    EnemyHealth health;
+    UnitHealth health;
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
@@ -39,7 +36,7 @@ public class BoombugMovement : MonoBehaviour
         enemyDetection = GetComponent<EnemyDetection>();
         boombugExplode = GetComponent<BoombugExplode>();
         agent = GetComponent<NavMeshAgent>();
-        health = GetComponent<EnemyHealth>();
+        health = GetComponent<UnitHealth>();
 
         walkingToPos = endPos;
         startingPos = transform.position;
@@ -76,6 +73,7 @@ public class BoombugMovement : MonoBehaviour
                             reachedDestination = true;
                         }
                     }
+
                     if (enemyDetection.detected)
                     {
                         state = State.isAggro;
@@ -87,7 +85,7 @@ public class BoombugMovement : MonoBehaviour
 
             case State.isAggro:
                 {
-                    agent.destination = movePosTransform.position;
+                    agent.destination = enemyDetection.targetTransform.position;
 
                     agent.speed = aggressiveSpeed;
 
@@ -103,7 +101,7 @@ public class BoombugMovement : MonoBehaviour
                     StopChasing();
                 }
                 break;
-            
+
             case State.isExploding:
                 {
                     agent.destination = transform.position;
@@ -112,7 +110,7 @@ public class BoombugMovement : MonoBehaviour
 
             case State.killed:
                 {
-                    health.DestroyObj();
+                    Destroy(gameObject);
                 }
                 break;
         }

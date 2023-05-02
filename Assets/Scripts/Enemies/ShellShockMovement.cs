@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +7,6 @@ public class ShellShockMovement : MonoBehaviour
     [SerializeField] private Vector3 startingPos;
     [SerializeField] private Vector3 endPos;
     [SerializeField] private Vector3 walkingToPos;
-    [SerializeField] public Transform movePosTransform;
     AnimationShellshockScript shellAnimation;
 
     public NavMeshAgent agent;
@@ -27,10 +24,8 @@ public class ShellShockMovement : MonoBehaviour
     [SerializeField] bool isChasing;
     [SerializeField] bool reloadAnimationDone;
 
-    public LayerMask obstacleMask;
-
     EnemyDetection enemyDetection;
-    EnemyHealth health;
+    UnitHealth health;
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
@@ -48,7 +43,7 @@ public class ShellShockMovement : MonoBehaviour
         enemyDetection = GetComponent<EnemyDetection>();
         agent = GetComponent<NavMeshAgent>();
         shellAnimation = GetComponent<AnimationShellshockScript>();
-        health = GetComponent<EnemyHealth>();
+        health = GetComponent<UnitHealth>();
 
         walkingToPos = endPos;
         startingPos = transform.position;
@@ -59,7 +54,8 @@ public class ShellShockMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceToPlayer = Vector3.Distance(transform.position, movePosTransform.position);
+        Vector3 targetPosition = enemyDetection.targetTransform.position;
+        distanceToPlayer = Vector3.Distance(transform.position, targetPosition);
 
         if (health.killed)
         {
@@ -70,7 +66,6 @@ public class ShellShockMovement : MonoBehaviour
         {
             case State.isPatrolling:
                 {
-
                     shellAnimation.walking = true;
 
                     distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
@@ -103,8 +98,7 @@ public class ShellShockMovement : MonoBehaviour
 
             case State.isAggro:
                 {
-
-                    agent.destination = movePosTransform.position;
+                    agent.destination = targetPosition;
 
                     agent.speed = aggressiveSpeed;
 
@@ -116,7 +110,7 @@ public class ShellShockMovement : MonoBehaviour
                         stopShootingTimer = stopShootingTimerReset;
                     }
 
-                     StopChasing();
+                    StopChasing();
                 }
                 break;
 
@@ -125,7 +119,7 @@ public class ShellShockMovement : MonoBehaviour
                     agent.destination = transform.position;
                     LookAtPlayer();
 
-                    if(distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
+                    if (distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
                     {
                         if (reloadAnimationDone)
                         {
@@ -163,15 +157,18 @@ public class ShellShockMovement : MonoBehaviour
         }
 
     }
+
     private void LookAtPlayer()
     {
-        direction = (movePosTransform.position - transform.position);
+        direction = enemyDetection.targetTransform.position - transform.position;
         direction.y = 0;
         direction = direction.normalized;
+
         Quaternion rotGoal = Quaternion.LookRotation(direction);
         Quaternion rotation = Quaternion.Slerp(transform.rotation, rotGoal, rotateSpeed * Time.deltaTime);
         transform.rotation = rotation;
     }
+
     private void StopChasing()
     {
         if (enemyDetection.detected)
@@ -195,6 +192,7 @@ public class ShellShockMovement : MonoBehaviour
             state = State.isPatrolling;
         }
     }
+
     public void ReloadAnimationDone()
     {
         reloadAnimationDone = true;

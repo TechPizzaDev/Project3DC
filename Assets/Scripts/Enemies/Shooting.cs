@@ -16,13 +16,16 @@ public class Shooting : MonoBehaviour
     //Player layer
     public LayerMask targetPlayer;
 
-    public GameObject player;
-    PlayerHealth playerHealth;
+    public Transform targetTransform;
+
     void Start()
     {
-        shootingCooldown = shootingCooldownTime;
-        playerHealth = player.GetComponent<PlayerHealth>();
+        if (targetTransform == null)
+        {
+            targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
 
+        shootingCooldown = shootingCooldownTime;
     }
 
     void Update()
@@ -57,21 +60,26 @@ public class Shooting : MonoBehaviour
         //    shootingCooldown = shootingCooldownTime;
         //}
     }
+
+    // TODO: replace with Frej gun prefab
     public void CharacterShooting()
     {
-        Vector3 playerTarget = (player.transform.position - transform.position).normalized;
+        Vector3 targetDirection = (targetTransform.position - transform.position).normalized;
 
         Debug.Log("BOOM");
-        if (Vector3.Angle(transform.forward, playerTarget) < bulletSpread / 2)
+        if (Vector3.Angle(transform.forward, targetDirection) < bulletSpread / 2)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, player.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
             if (distanceToTarget <= bulletRange)
             {
                 //If there is no obstacle in the way = enemy has detected the player. 
-                if (Physics.Raycast(transform.position, playerTarget, distanceToTarget, targetPlayer))
+                if (Physics.Raycast(transform.position, targetDirection, distanceToTarget, targetPlayer))
                 {
                     Debug.Log("Shot");
-                    playerHealth.TakeDamage(bulletDamage);
+                    if (targetTransform.TryGetComponent(out UnitHealth health))
+                    {
+                        health.DealDamage(bulletDamage);
+                    }
                 }
             }
         }
