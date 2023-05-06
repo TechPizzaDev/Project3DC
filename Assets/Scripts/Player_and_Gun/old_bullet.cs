@@ -20,7 +20,7 @@ public class old_Bullet : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out UnitHealth health))
         {
-            health.DealDamage(10f);
+            //health.DealDamage(10f);
         }
 
         if (other.gameObject.TryGetComponent(out EnemyDetection detection))

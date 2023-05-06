@@ -32,7 +32,7 @@ public class BoombugExplode : MonoBehaviour
             {
                 if (target.TryGetComponent(out UnitHealth health))
                 {
-                    health.DealDamage(explosionDamage);
+                    //health.DealDamage(explosionDamage);
                 }
             }
             Destroy(gameObject);

@@ -78,7 +78,7 @@ public class Shooting : MonoBehaviour
                     Debug.Log("Shot");
                     if (targetTransform.TryGetComponent(out UnitHealth health))
                     {
-                        health.DealDamage(bulletDamage);
+                        //health.DealDamage(bulletDamage);
                     }
                 }
             }

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 8858131730245490}
   - component: {fileID: 8858131730245489}
   - component: {fileID: 8858131730245488}
+  - component: {fileID: 493825598}
   m_Layer: 0
   m_Name: 'Enemy_Boombug '
   m_TagString: Enemy
@@ -235,6 +236,19 @@ MonoBehaviour:
   stopChasingTimer: 0
   stopChasingTimerReset: 5
   reachedDestination: 0
+--- !u!135 &493825598
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858131730245495}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8858131791481889
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +457,7 @@ SphereCollider:
   m_GameObject: {fileID: 8858131872863619}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
@@ -4247,7 +4261,7 @@ GameObject:
   - component: {fileID: 8858133766243827}
   - component: {fileID: 8858133766243826}
   - component: {fileID: 8858133766243825}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Explosion Damage Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -167,6 +167,7 @@ public class Gun : ScriptableObject, ICloneable
 
         if (hitCollider.TryGetComponent(out IDamageable damageable))
         {
+            Debug.Log("Hit Damageable");
             damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
         }
     }
