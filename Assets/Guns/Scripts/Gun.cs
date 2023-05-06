@@ -13,6 +13,7 @@ public class Gun : ScriptableObject, ICloneable
     public Vector3 spawnPoint;
     public Vector3 spawnRotation;
 
+    public DamageConfig damageConfig;
     public AmmoConfig ammoConfig;
     public ShootConfig shootConfig;
     public TrailConfig trailConfig;
@@ -164,10 +165,10 @@ public class Gun : ScriptableObject, ICloneable
         //    0
         //);
 
-        //if (hitCollider.TryGetComponent(out IDamageable damageable))
-        //{
-        //    damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
-        //}
+        if (hitCollider.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
+        }
     }
 
     public bool CanReload()
@@ -271,7 +272,7 @@ public class Gun : ScriptableObject, ICloneable
         //config.impactType = impactType;
         config.type = type;
         config.gunName = gunName;
-        //config.damageConfig = damageConfig.Clone() as DamageConfig;
+        config.damageConfig = damageConfig.Clone() as DamageConfig;
         config.shootConfig = shootConfig.Clone() as ShootConfig;
         config.ammoConfig = ammoConfig.Clone() as AmmoConfig;
         config.trailConfig = trailConfig.Clone() as TrailConfig;

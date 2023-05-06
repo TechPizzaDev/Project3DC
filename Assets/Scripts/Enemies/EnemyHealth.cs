@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
-    private float gunDamage = 60;
 
     [SerializeField] GameObject healthBarUI;
     [SerializeField] Slider healthSlider;
+
+    public int CurrentHealth { get => (int)health; private set => health = value; }
+    public int MaxHealth { get => (int)maxHealth; private set => maxHealth = value;}
+
+    public event IDamageable.TakeDamageEvent OnTakeDamage;
+    public event IDamageable.DeathEvent OnDeath;
 
     void Start()
     {
@@ -42,11 +47,28 @@ public class EnemyHealth : MonoBehaviour
     {
         return health / maxHealth;
     }
-    private void OnCollisionEnter(Collision other)
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.tag == "Bullet")
+    //    {
+    //        health -= gunDamage;
+    //    }
+    //}
+
+    public void TakeDamage(int damage)
     {
-        if (other.gameObject.tag == "Bullet")
+        int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
+
+        CurrentHealth -= damageTaken;
+
+        if (damageTaken != 0)
         {
-            health -= gunDamage;
+            OnTakeDamage?.Invoke(damageTaken);
+        }
+
+        if (CurrentHealth == 0 && damageTaken != 0)
+        {
+            OnDeath?.Invoke(transform.position);
         }
     }
 }
