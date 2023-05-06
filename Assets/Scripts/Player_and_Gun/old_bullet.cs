@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class old_Bullet : MonoBehaviour
 {
     [SerializeField]
     private int maxBounceCount;

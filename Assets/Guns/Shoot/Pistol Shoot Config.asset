@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c687c790ffb43e542af1488459e39dcc, type: 3}
+  m_Name: Pistol Shoot Config
+  m_EditorClassIdentifier: 
+  isHitscan: 1
+  bulletPrefab: {fileID: 7420427226377227820, guid: 5576d29e3ab99cd43a8af5eca80e1550,
+    type: 3}
+  bulletSpawnForce: 1000
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 521
+  fireRate: 0.25
+  recoilRecoverySpeed: 1
+  maxSpreadTime: 1
+  spreadType: 2
+  spread: {x: 10, y: 10, z: 10}
+  spreadMultiplier: 2.86
+  spreadTexture: {fileID: 2800000, guid: ef211f308efd09842a655408544ae2a0, type: 3}
