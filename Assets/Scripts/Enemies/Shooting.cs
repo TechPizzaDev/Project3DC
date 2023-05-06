@@ -76,9 +76,9 @@ public class Shooting : MonoBehaviour
                 if (Physics.Raycast(transform.position, targetDirection, distanceToTarget, targetPlayer))
                 {
                     Debug.Log("Shot");
-                    if (targetTransform.TryGetComponent(out UnitHealth health))
+                    if (targetTransform.TryGetComponent(out IDamageable damageable))
                     {
-                        //health.DealDamage(bulletDamage);
+                        damageable.TakeDamage(bulletDamage);
                     }
                 }
             }

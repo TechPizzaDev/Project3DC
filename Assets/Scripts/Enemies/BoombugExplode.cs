@@ -30,9 +30,9 @@ public class BoombugExplode : MonoBehaviour
             Debug.Log("Boom!");
             if (distanceToPlayer <= damageRange)
             {
-                if (target.TryGetComponent(out UnitHealth health))
+                if (target.TryGetComponent(out IDamageable damageable))
                 {
-                    //health.DealDamage(explosionDamage);
+                    damageable.TakeDamage(explosionDamage);
                 }
             }
             Destroy(gameObject);
