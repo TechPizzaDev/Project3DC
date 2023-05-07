@@ -17,9 +17,11 @@ public class Gun : ScriptableObject, ICloneable
     public AmmoConfig ammoConfig;
     public ShootConfig shootConfig;
     public TrailConfig trailConfig;
+    public AudioConfig audioConfig;
 
     private MonoBehaviour activeMonoBehaviour;
     private GameObject model;
+    private AudioSource shootingAudioSource;
 
     private float lastShootTime;
     private float initialClickTime;
@@ -50,15 +52,23 @@ public class Gun : ScriptableObject, ICloneable
         model.transform.localRotation = Quaternion.Euler(spawnRotation);
 
         shootSystem = model.GetComponentInChildren<ParticleSystem>();
+        shootingAudioSource = model.GetComponent<AudioSource>();
         muzzleFlash = model.GetComponentInChildren<VisualEffect>();
     }
 
-    public void Shoot()
+    public void TryToShoot()
     {
         if (Time.time > shootConfig.fireRate + lastShootTime)
         {
             lastShootTime = Time.time;
+            if (ammoConfig.currentClipAmmo == 0)
+            {
+                audioConfig.PlayOutOfAmmoClip(shootingAudioSource);
+                return;
+            }
+
             shootSystem.Play();
+            audioConfig.PlayShootingClip(shootingAudioSource, ammoConfig.currentClipAmmo == 1);
             muzzleFlash.Play();
 
             Vector3 spreadAmount = shootConfig.GetSpread();
@@ -177,6 +187,11 @@ public class Gun : ScriptableObject, ICloneable
         return ammoConfig.CanReload();
     }
 
+    public void StartReloading()
+    {
+        audioConfig.PlayReloadClip(shootingAudioSource);
+    }
+
     public void EndReload()
     {
         ammoConfig.Reload();
@@ -187,10 +202,7 @@ public class Gun : ScriptableObject, ICloneable
         if (wantsToShoot)
         {
             lastFrameWantedToShoot = true;
-            if (ammoConfig.currentClipAmmo > 0)
-            {
-                Shoot();
-            }
+            TryToShoot();
         }
         else if (!wantsToShoot && lastFrameWantedToShoot)
         {
@@ -277,7 +289,7 @@ public class Gun : ScriptableObject, ICloneable
         config.shootConfig = shootConfig.Clone() as ShootConfig;
         config.ammoConfig = ammoConfig.Clone() as AmmoConfig;
         config.trailConfig = trailConfig.Clone() as TrailConfig;
-        //config.audioConfig = audioConfig.Clone() as AudioConfig;
+        config.audioConfig = audioConfig.Clone() as AudioConfig;
 
         config.modelPrefab = modelPrefab;
         config.spawnPoint = spawnPoint;
