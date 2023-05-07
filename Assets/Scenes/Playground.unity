@@ -858,6 +858,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e44d44e6f91d047baf06d03d5c5528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1689894441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1263463632731647230, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
+    type: 3}
+  m_PrefabInstance: {fileID: 609453012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689894436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5d9fe0de8a794419101d60d0480145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1079,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 450744075, guid: b4df02276dfe65b489f69d95f17fd38c, type: 3}
+      propertyPath: gunSelector
+      value: 
+      objectReference: {fileID: 1689894441}
     - target: {fileID: 1295456959698014434, guid: b4df02276dfe65b489f69d95f17fd38c,
         type: 3}
       propertyPath: health
