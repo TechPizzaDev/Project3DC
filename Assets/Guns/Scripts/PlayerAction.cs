@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class PlayerAction : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerAction : MonoBehaviour
     private bool autoReload = true;
     [SerializeField]
     private Animator playerAnimator;
+    [SerializeField]
+    private Image crosshair;
 
     private bool isReloading;
 
@@ -33,6 +36,42 @@ public class PlayerAction : MonoBehaviour
             gunSelector.activeGun.StartReloading();
             isReloading = true;
             playerAnimator.SetTrigger("Reload");
+        }
+
+        UpdateCrosshair();
+    }
+
+    private void UpdateCrosshair()
+    {
+        if (gunSelector.activeGun.shootConfig.shootType == ShootType.fromGun)
+        {
+            Vector3 gunTipPoint = gunSelector.activeGun.GetRaycastOrigin();
+            Vector3 gunForward = gunSelector.activeGun.GetGunForward();
+            Vector3 hitPoint = gunTipPoint + gunForward * 10;
+
+            if (Physics.Raycast(
+                gunTipPoint,
+                gunForward,
+                out RaycastHit hit,
+                float.MaxValue,
+                gunSelector.activeGun.shootConfig.hitMask))
+            {
+                hitPoint = hit.point;
+            }
+
+            Vector3 screenSpaceLocation = gunSelector.camera.WorldToScreenPoint(hitPoint);
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                (RectTransform)crosshair.transform.parent,
+                screenSpaceLocation,
+                null,
+                out Vector2 localPosition))
+            {
+                crosshair.rectTransform.anchoredPosition = localPosition;
+            }
+            else
+            {
+                crosshair.rectTransform.anchoredPosition = Vector2.zero;
+            }
         }
     }
 

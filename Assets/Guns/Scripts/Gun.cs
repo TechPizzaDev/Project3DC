@@ -22,6 +22,7 @@ public class Gun : ScriptableObject, ICloneable
     private MonoBehaviour activeMonoBehaviour;
     private GameObject model;
     private AudioSource shootingAudioSource;
+    private Camera activeCamera;
 
     private float lastShootTime;
     private float initialClickTime;
@@ -33,9 +34,11 @@ public class Gun : ScriptableObject, ICloneable
     private VisualEffect muzzleFlash;
     private ObjectPool<TrailRenderer> trailPool;
 
-    public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour)
+    public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour, Camera activeCamera = null)
     {
         this.activeMonoBehaviour = activeMonoBehaviour;
+        this.activeCamera = activeCamera;
+
         lastShootTime = 0;
         ammoConfig.currentClipAmmo = ammoConfig.clipSize;
         ammoConfig.currentAmmo = ammoConfig.maxAmmo;
@@ -56,6 +59,11 @@ public class Gun : ScriptableObject, ICloneable
         muzzleFlash = model.GetComponentInChildren<VisualEffect>();
     }
 
+    public void UpdateCamera(Camera activeCamera)
+    {
+        this.activeCamera = activeCamera;
+    }
+
     public void TryToShoot()
     {
         if (Time.time > shootConfig.fireRate + lastShootTime)
@@ -72,7 +80,17 @@ public class Gun : ScriptableObject, ICloneable
             muzzleFlash.Play();
 
             Vector3 spreadAmount = shootConfig.GetSpread();
-            Vector3 shootDirection = model.transform.parent.forward + spreadAmount;
+            Vector3 shootDirection = Vector3.zero;
+
+            if (shootConfig.shootType == ShootType.fromGun)
+            {
+                shootDirection = shootSystem.transform.forward;
+            }
+            else
+            {
+                shootDirection = activeCamera.transform.forward
+                    + activeCamera.transform.TransformDirection(shootDirection);
+            }
 
             ammoConfig.currentClipAmmo--;
 
@@ -90,7 +108,7 @@ public class Gun : ScriptableObject, ICloneable
     private void DoHitscanShoot(Vector3 shootDirection)
     {
         if (Physics.Raycast(
-                shootSystem.transform.position,
+                GetRaycastOrigin(),
                 shootDirection,
                 out RaycastHit hit,
                 float.MaxValue,
@@ -122,6 +140,19 @@ public class Gun : ScriptableObject, ICloneable
         Bullet bullet = bulletPool.Get();
         bullet.gameObject.SetActive(true);
         bullet.OnCollision += HandleBulletCollision;
+
+        if (shootConfig.shootType == ShootType.fromCamera
+            && Physics.Raycast(GetRaycastOrigin(), 
+                shootDirection,
+                out RaycastHit hit,
+                float.MaxValue,
+                shootConfig.hitMask))
+        {
+            Vector3 directionToHit = (hit.point - shootSystem.transform.position).normalized;
+            model.transform.forward = directionToHit;
+            shootDirection = directionToHit;
+        }
+
         bullet.transform.position = shootSystem.transform.position;
         bullet.Spawn(shootDirection * shootConfig.bulletSpawnForce);
 
@@ -134,6 +165,28 @@ public class Gun : ScriptableObject, ICloneable
             trail.gameObject.SetActive(true);
         }
 
+    }
+
+    public Vector3 GetRaycastOrigin()
+    {
+        Vector3 origin = shootSystem.transform.position;
+
+        if (shootConfig.shootType == ShootType.fromCamera)
+        {
+            origin = activeCamera.transform.position
+                + activeCamera.transform.forward
+                * Vector3.Distance(
+                    activeCamera.transform.position,
+                    shootSystem.transform.position
+                );
+        }
+
+        return origin;
+    }
+
+    public Vector3 GetGunForward()
+    {
+        return model.transform.forward;
     }
 
     private void HandleBulletCollision(Bullet bullet, Collision collision)

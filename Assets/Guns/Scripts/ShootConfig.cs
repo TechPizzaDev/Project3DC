@@ -11,6 +11,9 @@ public class ShootConfig : ScriptableObject, System.ICloneable
     public float bulletSpawnForce = 1000;
     public LayerMask hitMask;
     public float fireRate = 0.25f;
+
+    public ShootType shootType = ShootType.fromGun;
+
     public float recoilRecoverySpeed = 1f;
     public float maxSpreadTime = 1f;
     public BulletSpreadType spreadType = BulletSpreadType.Simple;
