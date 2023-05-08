@@ -57,7 +57,7 @@ public class ShellShockMovement : MonoBehaviour
         Vector3 targetPosition = enemyDetection.targetTransform.position;
         distanceToPlayer = Vector3.Distance(transform.position, targetPosition);
 
-        if (health.killed)
+        if (health.CurrentHealth <= 0)
         {
             state = State.killed;
         }

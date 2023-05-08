@@ -21,6 +21,10 @@ public class EnemyCanvas : MonoBehaviour
     {
         healthSlider.value = health.CalculateHealth();
 
-        healthSlider.gameObject.SetActive(health.damaged);
+        if (health.CurrentHealth < health.maxHealth)
+        {
+            healthSlider.gameObject.SetActive(true);
+        }
+        //healthSlider.gameObject.SetActive(health.damaged);
     }
 }

@@ -47,7 +47,7 @@ public class BoombugMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health.killed)
+        if (health.CurrentHealth <= 0)
         {
             state = State.killed;
         }

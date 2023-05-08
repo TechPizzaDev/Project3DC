@@ -56,7 +56,7 @@ public class AnimationShellshockScript : MonoBehaviour
     }
     private void Killed()
     {
-
+        
         if (die)
         {
             animator.SetBool("Killed", true);
@@ -65,4 +65,5 @@ public class AnimationShellshockScript : MonoBehaviour
             animator.SetBool("Attacking", false);
         }
     }
+
 }
