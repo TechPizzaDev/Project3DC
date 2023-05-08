@@ -15,18 +15,18 @@ public class GunModifierApplier : MonoBehaviour
         //};
         //damageModifier.Apply(gunSelector.activeGun);
 
-        Vector3Modifier spreadModifier = new()
-        {
-            amount = Vector3.zero,
-            attributeName = "shootConfig/spread"
-        };
-        spreadModifier.Apply(gunSelector.activeGun);
+        //Vector3Modifier spreadModifier = new()
+        //{
+        //    amount = Vector3.zero,
+        //    attributeName = "shootConfig/spread"
+        //};
+        //spreadModifier.Apply(gunSelector.activeGun);
 
-        FloatModifier textureSpreadMultiplierModifier = new()
-        {
-            amount = 0f,
-            attributeName = "shootConfig/spreadMultiplier"
-        };
-        textureSpreadMultiplierModifier.Apply(gunSelector.activeGun);
+        //FloatModifier textureSpreadMultiplierModifier = new()
+        //{
+        //    amount = 0f,
+        //    attributeName = "shootConfig/spreadMultiplier"
+        //};
+        //textureSpreadMultiplierModifier.Apply(gunSelector.activeGun);
     }
 }
