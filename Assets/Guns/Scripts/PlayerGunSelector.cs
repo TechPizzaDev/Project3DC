@@ -4,6 +4,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PlayerGunSelector : MonoBehaviour
 {
+    public Camera camera;
     [SerializeField]
     private GunType Gun;
     [SerializeField]
@@ -26,6 +27,6 @@ public class PlayerGunSelector : MonoBehaviour
         }
 
         activeGun = gun.Clone() as Gun;
-        activeGun.Spawn(gunParent, this);
+        activeGun.Spawn(gunParent, this, camera);
     }
 }
