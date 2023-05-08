@@ -132,6 +132,18 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 60889539378096550}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &144559272 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 144559272, guid: b4df02276dfe65b489f69d95f17fd38c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1480204659}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &497178479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -914,18 +926,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!114 &1977661613 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1835372900, guid: b4df02276dfe65b489f69d95f17fd38c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1480204659}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1979352518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1556,7 +1556,7 @@ PrefabInstance:
         type: 3}
       propertyPath: crosshair
       value: 
-      objectReference: {fileID: 1977661613}
+      objectReference: {fileID: 144559272}
     - target: {fileID: 4749655179395279638, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
         type: 3}
       propertyPath: m_Name
