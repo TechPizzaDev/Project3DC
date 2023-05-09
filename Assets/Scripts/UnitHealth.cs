@@ -54,6 +54,8 @@ public class UnitHealth : MonoBehaviour, IDamageable
         if (damageTaken != 0)
         {
             OnTakeDamage?.Invoke(damageTaken);
+            enemyDetection.detected = true;
+
         }
 
         if (CurrentHealth == 0 && damageTaken != 0)
@@ -61,7 +63,10 @@ public class UnitHealth : MonoBehaviour, IDamageable
             OnDeath?.Invoke(transform.position);
         }
 
+
+
     }
+
     public void DestroyObj() { Destroy(gameObject); }
 }
 
