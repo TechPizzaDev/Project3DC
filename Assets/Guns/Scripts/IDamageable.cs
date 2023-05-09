@@ -14,5 +14,6 @@ public interface IDamageable
     public event DeathEvent OnDeath;
 
     public void TakeDamage(int damage);
+    public void Detection();
 
 }

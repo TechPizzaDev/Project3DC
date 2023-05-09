@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour, IDamageable
+public class EnemyHealth : MonoBehaviour// IDamageable
 {
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
@@ -14,8 +14,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public int CurrentHealth { get => (int)health; private set => health = value; }
     public int MaxHealth { get => (int)maxHealth; private set => maxHealth = value;}
 
-    public event IDamageable.TakeDamageEvent OnTakeDamage;
-    public event IDamageable.DeathEvent OnDeath;
+    //public event IDamageable.TakeDamageEvent OnTakeDamage;
+    //public event IDamageable.DeathEvent OnDeath;
 
     void Start()
     {
@@ -55,20 +55,20 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     //    }
     //}
 
-    public void TakeDamage(int damage)
-    {
-        int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
+    //public void TakeDamage(int damage)
+    //{
+    //    int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
 
-        CurrentHealth -= damageTaken;
+    //    CurrentHealth -= damageTaken;
 
-        if (damageTaken != 0)
-        {
-            OnTakeDamage?.Invoke(damageTaken);
-        }
+    //    if (damageTaken != 0)
+    //    {
+    //        OnTakeDamage?.Invoke(damageTaken);
+    //    }
 
-        if (CurrentHealth == 0 && damageTaken != 0)
-        {
-            OnDeath?.Invoke(transform.position);
-        }
-    }
+    //    if (CurrentHealth == 0 && damageTaken != 0)
+    //    {
+    //        OnDeath?.Invoke(transform.position);
+    //    }
+    //}
 }
