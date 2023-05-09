@@ -14,12 +14,24 @@ namespace StarterAssets
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
-		[Tooltip("Sprint speed of the character in m/s")]
-		public float SprintSpeed = 6.0f;
+		[Tooltip("Dash speed of the character in m/s")]
+		private float DashMaxSpeed = 30.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
+        [SerializeField]
+        private float dashSpeed;
+		private float dashSpeedFallOff = 200f;
+        private float dashDuration = 0.1f;
+        [SerializeField]
+        private float dashDurationTimer;
+        private float dashCooldown = 1.0f;
+        [SerializeField]
+        private float dashCooldownTimer;
+        [SerializeField]
+        Vector2 dashDirection;
+		bool dashEnded = true;
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -153,29 +165,18 @@ namespace StarterAssets
 
 		private void Move()
 		{
-			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.Sprint ? SprintSpeed : MoveSpeed;
+			Dash(_input.Move);
 
-			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
-			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-			// if there is no input, set the target speed to 0
-			if (_input.Move == Vector2.zero) targetSpeed = 0.0f;
-
-			// a reference to the players current horizontal velocity
+			float targetSpeed = MoveSpeed + dashSpeed;
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.AnalogMovement ? _input.Move.magnitude : 1f;
 
-			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
 			{
-				// creates curved result rather than a linear one giving a more organic speed change
-				// note T in Lerp is clamped, so we don't need to clamp our speed
 				_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
 
-				// round speed to 3 decimal places
 				_speed = Mathf.Round(_speed * 1000f) / 1000f;
 			}
 			else
@@ -183,18 +184,17 @@ namespace StarterAssets
 				_speed = targetSpeed;
 			}
 
-			// normalise input direction
 			Vector3 inputDirection = new Vector3(_input.Move.x, 0.0f, _input.Move.y).normalized;
 
-			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-			// if there is a move input rotate player when the player is moving
-			if (_input.Move != Vector2.zero)
+			if(!dashEnded)
 			{
-				// move
+                inputDirection = transform.right * dashDirection.x + transform.forward * dashDirection.y;
+            }
+			else
+			{
 				inputDirection = transform.right * _input.Move.x + transform.forward * _input.Move.y;
 			}
 
-			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
@@ -261,6 +261,42 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+		public void Dash(Vector2 direction)
+		{
+			if(dashCooldownTimer <= 0)
+			{
+				if (_input.Dash && direction != Vector2.zero)
+				{
+					dashDirection = direction;
+					dashDurationTimer = dashDuration;
+					dashCooldownTimer = dashCooldown;
+                    dashSpeed = DashMaxSpeed;
+					dashEnded = false;
+                }
+
+			}
+			else
+			{
+				dashCooldownTimer -= Time.deltaTime;
+			}
+
+			if (dashDurationTimer > 0)
+            {
+                dashDurationTimer -= Time.deltaTime;
+            }
+			else
+			{
+				if(dashSpeed > 0)
+				{ 
+					dashSpeed -= Time.deltaTime * dashSpeedFallOff; 
+				}
+				else 
+				{ 
+					dashSpeed = 0; 
+					dashEnded = true;
+				}
+			}
 		}
 	}
 }

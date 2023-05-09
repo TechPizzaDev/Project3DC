@@ -255,6 +255,11 @@ PrefabInstance:
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 1456170838}
+    - target: {fileID: 4749655179395279633, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
+        type: 3}
+      propertyPath: GroundLayers.m_Bits
+      value: 521
+      objectReference: {fileID: 0}
     - target: {fileID: 4749655179395279638, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
         type: 3}
       propertyPath: m_Name

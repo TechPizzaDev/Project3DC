@@ -18,8 +18,8 @@ namespace StarterAssets
         private bool jump;
 		public bool Jump { get { return jump; } }
         [SerializeField]
-        private bool sprint;
-		public bool Sprint { get { return sprint; } }
+        private bool dash;
+		public bool Dash { get { return dash; } }
         [SerializeField]
         private bool fire;
 		public bool Fire { get { return fire; } }
@@ -56,7 +56,7 @@ namespace StarterAssets
 
 		public void OnSprint(InputAction.CallbackContext value)
 		{
-			SprintInput(value.action.ReadValue<float>() == 1);
+			DashInput(value.action.triggered);
 		}
 		
 #endif
@@ -77,9 +77,9 @@ namespace StarterAssets
 			jump = newJumpState;
 		}
 
-		public void SprintInput(bool newSprintState)
+		public void DashInput(bool newDashState)
 		{
-			sprint = newSprintState;
+			dash = newDashState;
 		}
 		
 		private void OnApplicationFocus(bool hasFocus)

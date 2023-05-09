@@ -58,5 +58,6 @@ public class UnitHealth : MonoBehaviour, IDamageable
             OnDeath?.Invoke(transform.position);
         }
     }
+    public void DestroyObj() { Destroy(gameObject); }
 }
 
