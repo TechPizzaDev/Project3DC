@@ -25,7 +25,7 @@ public class old_Bullet : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out EnemyDetection detection))
         {
-            detection.AlertOnHit(caster);
+            //detection.AlertOnHit(caster);
         }
 
         bounceCount++;

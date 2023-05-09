@@ -8,6 +8,8 @@ public class UnitHealth : MonoBehaviour, IDamageable
     public bool damaged;
     public bool killed;
 
+    EnemyDetection enemyDetection;
+
     public int CurrentHealth { get => (int)health; private set => health = value; }
 
     public int MaxHealth { get => (int)maxHealth; private set => maxHealth = value; }
@@ -18,6 +20,7 @@ public class UnitHealth : MonoBehaviour, IDamageable
     void Start()
     {
         health = maxHealth;
+        enemyDetection = GetComponent<EnemyDetection>();
     }
 
     void Update()
@@ -57,6 +60,7 @@ public class UnitHealth : MonoBehaviour, IDamageable
         {
             OnDeath?.Invoke(transform.position);
         }
+
     }
     public void DestroyObj() { Destroy(gameObject); }
 }

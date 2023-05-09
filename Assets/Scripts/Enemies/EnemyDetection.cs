@@ -28,7 +28,7 @@ public class EnemyDetection : MonoBehaviour
 
         // Checks if enemies forward position & target is less than the viewing angle / 2.
         // Divide by 2 to create 45 degrees towards both left and right.
-        if (Vector3.Angle(transform.forward, targetDirection) < viewAngle / 2 || awoken)
+        if (Vector3.Angle(transform.forward, targetDirection) < viewAngle / 2)
         {
             float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
             if (distanceToTarget <= viewRadius)
@@ -49,11 +49,19 @@ public class EnemyDetection : MonoBehaviour
         detected = false;
     }
 
-    public void AlertOnHit(GameObject? caster)
+    //public void AlertOnHit(GameObject? caster)
+    //{
+    //    if (caster.CompareTag("Player"))
+    //    {
+    //        awoken = true;
+    //    }
+    //}
+
+    private void OnCollisionEnter(Collision other)
     {
-        //if (caster.CompareTag("Player"))
+        if (other.gameObject.tag == "Bullet")
         {
-            awoken = true;
+            detected = true;
         }
     }
 }
