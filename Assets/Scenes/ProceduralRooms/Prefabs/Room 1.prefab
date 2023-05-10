@@ -84,6 +84,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2956456120343955074, guid: 730b5bac987dfda4cb5b7609e4ad9528,
+        type: 3}
+      propertyPath: m_Name
+      value: Room Door PX
+      objectReference: {fileID: 0}
     - target: {fileID: 3329264131985615705, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_NavMeshData
