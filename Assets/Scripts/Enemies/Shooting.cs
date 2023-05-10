@@ -8,6 +8,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float bulletSpread;
     [SerializeField] private float shootingCooldownTime = 3.0f;
     [SerializeField] private float shootingCooldown;
+    [SerializeField]
+    PlayerGunSelector gunSelector;
 
     public bool shootingAtPlayer;
 
@@ -76,10 +78,11 @@ public class Shooting : MonoBehaviour
                 if (Physics.Raycast(transform.position, targetDirection, distanceToTarget, targetPlayer))
                 {
                     Debug.Log("Shot");
-                    if (targetTransform.TryGetComponent(out IDamageable damageable))
-                    {
-                        damageable.TakeDamage(bulletDamage);
-                    }
+                    gunSelector.activeGun.TryToShoot();
+                    //if (targetTransform.TryGetComponent(out IDamageable damageable))
+                    //{
+                    //    damageable.TakeDamage(bulletDamage);
+                    //}
                 }
             }
         }

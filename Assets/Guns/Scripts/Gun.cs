@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.VFX;
@@ -49,7 +50,16 @@ public class Gun : ScriptableObject, ICloneable
             bulletPool = new ObjectPool<Bullet>(CreateBullet);
         }
 
-        model = Instantiate(modelPrefab);
+        if (modelPrefab != null)
+        {
+            model = Instantiate(modelPrefab);
+        }
+        else
+        {
+            //model = ;   
+        }
+
+        //model = Instantiate(modelPrefab);
         model.transform.SetParent(parent, false);
         model.transform.localPosition = spawnPoint;
         model.transform.localRotation = Quaternion.Euler(spawnRotation);
