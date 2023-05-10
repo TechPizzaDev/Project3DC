@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.029152155, g: 0.06444568, b: 0.12695068, a: 1}
+  m_IndirectSpecularColor: {r: 0.029152213, g: 0.064445764, b: 0.12695098, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -355,6 +355,11 @@ PrefabInstance:
       objectReference: {fileID: 446026441}
     - target: {fileID: 1263463632731647231, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
         type: 3}
+      propertyPath: gunHolder
+      value: 
+      objectReference: {fileID: 2106517385}
+    - target: {fileID: 1263463632731647231, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
+        type: 3}
       propertyPath: autoReload
       value: 0
       objectReference: {fileID: 0}
@@ -453,7 +458,8 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1263463632731647227, guid: f95b0a3a2acf3ea41bb1690ebc75ad59, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f95b0a3a2acf3ea41bb1690ebc75ad59, type: 3}
 --- !u!1001 &746329221
 PrefabInstance:
@@ -1817,6 +1823,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
+--- !u!1 &2106517385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1183026719743276967, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
+    type: 3}
+  m_PrefabInstance: {fileID: 609453012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8858133147697452
 PrefabInstance:
   m_ObjectHideFlags: 0

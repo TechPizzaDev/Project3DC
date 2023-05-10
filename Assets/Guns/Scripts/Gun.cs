@@ -23,6 +23,7 @@ public class Gun : ScriptableObject, ICloneable
     private GameObject model;
     private AudioSource shootingAudioSource;
     private Camera activeCamera;
+    private Animator gunAnimator;
 
     private float lastShootTime;
     private float initialClickTime;
@@ -57,6 +58,7 @@ public class Gun : ScriptableObject, ICloneable
         shootSystem = model.GetComponentInChildren<ParticleSystem>();
         shootingAudioSource = model.GetComponent<AudioSource>();
         muzzleFlash = model.GetComponentInChildren<VisualEffect>();
+        gunAnimator = model.GetComponent<Animator>();
     }
 
     public void UpdateCamera(Camera activeCamera)
@@ -78,6 +80,7 @@ public class Gun : ScriptableObject, ICloneable
             shootSystem.Play();
             audioConfig.PlayShootingClip(shootingAudioSource, ammoConfig.currentClipAmmo == 1);
             muzzleFlash.Play();
+            //gunAnimator.Play("Shoot");
 
             Vector3 spreadAmount = shootConfig.GetSpread();
             Vector3 shootDirection = Vector3.zero;

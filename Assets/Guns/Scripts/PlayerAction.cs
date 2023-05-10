@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,9 +16,17 @@ public class PlayerAction : MonoBehaviour
     private Animator playerAnimator;
     [SerializeField]
     private Image crosshair;
+    [SerializeField]
+    private GameObject gunHolder;
 
     private bool isReloading;
 
+    private void Start()
+    {
+        playerAnimator = gunHolder.GetComponentInChildren<Animator>();
+        Debug.Log(playerAnimator);
+        //playerAnimator = gunSelector.activeGun.GetComponentInChildren<Animator>();
+    }
     //public void OnShoot()
     //{
     //    gunSelector.activeGun.Tick();
@@ -75,7 +84,7 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    private void EndReload()
+    public void EndReload()
     {
         gunSelector.activeGun.EndReload();
         isReloading = false;
