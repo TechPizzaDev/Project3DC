@@ -65092,6 +65092,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room Door PZ
       objectReference: {fileID: 0}
+    - target: {fileID: 8602351767612813658, guid: 6ec7bf96a96b4ac43bf61b918a84a04a,
+        type: 3}
+      propertyPath: Direction
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ec7bf96a96b4ac43bf61b918a84a04a, type: 3}
 --- !u!1 &5296808448895987489 stripped
@@ -65247,6 +65252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room Door NX
       objectReference: {fileID: 0}
+    - target: {fileID: 8602351767612813658, guid: 6ec7bf96a96b4ac43bf61b918a84a04a,
+        type: 3}
+      propertyPath: Direction
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ec7bf96a96b4ac43bf61b918a84a04a, type: 3}
 --- !u!4 &8053172547091156649 stripped
@@ -65395,7 +65405,12 @@ PrefabInstance:
     - target: {fileID: 5417048771063491024, guid: 6ec7bf96a96b4ac43bf61b918a84a04a,
         type: 3}
       propertyPath: m_Name
-      value: Room Door
+      value: Room Door PX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602351767612813658, guid: 6ec7bf96a96b4ac43bf61b918a84a04a,
+        type: 3}
+      propertyPath: Direction
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ec7bf96a96b4ac43bf61b918a84a04a, type: 3}
@@ -65551,6 +65566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Room Door NZ
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602351767612813658, guid: 6ec7bf96a96b4ac43bf61b918a84a04a,
+        type: 3}
+      propertyPath: Direction
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ec7bf96a96b4ac43bf61b918a84a04a, type: 3}

@@ -36,7 +36,7 @@ public class MobSpawner : MonoBehaviour
             yield return new WaitForSeconds(SpawnDelay);
 
             GameObject obj = GetRandomPrefab();
-            Instantiate(obj, transform);
+            GameObject instance = Instantiate(obj, transform.position, transform.rotation, transform);
         }
     }
 

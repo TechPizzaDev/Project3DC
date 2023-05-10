@@ -50,6 +50,7 @@ MonoBehaviour:
   Speed: 10
   ProximityRadius: 10
   Expanse: 2.5
+  Direction: 0
   LeftDoor: {fileID: 5417048771063491038}
   RightDoor: {fileID: 5417048771063491032}
   targetTransform: {fileID: 0}

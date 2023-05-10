@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Rng = System.Random;
@@ -71,11 +72,14 @@ namespace ProceduralRooms
                 roomObj.transform.position = roomPosition;
                 roomObj.transform.parent = transform;
 
+                ProximityDoor[] doors = roomObj.GetComponentsInChildren<ProximityDoor>();
+
                 for (int i = 0; i < 4; i++)
                 {
                     RoomDoorDirection door = (RoomDoorDirection)(1 << i);
                     if ((roomGen.OpenDoors & door) == 0)
                     {
+                        doors.First(x => x.Direction == door).enabled = false;
                         continue;
                     }
 

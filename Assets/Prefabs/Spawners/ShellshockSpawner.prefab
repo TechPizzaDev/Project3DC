@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3108125724578306580}
   - component: {fileID: 7258480268902209062}
-  m_Layer: 11
-  m_Name: BoombugSpawner
+  m_Layer: 0
+  m_Name: ShellshockSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,4 +48,4 @@ MonoBehaviour:
   SpawnCount: 1
   SpawnDelay: 0.5
   Prefabs:
-  - {fileID: 8858131730245495, guid: cb8bc8533160c79489f5a943680472a4, type: 3}
+  - {fileID: 4368657637077032708, guid: 73a8ef9ef027b5546b75d6b270db1d3f, type: 3}
