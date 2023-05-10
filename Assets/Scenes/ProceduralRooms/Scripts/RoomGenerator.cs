@@ -1,16 +1,11 @@
 using System;
 using System.Collections.Generic;
-using PlasticGui.WorkspaceWindow.PendingChanges;
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.ProBuilder;
-using UnityEngine.ProBuilder.MeshOperations;
 using Rng = System.Random;
 
 namespace ProceduralRooms
 {
-    [DefaultExecutionOrder(-1000)]
     public class RoomGenerator : MonoBehaviour
     {
         public int RoomWidth = 25;
@@ -23,7 +18,11 @@ namespace ProceduralRooms
         public int RoomMargin = 1;
         public int Seed = 1234;
 
-        public Material FloorMaterial;
+        public LayerMask NavLayerMask;
+
+        public GameObject[] Rooms;
+
+        public GameObject[] Tunnels;
 
         Rng _rng;
 
@@ -42,21 +41,10 @@ namespace ProceduralRooms
             _navInstance.Remove();
         }
 
-        enum DoorDirection
-        {
-            None = 0,
-            Left = 1 << 0,
-            Right = 1 << 1,
-            Forward = 1 << 2,
-            Backward = 1 << 3,
-
-            All = Left | Right | Forward | Backward,
-        }
-
         class RoomGen
         {
             public Vector3Int Position;
-            public DoorDirection OpenDoors;
+            public RoomDoorDirection OpenDoors;
         }
 
         // Start is called before the first frame update
@@ -68,213 +56,134 @@ namespace ProceduralRooms
             Dictionary<Vector3Int, RoomGen> spawnedRooms = new();
 
             Stack<RoomGen> roomGens = new();
-            roomGens.Push(new RoomGen()
-            {
-                Position = new Vector3Int(),
-                OpenDoors = DoorDirection.Forward,
-            });
-            spawnedRooms.Add(roomGens.Peek().Position, roomGens.Peek());
 
             roomGens.Push(new RoomGen()
             {
-                Position = GetVector(DoorDirection.Forward),
-                OpenDoors = DoorDirection.All,
+                Position = Vector3Int.zero,
+                OpenDoors = RoomDoorDirection.Forward,
             });
             spawnedRooms.Add(roomGens.Peek().Position, roomGens.Peek());
 
             while (roomGens.TryPop(out RoomGen roomGen))
             {
-                GameObject roomObj = GenerateRoom(roomGen.OpenDoors);
-                roomObj.transform.position = roomGen.Position * new Vector3Int(RoomWidth + RoomMargin, 0, RoomDepth + RoomMargin);
+                GameObject roomObj = InstantiateRoom(roomGen.OpenDoors);
+                Vector3Int roomPosition = roomGen.Position * new Vector3Int(RoomWidth + RoomMargin, 0, RoomDepth + RoomMargin);
+                roomObj.transform.position = roomPosition;
                 roomObj.transform.parent = transform;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    DoorDirection door = (DoorDirection)(1 << i);
+                    RoomDoorDirection door = (RoomDoorDirection)(1 << i);
                     if ((roomGen.OpenDoors & door) == 0)
                     {
                         continue;
                     }
 
                     Vector3Int newPosition = roomGen.Position + GetVector(door);
-                    if (!spawnedRooms.ContainsKey(newPosition) && spawnedRooms.Count < 300)
+                    if (spawnedRooms.ContainsKey(newPosition) || spawnedRooms.Count >= 100)
                     {
-                        DoorDirection extraDoors = DoorDirection.None;
-                        for (int j = 0; j < 4; j++)
+                        // Carry on, we already have this room.
+                        continue;
+                    }
+
+                    GameObject tunnelObj = InstantiateTunnel(door);
+                    Vector3 tunnelVec = GetVector(door);
+                    Vector3 tunnelCenter = roomPosition + new Vector3(
+                        (RoomWidth + RoomMargin) * tunnelVec.x / 2f,
+                        0,
+                        (RoomDepth + RoomMargin) * tunnelVec.z / 2f);
+
+                    tunnelObj.transform.position = tunnelCenter;
+                    tunnelObj.transform.parent = transform;
+
+                    RoomDoorDirection extraDoors = RoomDoorDirection.None;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        RoomDoorDirection nestedDoor = (RoomDoorDirection)(1 << j);
+                        if (_rng.Next(3) == 0)
                         {
-                            DoorDirection nestedDoor = (DoorDirection)(1 << j);
-                            if (_rng.Next(2) == 0)
+                            if (!spawnedRooms.ContainsKey(newPosition + GetVector(nestedDoor)))
                             {
-                                if (!spawnedRooms.ContainsKey(newPosition + GetVector(nestedDoor)))
-                                {
-                                    extraDoors |= nestedDoor;
-                                }
+                                extraDoors |= nestedDoor;
                             }
                         }
-
-                        RoomGen newRoom = new()
-                        {
-                            Position = newPosition,
-                            OpenDoors = OppositeDirection(door) | extraDoors
-                        };
-                        roomGens.Push(newRoom);
-                        spawnedRooms.Add(newRoom.Position, newRoom);
                     }
+
+                    RoomGen newRoom = new()
+                    {
+                        Position = newPosition,
+                        OpenDoors = OppositeDirection(door) | extraDoors
+                    };
+                    roomGens.Push(newRoom);
+                    spawnedRooms.Add(newRoom.Position, newRoom);
                 }
             }
 
-            //var defaultBuildSettings = NavMesh.GetSettingsByID(0);
-            //var bounds = mesh.GetComponent<MeshRenderer>().bounds;
-            //
-            //var sources = new List<NavMeshBuildSource>();
-            //Collect(new List<MeshFilter>() { mesh.GetComponent<MeshFilter>() }, sources);
-            //
-            //bounds.Expand(new Vector3(0, 2, 0));
-            //NavMeshBuilder.UpdateNavMeshData(m_NavMesh, defaultBuildSettings, sources, bounds);
+            var sources = new List<NavMeshBuildSource>();
+            NavMeshBuilder.CollectSources(transform, NavLayerMask.value, NavMeshCollectGeometry.PhysicsColliders, 0, new List<NavMeshBuildMarkup>(), sources);
+
+            var defaultBuildSettings = NavMesh.GetSettingsByID(0);
+
+            var bounds = new Bounds(new Vector3(0, -10, 0), new Vector3(10000, 100, 10000));
+            NavMeshBuilder.UpdateNavMeshData(_navMesh, defaultBuildSettings, sources, bounds);
         }
 
-        private static Vector3Int GetVector(DoorDirection direction)
+        private static Vector3Int GetVector(RoomDoorDirection direction)
         {
             return direction switch
             {
-                DoorDirection.Left => new Vector3Int(-1, 0, 0),
-                DoorDirection.Right => new Vector3Int(1, 0, 0),
-                DoorDirection.Forward => new Vector3Int(0, 0, 1),
-                DoorDirection.Backward => new Vector3Int(0, 0, -1),
+                RoomDoorDirection.Left => new Vector3Int(-1, 0, 0),
+                RoomDoorDirection.Right => new Vector3Int(1, 0, 0),
+                RoomDoorDirection.Forward => new Vector3Int(0, 0, 1),
+                RoomDoorDirection.Backward => new Vector3Int(0, 0, -1),
                 _ => throw new ArgumentOutOfRangeException(nameof(direction)),
             };
         }
 
-        private static DoorDirection OppositeDirection(DoorDirection direction)
+        private static RoomDoorDirection OppositeDirection(RoomDoorDirection direction)
         {
             return direction switch
             {
-                DoorDirection.Left => DoorDirection.Right,
-                DoorDirection.Right => DoorDirection.Left,
-                DoorDirection.Forward => DoorDirection.Backward,
-                DoorDirection.Backward => DoorDirection.Forward,
+                RoomDoorDirection.Left => RoomDoorDirection.Right,
+                RoomDoorDirection.Right => RoomDoorDirection.Left,
+                RoomDoorDirection.Forward => RoomDoorDirection.Backward,
+                RoomDoorDirection.Backward => RoomDoorDirection.Forward,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction)),
             };
-        }
-
-        public static void Collect(List<MeshFilter> m_Meshes, List<NavMeshBuildSource> sources)
-        {
-            for (int i = 0; i < m_Meshes.Count; ++i)
-            {
-                MeshFilter mf = m_Meshes[i];
-                if (mf == null) continue;
-
-                Mesh m = mf.sharedMesh;
-                if (m == null) continue;
-
-                NavMeshBuildSource s = new NavMeshBuildSource();
-                s.shape = NavMeshBuildSourceShape.Mesh;
-                s.sourceObject = m;
-                s.transform = mf.transform.localToWorldMatrix;
-                s.area = 0;
-                sources.Add(s);
-            }
         }
 
         // Update is called once per frame
         void Update()
         {
-
         }
 
-        private GameObject GenerateRoom(DoorDirection openDoors)
+        public GameObject InstantiateRoom(RoomDoorDirection openDoors)
         {
-            GameObject room = new("Room");
-
-            ProBuilderMesh floor = GenerateFloor(RoomWidth, RoomDepth);
-            floor.transform.parent = room.transform;
-
-            ProBuilderMesh ceiling = GenerateCeiling(RoomWidth, RoomDepth);
-            ceiling.transform.position = new Vector3(0, RoomHeight, 0);
-            ceiling.transform.parent = room.transform;
-
-            ProBuilderMesh wallNX = GenerateWall(RoomDepth, RoomHeight, new Vector3(-1, 0, 0));
-            wallNX.transform.position = new Vector3(-RoomWidth, RoomHeight, 0) / 2;
-            wallNX.transform.parent = room.transform;
-            if ((openDoors & DoorDirection.Left) != 0)
-            {
-                CarveDoor(RoomDepth, RoomHeight, wallNX);
-            }
-
-            ProBuilderMesh wallPX = GenerateWall(RoomDepth, RoomHeight, new Vector3(1, 0, 0));
-            wallPX.transform.position = new Vector3(RoomWidth, RoomHeight, 0) / 2;
-            wallPX.transform.parent = room.transform;
-            if ((openDoors & DoorDirection.Right) != 0)
-            {
-                CarveDoor(RoomDepth, RoomHeight, wallPX);
-            }
-
-            ProBuilderMesh wallNZ = GenerateWall(RoomWidth, RoomHeight, new Vector3(0, 0, -1));
-            wallNZ.transform.position = new Vector3(0, RoomHeight, -RoomDepth) / 2;
-            wallNZ.transform.parent = room.transform;
-            if ((openDoors & DoorDirection.Backward) != 0)
-            {
-                CarveDoor(RoomWidth, RoomHeight, wallNZ);
-            }
-
-            ProBuilderMesh wallPZ = GenerateWall(RoomWidth, RoomHeight, new Vector3(0, 0, 1));
-            wallPZ.transform.position = new Vector3(0, RoomHeight, RoomDepth) / 2;
-            wallPZ.transform.parent = room.transform;
-            if ((openDoors & DoorDirection.Forward) != 0)
-            {
-                CarveDoor(RoomWidth, RoomHeight, wallPZ);
-            }
-
-            return room;
+            GameObject prefab = Rooms[_rng.Next(Rooms.Length)];
+            GameObject instance = Instantiate(prefab);
+            return instance;
         }
 
-        private void CarveDoor(int width, int height, ProBuilderMesh mesh)
+        public GameObject InstantiateTunnel(RoomDoorDirection direction)
         {
-            List<int> faceIndices = new(width * height);
-
-            for (int y = 0; y < DoorHeight; y++)
+            GameObject prefab = Tunnels[_rng.Next(Tunnels.Length)];
+            GameObject instance = Instantiate(prefab);
+            switch (direction)
             {
-                for (int x = 0; x < DoorWidth; x++)
-                {
-                    int dx = x + width / 2 - DoorWidth / 2;
-                    faceIndices.Add(y * width + dx);
-                }
+                case RoomDoorDirection.Forward:
+                    break;
+
+                case RoomDoorDirection.Left:
+                case RoomDoorDirection.Right:
+                case RoomDoorDirection.Backward:
+                    instance.transform.rotation = Quaternion.LookRotation(GetVector(direction)) * Quaternion.Euler(0, 180, 0);
+                    break;
+
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction));
             }
-
-            mesh.DeleteFaces(faceIndices);
-            mesh.ToMesh();
-            mesh.Refresh();
-        }
-
-
-        private ProBuilderMesh GenerateFloor(int width, int depth)
-        {
-            ProBuilderMesh mesh = ShapeGenerator.GeneratePlane(PivotLocation.Center, width, depth, width - 1, depth - 1, Axis.Up);
-            mesh.name = "Floor";
-            mesh.gameObject.AddComponent<MeshCollider>();
-            mesh.gameObject.AddComponent<NavMeshSurface>();
-            mesh.GetComponent<MeshRenderer>().material = FloorMaterial;
-            return mesh;
-        }
-
-        private ProBuilderMesh GenerateCeiling(int width, int depth)
-        {
-            ProBuilderMesh mesh = ShapeGenerator.GeneratePlane(PivotLocation.Center, width, depth, width - 1, depth - 1, Axis.Down);
-            mesh.name = "Ceiling";
-            mesh.gameObject.AddComponent<MeshCollider>();
-            mesh.GetComponent<MeshRenderer>().material = FloorMaterial;
-            return mesh;
-        }
-
-        private ProBuilderMesh GenerateWall(int width, int height, Vector3 axis)
-        {
-            ProBuilderMesh mesh = ShapeGenerator.GeneratePlane(PivotLocation.Center, width, height, width - 1, height - 1, Axis.Forward);
-            mesh.name = "Wall " + axis;
-            mesh.transform.rotation = Quaternion.LookRotation(axis) * Quaternion.Euler(0, 180, 0);
-            mesh.gameObject.AddComponent<MeshCollider>();
-            mesh.GetComponent<MeshRenderer>().material = FloorMaterial;
-            return mesh;
+            return instance;
         }
     }
 }
-    
