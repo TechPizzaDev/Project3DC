@@ -3,6 +3,8 @@ using UnityEngine.VFX;
 
 public class BoombugExplode : MonoBehaviour
 {
+    
+
     [SerializeField] GameObject explosionFX;
     public int explosionDamage = 45;
     public float damageRange = 3;
@@ -16,6 +18,7 @@ public class BoombugExplode : MonoBehaviour
     void Start()
     {
         enemyDetection = GetComponent<EnemyDetection>();
+        
     }
 
     void Update()
@@ -33,6 +36,7 @@ public class BoombugExplode : MonoBehaviour
             Debug.Log("Boom!");
 
             Instantiate(explosionFX, transform.position, Quaternion.identity); //Quaternion.identity = no rotation
+            
 
             if (distanceToPlayer <= damageRange)
             {
