@@ -7,6 +7,7 @@ public class AudioConfig : ScriptableObject, System.ICloneable
 {
     [Range(0, 1f)]
     public float volume = 1f;
+
     public AudioClip[] fireClips;
     public AudioClip emptyClip;
     public AudioClip reloadClip;

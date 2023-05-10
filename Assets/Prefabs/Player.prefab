@@ -137,9 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 4
-  SprintSpeed: 6
   RotationSpeed: 1
   SpeedChangeRate: 10
+  dashSpeed: 0
+  dashDurationTimer: 0
+  dashCooldownTimer: 0
+  dashDirection: {x: 0, y: 0}
   JumpHeight: 1.2
   Gravity: -15
   JumpTimeout: 0.1
@@ -149,7 +152,7 @@ MonoBehaviour:
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 521
   CinemachineCameraTarget: {fileID: 1088799143402852941}
   TopClamp: 89
   BottomClamp: -89
@@ -185,7 +188,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   jump: 0
-  sprint: 0
+  dash: 0
   fire: 0
   analogMovement: 0
   cursorLocked: 1
@@ -373,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5d9fe0de8a794419101d60d0480145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
   Gun: 0
   gunParent: {fileID: 1183026719743276964}
   guns:
@@ -391,8 +395,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSelector: {fileID: 1263463632731647230}
-  autoReload: 1
+  autoReload: 0
   playerAnimator: {fileID: 1263463632731647227}
+  crosshair: {fileID: 0}
 --- !u!114 &1263463632731647207
 MonoBehaviour:
   m_ObjectHideFlags: 0

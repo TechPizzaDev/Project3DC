@@ -174,6 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53eb20b91237ed84080a164c27731dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionFX: {fileID: 7783693129357859826, guid: 0c69a4fb2bb297541b3cd21a79dccd09,
+    type: 3}
   explosionDamage: 45
   damageRange: 3
   timer: 1
@@ -4539,7 +4541,7 @@ PrefabInstance:
     - target: {fileID: 5289849002415925049, guid: fe2c7dba61bc80c45bbea78795a63f26,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.47299194
+      value: -0.54
       objectReference: {fileID: 0}
     - target: {fileID: 5289849002415925049, guid: fe2c7dba61bc80c45bbea78795a63f26,
         type: 3}
@@ -4554,6 +4556,16 @@ PrefabInstance:
     - target: {fileID: 5289849002415925049, guid: fe2c7dba61bc80c45bbea78795a63f26,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289849004162073106, guid: fe2c7dba61bc80c45bbea78795a63f26,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289849004162073106, guid: fe2c7dba61bc80c45bbea78795a63f26,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

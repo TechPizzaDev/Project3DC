@@ -46,7 +46,7 @@ public class UnitHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("TakeDamage");
+        //Debug.Log("TakeDamage");
         int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
 
         CurrentHealth -= damageTaken;
@@ -60,12 +60,10 @@ public class UnitHealth : MonoBehaviour, IDamageable
         {
             OnDeath?.Invoke(transform.position);
         }
-
-
-
     }
 
     public void DestroyObj() { Destroy(gameObject); }
+
     public void Detection()
     {
         enemyDetection.detected = true;
