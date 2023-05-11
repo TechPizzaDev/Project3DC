@@ -63,7 +63,7 @@ public class Shooting : MonoBehaviour
         //}
     }
 
-    // TODO: replace with Frej gun prefab
+    // TODO: needs fixing, it's bugged
     public void CharacterShooting()
     {
         Vector3 targetDirection = (targetTransform.position - transform.position).normalized;

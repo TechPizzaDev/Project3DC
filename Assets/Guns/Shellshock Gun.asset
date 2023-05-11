@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a4b5acb9a9c634186f8f05a0b5d5b6, type: 3}
   m_Name: Shellshock Gun
   m_EditorClassIdentifier: 
-  type: 0
-  gunName: 
-  modelPrefab: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
+  type: 1
+  gunName: Shellshock
+  modelPrefab: {fileID: 1541254644795337192, guid: 5e10639ffbdb98c41a22b1979fad3b53,
+    type: 3}
+  spawnPoint: {x: 255, y: -384, z: 82}
   spawnRotation: {x: 0, y: 0, z: 0}
-  damageConfig: {fileID: 0}
-  ammoConfig: {fileID: 0}
-  shootConfig: {fileID: 0}
-  trailConfig: {fileID: 0}
-  audioConfig: {fileID: 0}
+  damageConfig: {fileID: 11400000, guid: daa24c11c67cca946b977381dade5cce, type: 2}
+  ammoConfig: {fileID: 11400000, guid: ce6ea72251f0f0849b8f516246ca6482, type: 2}
+  shootConfig: {fileID: 11400000, guid: ec3e692340b9ef2449bfa4538a3fc39e, type: 2}
+  trailConfig: {fileID: 11400000, guid: afdcb3bf004539b478a51a5e94e64290, type: 2}
+  audioConfig: {fileID: 11400000, guid: ccd0587a628ac3b448fab59a1e40bfbc, type: 2}

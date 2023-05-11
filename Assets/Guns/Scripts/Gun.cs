@@ -102,7 +102,10 @@ public class Gun : ScriptableObject, ICloneable
                     + activeCamera.transform.TransformDirection(shootDirection);
             }
 
-            ammoConfig.currentClipAmmo--;
+            if (ammoConfig.ammoType != AmmoType.infinite)
+            {
+                ammoConfig.currentClipAmmo--;
+            }
 
             if (shootConfig.isHitscan)
             {
@@ -240,7 +243,7 @@ public class Gun : ScriptableObject, ICloneable
 
         if (hitCollider.TryGetComponent(out IDamageable damageable))
         {
-            //Debug.Log("Hit Damageable");
+            Debug.Log("Hit Damageable");
             damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
             damageable.Detection();
         }

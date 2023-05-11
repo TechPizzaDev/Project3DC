@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c687c790ffb43e542af1488459e39dcc, type: 3}
-  m_Name: Pistol Shoot Config
+  m_Name: Shellshock Shoot Config
   m_EditorClassIdentifier: 
   isHitscan: 0
-  bulletPrefab: {fileID: 7420427226377227820, guid: 5576d29e3ab99cd43a8af5eca80e1550,
+  bulletPrefab: {fileID: 7420427226377227820, guid: 91492f77976349641aa678032716f627,
     type: 3}
   bulletSpawnForce: 1000
   hitMask:
     serializedVersion: 2
-    m_Bits: 521
-  fireRate: 0.5
+    m_Bits: 777
+  fireRate: 0.25
   shootType: 1
   recoilRecoverySpeed: 1
   maxSpreadTime: 1
-  spreadType: 2
-  spread: {x: 10, y: 10, z: 10}
-  spreadMultiplier: 2.86
-  spreadTexture: {fileID: 2800000, guid: ef211f308efd09842a655408544ae2a0, type: 3}
+  spreadType: 1
+  spread: {x: 0.1, y: 0.1, z: 0.1}
+  spreadMultiplier: 0.1
+  spreadTexture: {fileID: 0}
