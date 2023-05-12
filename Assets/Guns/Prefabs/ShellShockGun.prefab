@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4922691634917433677}
   - component: {fileID: 3014175922482151889}
   - component: {fileID: 6722146532147387978}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShellShockGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 1866090857863790736}
   - component: {fileID: 97406834339354115}
   - component: {fileID: 6616566327447554094}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MuzzleFlash_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 8972179075129094657}
   - component: {fileID: 8784671106186020695}
   - component: {fileID: 1158002502521775645}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

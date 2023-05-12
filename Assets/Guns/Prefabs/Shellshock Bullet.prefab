@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8495432552055463309}
   - component: {fileID: 7420427226377227820}
   - component: {fileID: 1644846908095987438}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Shellshock Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

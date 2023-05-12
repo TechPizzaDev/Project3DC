@@ -68,23 +68,26 @@ public class Shooting : MonoBehaviour
     {
         Vector3 targetDirection = (targetTransform.position - transform.position).normalized;
 
-        Debug.Log("BOOM");
-        if (Vector3.Angle(transform.forward, targetDirection) < bulletSpread / 2)
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
-            if (distanceToTarget <= bulletRange)
-            {
-                //If there is no obstacle in the way = enemy has detected the player. 
-                if (Physics.Raycast(transform.position, targetDirection, distanceToTarget, targetPlayer))
-                {
-                    Debug.Log("Shot");
-                    gunSelector.activeGun.TryToShoot();
-                    //if (targetTransform.TryGetComponent(out IDamageable damageable))
-                    //{
-                    //    damageable.TakeDamage(bulletDamage);
-                    //}
-                }
-            }
-        }
+        Debug.Log("Shot");
+        gunSelector.activeGun.TryToShoot();
+
+        ////Debug.Log("BOOM");
+        //if (Vector3.Angle(transform.forward, targetDirection) < bulletSpread / 2)
+        //{
+        //    float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
+        //    if (distanceToTarget <= bulletRange)
+        //    {
+        //        //If there is no obstacle in the way = enemy has detected the player. 
+        //        if (Physics.Raycast(transform.position, targetDirection, distanceToTarget, targetPlayer))
+        //        {
+        //            Debug.Log("Shot");
+        //            gunSelector.activeGun.TryToShoot();
+        //            //if (targetTransform.TryGetComponent(out IDamageable damageable))
+        //            //{
+        //            //    damageable.TakeDamage(bulletDamage);
+        //            //}
+        //        }
+        //    }
+        //}
     }
 }

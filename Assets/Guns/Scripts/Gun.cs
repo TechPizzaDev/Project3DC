@@ -48,6 +48,7 @@ public class Gun : ScriptableObject, ICloneable
         if (!shootConfig.isHitscan)
         {
             bulletPool = new ObjectPool<Bullet>(CreateBullet);
+            Debug.Log(bulletPool);
         }
 
         if (modelPrefab != null)
@@ -216,6 +217,7 @@ public class Gun : ScriptableObject, ICloneable
 
         if (collision != null)
         {
+            Debug.Log(collision.gameObject.name);
             ContactPoint contactPoint = collision.GetContact(0);
 
             HandleBulletImpact(
@@ -245,7 +247,13 @@ public class Gun : ScriptableObject, ICloneable
         {
             Debug.Log("Hit Damageable");
             damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
-            damageable.Detection();
+
+            //if damageable is on enemy layer, do detection
+            if (hitCollider.gameObject.layer == 11)
+            {
+                Debug.Log("Hit Enemy");
+                damageable.Detection();
+            }
         }
     }
 
