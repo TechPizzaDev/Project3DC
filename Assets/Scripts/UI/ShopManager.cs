@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
     //Just temporary number. Should obviously be replaced by the Player's actual dollar/health count.
-    public int dollars = 1000;
+    public int dollars = 100;
     public int health = 80;
 
     public TMP_Text dollarUI;
@@ -15,6 +16,10 @@ public class ShopManager : MonoBehaviour
     public ShopItem[] shopItem;
     public ShopTemplate[] shopTemplate;
     public GameObject[] shopTemplateGO;
+
+    public Button[] buyBtn;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +30,7 @@ public class ShopManager : MonoBehaviour
         }
 
         UIDisplay();
+        CheckBuyability();
         LoadTemplates();
     }
 
@@ -48,6 +54,21 @@ public class ShopManager : MonoBehaviour
             shopTemplate[i].descriptionTxt.text = shopItem[i].description;
             shopTemplate[i].priceTxt.text = "$ " + shopItem[i].baseCost.ToString();
 
+        }
+    }
+
+    public void CheckBuyability()
+    {
+        for(int i = 0; i < shopItem.Length; i++)
+        {
+            if(dollars >= shopItem[i].baseCost) //If you can afford it
+            {
+                buyBtn[i].interactable = true;
+            }
+            else
+            {
+                buyBtn[i].interactable = false;
+            }
         }
     }
 
