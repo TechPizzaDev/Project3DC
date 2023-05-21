@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
@@ -19,12 +17,14 @@ public class ShopManager : MonoBehaviour
 
     public Button[] buyBtn;
 
+    bool buyable;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < shopItem.Length; i++)
+        for (int i = 0; i < shopItem.Length; i++)
         {
             shopTemplateGO[i].SetActive(true);
         }
@@ -37,7 +37,7 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void UIDisplay()
@@ -48,7 +48,7 @@ public class ShopManager : MonoBehaviour
 
     public void LoadTemplates()
     {
-        for(int i = 0; i < shopItem.Length; i++)
+        for (int i = 0; i < shopItem.Length; i++)
         {
             shopTemplate[i].titleTxt.text = shopItem[i].title;
             shopTemplate[i].descriptionTxt.text = shopItem[i].description;
@@ -59,17 +59,26 @@ public class ShopManager : MonoBehaviour
 
     public void CheckBuyability()
     {
-        for(int i = 0; i < shopItem.Length; i++)
+        for (int i = 0; i < shopItem.Length; i++)
         {
-            if(dollars >= shopItem[i].baseCost) //If you can afford it
-            {
-                buyBtn[i].interactable = true;
-            }
-            else
+            if (dollars < shopItem[i].baseCost) //If you can't afford it
             {
                 buyBtn[i].interactable = false;
             }
+            else
+            {
+                buyBtn[i].interactable = true;
+            }
         }
+    }
+
+    public void PurchaseItem(int btnNo)
+    {
+
+        dollars = dollars - shopItem[btnNo].baseCost;
+        UIDisplay();
+        CheckBuyability();
+
     }
 
 
