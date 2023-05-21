@@ -6,9 +6,16 @@ using UnityEngine.SceneManagement;
 public class BtnUI : MonoBehaviour
 {
     [SerializeField] private string newGameLevel = "Playground";
+    [SerializeField] private string controlsScene = "ControlsUI";
+    [SerializeField] private string menuScene = "MenuScene";
     public void NewGameButton()
     {
-        SceneManager.LoadScene(newGameLevel);
+        SceneChanger(newGameLevel);
+    }
+    public void ControlsScreen()
+    {
+        SceneChanger(controlsScene);
+
     }
     public void QuitGame()
     {
@@ -16,5 +23,14 @@ public class BtnUI : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
         Application.Quit();
+    }
+    public void BackToMenu()
+    {
+        SceneChanger(menuScene);
+    }
+
+    public void SceneChanger(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
