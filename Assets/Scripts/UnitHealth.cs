@@ -19,6 +19,8 @@ public class UnitHealth : MonoBehaviour, IDamageable
 
     [SerializeField] GameObject dollar;
 
+    public int currencyDrop = 10;
+
     void Start()
     {
         health = maxHealth;
@@ -64,12 +66,12 @@ public class UnitHealth : MonoBehaviour, IDamageable
         }
     }
 
-    public void DestroyObj() 
-    { 
+    public void DestroyObj()
+    {
         Destroy(gameObject);
-        Instantiate(dollar, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity); //Quaternion.identity = no rotation
+        var currencyManager = Instantiate(dollar, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity); //Quaternion.identity = no rotation
 
-
+        currencyManager.GetComponent<Currency>().dollars = currencyDrop;
     }
 
     public void Detection()
