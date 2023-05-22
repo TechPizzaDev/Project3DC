@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5417048771063395824}
   - component: {fileID: 8602351767612813658}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: Room Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
-  ProximityRadius: 10
+  ProximityRadius: 6
   Expanse: 2.5
   Direction: 0
   LeftDoor: {fileID: 5417048771063491038}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 5417048771063395832}
   - component: {fileID: 5417048771060528600}
   - component: {fileID: 5417048771061495576}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: Door_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5417048771063395834}
   - component: {fileID: 5417048771060528602}
   - component: {fileID: 5417048771061495578}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 5417048771063395838}
   - component: {fileID: 5417048771060528606}
   - component: {fileID: 5417048771061495582}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: Door_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

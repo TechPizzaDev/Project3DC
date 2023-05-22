@@ -127,6 +127,7 @@ namespace ProceduralRooms
             NavMeshBuilder.CollectSources(transform, NavLayerMask.value, NavMeshCollectGeometry.PhysicsColliders, 0, new List<NavMeshBuildMarkup>(), sources);
 
             var defaultBuildSettings = NavMesh.GetSettingsByID(0);
+            defaultBuildSettings.agentRadius = 1;
 
             var bounds = new Bounds(new Vector3(0, -10, 0), new Vector3(10000, 100, 10000));
             NavMeshBuilder.UpdateNavMeshData(_navMesh, defaultBuildSettings, sources, bounds);
