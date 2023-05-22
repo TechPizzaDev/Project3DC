@@ -1466,7 +1466,7 @@ MonoBehaviour:
   damaged: 0
   killed: 0
   dollar: {fileID: 0}
-  currencyDrop: 50
+  currency: 50
 --- !u!114 &6415075113222443612
 MonoBehaviour:
   m_ObjectHideFlags: 0
