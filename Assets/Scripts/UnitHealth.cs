@@ -19,7 +19,7 @@ public class UnitHealth : MonoBehaviour, IDamageable
 
     [SerializeField] GameObject dollar;
 
-    public int currencyDrop = 10;
+    public int currency = 0;
 
     void Start()
     {
@@ -71,7 +71,7 @@ public class UnitHealth : MonoBehaviour, IDamageable
         Destroy(gameObject);
         var currencyManager = Instantiate(dollar, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity); //Quaternion.identity = no rotation
 
-        currencyManager.GetComponent<Currency>().dollars = currencyDrop;
+        currencyManager.GetComponent<Currency>().dollars = currency;
     }
 
     public void Detection()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1187,7 +1187,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1466743239}
+      objectReference: {fileID: 0}
     - target: {fileID: 2242168166017387158, guid: 36910427901bff447899d38533a3a6f0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -1225,6 +1225,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36910427901bff447899d38533a3a6f0, type: 3}
+--- !u!1 &965080207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965080209}
+  - component: {fileID: 965080208}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &965080208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965080207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e44d44e6f91d047baf06d03d5c5528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  damaged: 0
+  killed: 0
+  dollar: {fileID: 0}
+  currency: 0
+--- !u!4 &965080209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965080207}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1244023120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1401,6 @@ GameObject:
   - component: {fileID: 1466743236}
   - component: {fileID: 1466743238}
   - component: {fileID: 1466743237}
-  - component: {fileID: 1466743239}
   m_Layer: 0
   m_Name: BG Panel
   m_TagString: Untagged
@@ -1419,38 +1468,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466743235}
   m_CullTransparentMesh: 1
---- !u!114 &1466743239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466743235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39f4bc1efee8573489c18bc0953b8223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dollars: 400
-  health: 80
-  dollarUI: {fileID: 757682141}
-  healthUI: {fileID: 120743428}
-  shopItem:
-  - {fileID: 11400000, guid: 27f3d46e47e20c84497c705a25be8c12, type: 2}
-  - {fileID: 11400000, guid: 3021770b63c29224b8bcb5d8546eb3af, type: 2}
-  - {fileID: 11400000, guid: f45198f1243e03c4f85c9b576585f386, type: 2}
-  shopTemplate:
-  - {fileID: 3292496}
-  - {fileID: 1917575492}
-  - {fileID: 1460178412}
-  shopTemplateGO:
-  - {fileID: 3292491}
-  - {fileID: 1917575488}
-  - {fileID: 1460178407}
-  buyBtn:
-  - {fileID: 1441269067}
-  - {fileID: 2132995128}
-  - {fileID: 2119493330}
 --- !u!1 &1509814443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1676,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1466743239}
+      objectReference: {fileID: 0}
     - target: {fileID: 2242168166017387158, guid: 36910427901bff447899d38533a3a6f0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -1701,6 +1718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1822772208}
+  - component: {fileID: 1822772209}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -1724,6 +1742,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1822772209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822772207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f4bc1efee8573489c18bc0953b8223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dollarUI: {fileID: 757682141}
+  healthUI: {fileID: 120743428}
+  shopItem:
+  - {fileID: 11400000, guid: 27f3d46e47e20c84497c705a25be8c12, type: 2}
+  - {fileID: 11400000, guid: 3021770b63c29224b8bcb5d8546eb3af, type: 2}
+  - {fileID: 11400000, guid: f45198f1243e03c4f85c9b576585f386, type: 2}
+  shopTemplate:
+  - {fileID: 3292496}
+  - {fileID: 1917575492}
+  - {fileID: 1460178412}
+  shopTemplateGO:
+  - {fileID: 3292491}
+  - {fileID: 1917575488}
+  - {fileID: 1460178407}
+  buyBtn:
+  - {fileID: 1441269067}
+  - {fileID: 2132995128}
+  - {fileID: 2119493330}
+  unitHealth: {fileID: 965080208}
 --- !u!1 &1917575488 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7146625533010172310, guid: 36910427901bff447899d38533a3a6f0,
@@ -1879,7 +1928,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1466743239}
+      objectReference: {fileID: 0}
     - target: {fileID: 2242168166017387158, guid: 36910427901bff447899d38533a3a6f0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
