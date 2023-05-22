@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
 
 public class CurrencyManager : MonoBehaviour
 {
-    public int dollars;
+    UnitHealth unitHealth;
+
+    public void Start()
+    {
+        unitHealth = GetComponent<UnitHealth>();
+    }
+
 
     public void AquireDollars(int amount) //MakeItRain()
     {
-        dollars += amount;
+        unitHealth.currency += amount;
     }
 
 }

@@ -5,9 +5,6 @@ using UnityEngine.UI;
 public class ShopManager : MonoBehaviour
 {
     //Just temporary number. Should obviously be replaced by the Player's actual dollar/health count.
-    public int dollars = 100;
-    public int health = 80;
-
     public TMP_Text dollarUI;
     public TMP_Text healthUI;
 
@@ -17,8 +14,7 @@ public class ShopManager : MonoBehaviour
 
     public Button[] buyBtn;
 
-    bool buyable;
-
+    public UnitHealth unitHealth;
 
 
     // Start is called before the first frame update
@@ -29,7 +25,6 @@ public class ShopManager : MonoBehaviour
             shopTemplateGO[i].SetActive(true);
         }
 
-        UIDisplay();
         CheckBuyability();
         LoadTemplates();
     }
@@ -37,13 +32,13 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UIDisplay();
     }
 
     public void UIDisplay()
     {
-        dollarUI.text = "$ " + dollars;
-        healthUI.text = "HP " + health;
+        dollarUI.text = "$ " + unitHealth.currency;
+        healthUI.text = "HP " + unitHealth.health;
     }
 
     public void LoadTemplates()
@@ -61,7 +56,7 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItem.Length; i++)
         {
-            if (dollars < shopItem[i].baseCost) //If you can't afford it
+            if (unitHealth.currency < shopItem[i].baseCost) //If you can't afford it
             {
                 buyBtn[i].interactable = false;
             }
@@ -75,8 +70,7 @@ public class ShopManager : MonoBehaviour
     public void PurchaseItem(int btnNo)
     {
 
-        dollars = dollars - shopItem[btnNo].baseCost;
-        UIDisplay();
+        unitHealth.currency = unitHealth.currency - shopItem[btnNo].baseCost;
         CheckBuyability();
 
     }
