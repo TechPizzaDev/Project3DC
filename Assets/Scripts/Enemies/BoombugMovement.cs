@@ -22,6 +22,8 @@ public class BoombugMovement : MonoBehaviour
     float aggressiveSpeed = 3.0f;
     float regularSpeed = 1.0f;
 
+    int currencyDrop = 25; //Temporary 
+
     enum State
     {
         isPatrolling,
