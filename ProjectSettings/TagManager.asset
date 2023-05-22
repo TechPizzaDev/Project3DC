@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - Enemy
   - Bullet
+  - Gun
   layers:
   - Default
   - TransparentFX
@@ -18,6 +19,8 @@ TagManager:
   - Ignore Bullets
   - Character
   - Ground
+  - Enemy Bullets
+  - Enemy
   - Door
   - Spawner
   - 

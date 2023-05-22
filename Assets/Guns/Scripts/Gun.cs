@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.VFX;
@@ -47,9 +48,19 @@ public class Gun : ScriptableObject, ICloneable
         if (!shootConfig.isHitscan)
         {
             bulletPool = new ObjectPool<Bullet>(CreateBullet);
+            Debug.Log(bulletPool);
         }
 
-        model = Instantiate(modelPrefab);
+        if (modelPrefab != null)
+        {
+            model = Instantiate(modelPrefab);
+        }
+        else
+        {
+            //model = ;   
+        }
+
+        //model = Instantiate(modelPrefab);
         model.transform.SetParent(parent, false);
         model.transform.localPosition = spawnPoint;
         model.transform.localRotation = Quaternion.Euler(spawnRotation);
@@ -92,7 +103,10 @@ public class Gun : ScriptableObject, ICloneable
                     + activeCamera.transform.TransformDirection(shootDirection);
             }
 
-            ammoConfig.currentClipAmmo--;
+            if (ammoConfig.ammoType != AmmoType.infinite)
+            {
+                ammoConfig.currentClipAmmo--;
+            }
 
             if (shootConfig.isHitscan)
             {
@@ -203,6 +217,7 @@ public class Gun : ScriptableObject, ICloneable
 
         if (collision != null)
         {
+            Debug.Log(collision.gameObject.name);
             ContactPoint contactPoint = collision.GetContact(0);
 
             HandleBulletImpact(
@@ -230,9 +245,15 @@ public class Gun : ScriptableObject, ICloneable
 
         if (hitCollider.TryGetComponent(out IDamageable damageable))
         {
-            //Debug.Log("Hit Damageable");
+            Debug.Log("Hit Damageable");
             damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
-            damageable.Detection();
+
+            //if damageable is on enemy layer, do detection
+            if (hitCollider.gameObject.layer == 11)
+            {
+                Debug.Log("Hit Enemy");
+                damageable.Detection();
+            }
         }
     }
 

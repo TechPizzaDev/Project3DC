@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Ammo Config", menuName = "Guns/Ammo Configuration", order = 3)]
 public class AmmoConfig : ScriptableObject, System.ICloneable
 {
+    public AmmoType ammoType = AmmoType.normal;
+
     public int maxAmmo = 120;
     public int clipSize = 30;
 
@@ -19,7 +21,10 @@ public class AmmoConfig : ScriptableObject, System.ICloneable
         int reloadAmount = Mathf.Min(maxReloadAmount, availableBulletsInCurrentClip);
 
         currentClipAmmo = currentClipAmmo + reloadAmount;
-        currentAmmo -= reloadAmount;
+        if (ammoType == AmmoType.normal)
+        {
+            currentAmmo -= reloadAmount;
+        }
     }
 
     public bool CanReload()
