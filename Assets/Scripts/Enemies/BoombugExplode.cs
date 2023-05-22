@@ -3,7 +3,7 @@ using UnityEngine.VFX;
 
 public class BoombugExplode : MonoBehaviour
 {
-    
+    UnitHealth unitHealth;
 
     [SerializeField] GameObject explosionFX;
     public int explosionDamage = 45;
@@ -15,9 +15,12 @@ public class BoombugExplode : MonoBehaviour
     float explosionFXTimer = 1f;
     public bool explosionMode;
 
+    
+
     void Start()
     {
         enemyDetection = GetComponent<EnemyDetection>();
+        unitHealth = GetComponent<UnitHealth>();
         
     }
 
@@ -46,7 +49,7 @@ public class BoombugExplode : MonoBehaviour
                 }
             }
 
-            Destroy(gameObject);
+            unitHealth.DestroyObj();
         }
     }
 
