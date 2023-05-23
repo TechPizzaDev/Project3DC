@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1888,6 +1888,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965080209}
   - component: {fileID: 965080208}
+  - component: {fileID: 965080210}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1912,7 +1913,7 @@ MonoBehaviour:
   damaged: 0
   killed: 0
   dollar: {fileID: 0}
-  currency: 0
+  currency: 10000
 --- !u!4 &965080209
 Transform:
   m_ObjectHideFlags: 0
@@ -1928,6 +1929,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &965080210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965080207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5d9fe0de8a794419101d60d0480145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  Gun: 0
+  gunParent: {fileID: 965080209}
+  guns:
+  - {fileID: 11400000, guid: ec526e9d56e31ba459038c6efe99d1b7, type: 2}
+  activeGun: {fileID: 0}
 --- !u!1 &974741627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,9 +2699,9 @@ MonoBehaviour:
   dollarUI: {fileID: 757682141}
   healthUI: {fileID: 120743428}
   shopItem:
-  - {fileID: 11400000, guid: 27f3d46e47e20c84497c705a25be8c12, type: 2}
-  - {fileID: 11400000, guid: 3021770b63c29224b8bcb5d8546eb3af, type: 2}
-  - {fileID: 11400000, guid: f45198f1243e03c4f85c9b576585f386, type: 2}
+  - {fileID: 11400000, guid: 00b8a5821aec0804f9b4dab76c6ff1bd, type: 2}
+  - {fileID: 11400000, guid: 25244395d6f5e154681fb044aab9d279, type: 2}
+  - {fileID: 11400000, guid: 0283b0d3239798c4593c5deea592cc95, type: 2}
   shopTemplate:
   - {fileID: 3292496}
   - {fileID: 1917575492}
@@ -2696,6 +2715,7 @@ MonoBehaviour:
   - {fileID: 2132995128}
   - {fileID: 2119493330}
   unitHealth: {fileID: 965080208}
+  gunSelector: {fileID: 965080210}
 --- !u!1 &1907348845
 GameObject:
   m_ObjectHideFlags: 0
