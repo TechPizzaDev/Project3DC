@@ -1,3 +1,4 @@
+using Guns.ImpactEffects;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -19,6 +20,8 @@ public class Gun : ScriptableObject, ICloneable
     public ShootConfig shootConfig;
     public TrailConfig trailConfig;
     public AudioConfig audioConfig;
+
+    public ICollisionHandler[] bulletImpactEffects = new ICollisionHandler[0];
 
     private MonoBehaviour activeMonoBehaviour;
     private GameObject model;
@@ -254,6 +257,11 @@ public class Gun : ScriptableObject, ICloneable
                 Debug.Log("Hit Enemy");
                 damageable.Detection();
             }
+        }
+
+        foreach (ICollisionHandler handler in bulletImpactEffects)
+        {
+            handler.HandleImpact(hitCollider, hitLocation, hitNormal, this);
         }
     }
 
