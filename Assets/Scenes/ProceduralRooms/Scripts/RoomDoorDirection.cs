@@ -1,5 +1,8 @@
-﻿namespace ProceduralRooms
+﻿using System;
+
+namespace ProceduralRooms
 {
+    [Flags]
     public enum RoomDoorDirection
     {
         None = 0,

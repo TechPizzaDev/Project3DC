@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 1504171692910466603, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 16
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1727549608546546337, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 2104395443799530757, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 16
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 2779343663630989100, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
@@ -190,7 +190,7 @@ PrefabInstance:
     - target: {fileID: 4435834674424552773, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 16
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 4435841298959148213, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
@@ -220,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 6130266762351244446, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 16
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 6804507782113291340, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 6804507782113291340, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7062987125209055955, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
@@ -305,7 +305,7 @@ PrefabInstance:
     - target: {fileID: 8387036609652827576, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 9137209323576242814, guid: 730b5bac987dfda4cb5b7609e4ad9528,
         type: 3}

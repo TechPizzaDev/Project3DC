@@ -5,12 +5,15 @@ namespace ProceduralRooms
     public class ProximityDoor : MonoBehaviour
     {
         private const float DoorOpenDelay = 0.5f;
+        private const float ForcedStateSpeedFactor = 2f;
 
         public float Speed = 5f;
         public float ProximityRadius = 10;
         public float Expanse = 2.5f;
 
         public RoomDoorDirection Direction;
+        public ProximityDoorState ForcedState;
+
         public GameObject LeftDoor;
         public GameObject RightDoor;
 
@@ -27,7 +30,7 @@ namespace ProceduralRooms
 
         private float openTime;
         private float closedTime;
-        private bool isOpen;
+        private ProximityDoorState state = ProximityDoorState.Closed;
         private float openPause;
 
         // Start is called before the first frame update
@@ -46,7 +49,9 @@ namespace ProceduralRooms
             rightStartPos = RightDoor.transform.position;
             rightEndPos = rightStartPos - rotation * new Vector3(0, 0, Expanse);
 
+            // prevent audio playing on start
             openTime = float.Epsilon;
+            closedTime = float.Epsilon;
         }
 
         // Update is called once per frame
@@ -57,17 +62,31 @@ namespace ProceduralRooms
             float delta = Time.deltaTime;
 
             openPause += delta;
-            if (openPause > DoorOpenDelay)
+            float speed = delta * Speed;
+
+            if (ForcedState != ProximityDoorState.Unset)
             {
-                isOpen = Vector3.Distance(TargetTransform.position, transform.position) <= ProximityRadius;
+                state = ForcedState;
+                speed *= ForcedStateSpeedFactor; // close faster when forced
+            }
+            else if (openPause > DoorOpenDelay)
+            {
+                if (Vector3.Distance(TargetTransform.position, transform.position) <= ProximityRadius)
+                {
+                    state = ProximityDoorState.Open;
+                }
+                else
+                {
+                    state = ProximityDoorState.Closed;
+                }
             }
 
-            if (isOpen)
+            if (state == ProximityDoorState.Open)
             {
-                leftPos = Vector3.Lerp(leftPos, leftEndPos, delta * Speed);
-                rightPos = Vector3.Lerp(rightPos, rightEndPos, delta * Speed);
+                leftPos = Vector3.Lerp(leftPos, leftEndPos, speed);
+                rightPos = Vector3.Lerp(rightPos, rightEndPos, speed);
 
-                if (closedTime == 0) // The door has just closed
+                if (closedTime == 0) // The door has started closing
                 {
                     audioSource.clip = CloseClip;
                     audioSource.Play();
@@ -78,10 +97,10 @@ namespace ProceduralRooms
             }
             else
             {
-                leftPos = Vector3.Lerp(leftPos, leftStartPos, delta * Speed);
-                rightPos = Vector3.Lerp(rightPos, rightStartPos, delta * Speed);
+                leftPos = Vector3.Lerp(leftPos, leftStartPos, speed);
+                rightPos = Vector3.Lerp(rightPos, rightStartPos, speed);
 
-                if (openTime == 0) // The door has just opened
+                if (openTime == 0) // The door has started opening
                 {
                     audioSource.clip = OpenClip;
                     audioSource.Play();
