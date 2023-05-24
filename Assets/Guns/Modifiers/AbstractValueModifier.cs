@@ -5,6 +5,7 @@ namespace Guns.Modifiers
 {
     public abstract class AbstractValueModifier<T> : IModifier
     {
+        public string description;
         public string attributeName;
         public T amount;
 

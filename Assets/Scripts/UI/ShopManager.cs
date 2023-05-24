@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Guns.Modifiers;
 
 public class ShopManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class ShopManager : MonoBehaviour
     public Button[] buyBtn;
 
     public UnitHealth unitHealth;
+    public PlayerGunSelector gunSelector;
 
 
     // Start is called before the first frame update
@@ -69,10 +71,79 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItem(int btnNo)
     {
-
         unitHealth.currency = unitHealth.currency - shopItem[btnNo].baseCost;
         CheckBuyability();
+        ApplyUpgrade(shopItem[btnNo]);
+    }
 
+    public void ApplyUpgrade(ShopItem item)
+    {
+        switch (item.upgradeType)
+        {
+            case
+            UpgradeType.damage:
+                DamageModifier damageModifier = new()
+                {
+                    amount = item.floatAmount,
+                    attributeName = "damageConfig/DamageCurve",
+                    description = "Increases damage by " + item.floatAmount * 100 + "%"
+                };
+                damageModifier.Apply(gunSelector.activeGun);
+                Debug.Log(gunSelector.activeGun.damageConfig.DamageCurve.constant);
+                break;
+            case
+            UpgradeType.spread:
+                Vector3Modifier spreadModifier = new()
+                {
+                    amount = item.vector3Amount,
+                    attributeName = "shootConfig/spread",
+                    description = "Spread"
+                };
+                spreadModifier.Apply(gunSelector.activeGun);
+                break;
+            case
+            UpgradeType.fireRate:
+                FloatModifier fireRateModifier = new()
+                {
+                    amount = item.floatAmount,
+                    attributeName = "shootConfig/fireRate",
+                    description = "Fire Rate"
+                };
+                fireRateModifier.Apply(gunSelector.activeGun);
+                break;
+            case
+            UpgradeType.magSize:
+                FloatModifier magSizeModifier = new()
+                {
+                    amount = item.floatAmount,
+                    attributeName = "ammoConfig/clipSize",
+                    description = "Mag Size"
+                };
+                magSizeModifier.Apply(gunSelector.activeGun);
+                break;
+            //case
+            //UpgradeType.reloadTime:
+            //    FloatModifier reloadTimeModifier = new()
+            //    {
+            //        amount = item.floatAmount,
+            //        attributeName = "shootConfig/reloadTime",
+            //        description = "Reload Time"
+            //    };
+            //    reloadTimeModifier.Apply(gunSelector.activeGun);
+            //    break;
+            case
+            UpgradeType.bulletSpeed:
+                FloatModifier bulletSpeedModifier = new()
+                {
+                    amount = item.floatAmount,
+                    attributeName = "shootConfig/bulletSpawnForce",
+                    description = "Bullet Speed"
+                };
+                bulletSpeedModifier.Apply(gunSelector.activeGun);
+                break;
+            default:
+                break;
+        }
     }
 
 
