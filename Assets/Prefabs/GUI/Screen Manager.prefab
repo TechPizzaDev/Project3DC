@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7315158044563934692
+--- !u!1 &1491470155174899815
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7315158044563934695}
-  - component: {fileID: 7315158044563934694}
+  - component: {fileID: 1491470155174899809}
+  - component: {fileID: 1491470155174899814}
   m_Layer: 0
-  m_Name: BtnController
+  m_Name: Screen Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7315158044563934695
-RectTransform:
+--- !u!4 &1491470155174899809
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7315158044563934692}
+  m_GameObject: {fileID: 1491470155174899815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,22 +32,21 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7315158044563934694
+--- !u!114 &1491470155174899814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7315158044563934692}
+  m_GameObject: {fileID: 1491470155174899815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a7f8f95946bf2a48b00569e6a6f5807, type: 3}
+  m_Script: {fileID: 11500000, guid: 6afb0e0ec57f24d4f9cb877396c06ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameLevel: Playground
-  controlsScene: ControlsUI
+  MainMenuScene: {fileID: 102900000, guid: 8f8ff8b8d190f54489300d68f8aa1fed, type: 3}
+  ControlsMenuScene: {fileID: 102900000, guid: 4459886fcf7a02545a6b5b0aeebf7061, type: 3}
+  GameplayScene: {fileID: 102900000, guid: adf125afa0ac1f744b9715bd5b384d7c, type: 3}
+  ShopMenuScene: {fileID: 102900000, guid: 0ea321eadc3afa64c8dc707e0ea9dec4, type: 3}
+  WinScene: {fileID: 102900000, guid: d3dc214b568e4ce419a67f9f1237f864, type: 3}
+  GameOverScene: {fileID: 102900000, guid: 5c1b63bcb078a4c4ea2f2516d0e31c8c, type: 3}
