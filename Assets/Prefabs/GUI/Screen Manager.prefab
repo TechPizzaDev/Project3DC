@@ -44,9 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afb0e0ec57f24d4f9cb877396c06ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuScene: {fileID: 102900000, guid: 8f8ff8b8d190f54489300d68f8aa1fed, type: 3}
-  ControlsMenuScene: {fileID: 102900000, guid: 4459886fcf7a02545a6b5b0aeebf7061, type: 3}
-  GameplayScene: {fileID: 102900000, guid: adf125afa0ac1f744b9715bd5b384d7c, type: 3}
-  ShopMenuScene: {fileID: 102900000, guid: 0ea321eadc3afa64c8dc707e0ea9dec4, type: 3}
-  WinScene: {fileID: 102900000, guid: d3dc214b568e4ce419a67f9f1237f864, type: 3}
-  GameOverScene: {fileID: 102900000, guid: 5c1b63bcb078a4c4ea2f2516d0e31c8c, type: 3}
+  MainMenuScene:
+    asset: {fileID: 102900000, guid: 8f8ff8b8d190f54489300d68f8aa1fed, type: 3}
+    guid: 8f8ff8b8d190f54489300d68f8aa1fed
+  ControlsMenuScene:
+    asset: {fileID: 102900000, guid: 4459886fcf7a02545a6b5b0aeebf7061, type: 3}
+    guid: 4459886fcf7a02545a6b5b0aeebf7061
+  GameplayScene:
+    asset: {fileID: 102900000, guid: adf125afa0ac1f744b9715bd5b384d7c, type: 3}
+    guid: adf125afa0ac1f744b9715bd5b384d7c
+  ShopMenuScene:
+    asset: {fileID: 102900000, guid: 0ea321eadc3afa64c8dc707e0ea9dec4, type: 3}
+    guid: 0ea321eadc3afa64c8dc707e0ea9dec4
+  WinScene:
+    asset: {fileID: 102900000, guid: d3dc214b568e4ce419a67f9f1237f864, type: 3}
+    guid: d3dc214b568e4ce419a67f9f1237f864
+  GameOverScene:
+    asset: {fileID: 102900000, guid: 5c1b63bcb078a4c4ea2f2516d0e31c8c, type: 3}
+    guid: 5c1b63bcb078a4c4ea2f2516d0e31c8c

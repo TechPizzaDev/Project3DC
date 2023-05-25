@@ -1,46 +1,49 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Eflatun.SceneReference;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class ScreenManager : MonoBehaviour
 {
-    public SceneAsset MainMenuScene;
-    public SceneAsset ControlsMenuScene;
+    public SceneReference MainMenuScene;
+    public SceneReference ControlsMenuScene;
 
-    public SceneAsset GameplayScene;
-    public SceneAsset ShopMenuScene;
-
-    public SceneAsset WinScene;
-    public SceneAsset GameOverScene;
+    public SceneReference GameplayScene;
+    public SceneReference ShopMenuScene;
+                
+    public SceneReference WinScene;
+    public SceneReference GameOverScene;
 
     public void GoToMainMenuScene()
     {
-        SceneManager.LoadSceneAsync(MainMenuScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(MainMenuScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void OpenControlsMenuScene()
     {
-        SceneManager.LoadSceneAsync(ControlsMenuScene.name, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(ControlsMenuScene.BuildIndex, LoadSceneMode.Additive);
     }
 
     public void GoToGameplayScene()
     {
-        SceneManager.LoadSceneAsync(GameplayScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(GameplayScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void OpenShopMenuScene()
     {
-        SceneManager.LoadSceneAsync(ShopMenuScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(ShopMenuScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void GoToWinScene()
     {
-        SceneManager.LoadSceneAsync(WinScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(WinScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void GoToGameOverScene()
     {
-        SceneManager.LoadSceneAsync(GameOverScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(GameOverScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void RestartGameplay()
