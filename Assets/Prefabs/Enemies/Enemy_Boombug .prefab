@@ -197,7 +197,7 @@ MonoBehaviour:
   maxHealth: 100
   damaged: 0
   killed: 0
-  dollar: {fileID: 0}
+  dollar: {fileID: 9045439510663045765, guid: 984da11527e3b9f458d60cc713e9ed48, type: 3}
   currency: 25
 --- !u!114 &8858131730245489
 MonoBehaviour:
