@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Guns.Modifiers;
+using System.Collections.Generic;
+using System.Linq;
 
 public class ShopManager : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class ShopManager : MonoBehaviour
     public TMP_Text dollarUI;
     public TMP_Text healthUI;
 
+    public ShopItem[] allItems; 
     public ShopItem[] shopItem;
     public ShopTemplate[] shopTemplate;
     public GameObject[] shopTemplateGO;
@@ -18,6 +21,7 @@ public class ShopManager : MonoBehaviour
     public UnitHealth unitHealth;
     public PlayerGunSelector gunSelector;
 
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +31,26 @@ public class ShopManager : MonoBehaviour
             shopTemplateGO[i].SetActive(true);
         }
 
-        CheckBuyability();
+        LoadItems();
         LoadTemplates();
+        CheckBuyability();
+    }
+
+    private void LoadItems()
+    {
+        allItems = Resources.LoadAll<ShopItem>("ShopItems/");
+
+        //assign shop items to random items from all items
+        for (int i = 0; i < shopItem.Length;)
+        {
+            int rnd = Random.Range(0, allItems.Length);
+
+            if (!shopItem.Contains(allItems[rnd]))
+            {
+                shopItem[i] = allItems[rnd];
+                i++;
+            }
+        }
     }
 
     // Update is called once per frame
