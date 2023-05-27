@@ -15,7 +15,7 @@ public class CurrencyManager : MonoBehaviour
     }
 
 
-    public void AquireDollars(int amount) //MakeItRain()
+    public void AquireDollars(int amount) 
     {
         unitHealth.currency += amount;
     }

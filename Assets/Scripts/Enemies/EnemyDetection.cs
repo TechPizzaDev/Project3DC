@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class handles enemy detection logic based on the enemy's field of view.
+/// It calculates the angle and distance between the enemy and the target (typically the player),
+///  checks for obstacles in the line of sight, and determines if the enemy has detected the target.
+/// </summary>
+/// 
 public class EnemyDetection : MonoBehaviour
 {
     [SerializeField] private float viewRadius;
@@ -15,6 +21,7 @@ public class EnemyDetection : MonoBehaviour
 
     void Start()
     {
+        // Sets the target transform to the player's transform if it is not assigned
         if (targetTransform == null)
         {
             targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -45,7 +52,7 @@ public class EnemyDetection : MonoBehaviour
                 }
             }
         }
-
+        // Resets the detected state to false if the target is not detected
         detected = false;
     }
 }
