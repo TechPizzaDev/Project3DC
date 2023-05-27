@@ -48,12 +48,4 @@ public class EnemyDetection : MonoBehaviour
 
         detected = false;
     }
-
-    //public void AlertOnHit(GameObject? caster)
-    //{
-    //    if (caster.CompareTag("Player"))
-    //    {
-    //        awoken = true;
-    //    }
-    //}
 }
