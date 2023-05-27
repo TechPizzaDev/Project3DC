@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.VFX;
 
+
+/// <summary>
+/// This class manages the explosion behavior of a Boombug enemy.
+/// It handles triggering the explosion, damaging nearby objects, and destroying the enemy itself.
+/// </summary>
+
 public class BoombugExplode : MonoBehaviour
 {
     UnitHealth unitHealth;
@@ -26,35 +32,43 @@ public class BoombugExplode : MonoBehaviour
 
     void Update()
     {
+        //Counts down till enemy explod
         if (explosionMode)
         {
-            timer -= Time.deltaTime;
+            timer -= Time.deltaTime; // Decrease the timer for the explosion
         }
 
+        //Enemy explodes
         if (timer <= 0)
         {
-            Transform target = enemyDetection.targetTransform;
-            float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+            Transform target = enemyDetection.targetTransform; // Get the target transform from EnemyDetection
+            float distanceToPlayer = Vector3.Distance(transform.position, target.position); // Calculate the distance to the player
 
             Debug.Log("Boom!");
 
+            // Create the explosion visual effect
             Instantiate(explosionFX, transform.position, Quaternion.identity); //Quaternion.identity = no rotation
-            
 
             if (distanceToPlayer <= damageRange)
             {
+                // Damage objects within the damage range
                 if (target.TryGetComponent(out IDamageable damageable))
                 {
                     damageable.TakeDamage(explosionDamage);
                 }
             }
 
-            unitHealth.DestroyObj();
+            unitHealth.DestroyObj(); // Destroy the enemy object after the explosion
         }
     }
 
+    /// <summary>
+    /// Triggers when player is close enough to start expotion
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
+        // If the enemy is detected and the entering collider is the target, enable explosion mode
         if (enemyDetection.detected && other.transform == enemyDetection.targetTransform)
         {
             explosionMode = true;

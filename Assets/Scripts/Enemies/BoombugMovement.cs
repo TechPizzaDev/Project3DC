@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,19 +48,23 @@ public class BoombugMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If enemys health bar reached 0, its dies
         if (health.CurrentHealth <= 0)
         {
             state = State.killed;
         }
 
+
         switch (state)
         {
             case State.isPatrolling:
                 {
+                    //Checks the distence to enemys destination and sets the speed
                     distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
                     agent.destination = walkingToPos;
                     agent.speed = regularSpeed;
 
+                    //If the enemy have reached the destination, set new location
                     if (Vector3.Distance(transform.position, walkingToPos) < margin)
                     {
                         if (reachedDestination)
@@ -74,6 +79,7 @@ public class BoombugMovement : MonoBehaviour
                         }
                     }
 
+                    //If enemy detects the player, set the enemy state to aggresiv and start chasing
                     if (enemyDetection.detected)
                     {
                         state = State.isAggro;
@@ -85,25 +91,24 @@ public class BoombugMovement : MonoBehaviour
 
             case State.isAggro:
                 {
+                    //Sets enemys destiantion to the players position and sets the speed
                     agent.destination = enemyDetection.targetTransform.position;
-
                     agent.speed = aggressiveSpeed;
 
-                    if (!isChasing)
-                    {
-                        state = State.isPatrolling;
-                    }
-
+                    //If enemy is close enough, set enemy state to exploding mode
                     if (boombugExplode.explosionMode)
                     {
                         state = State.isExploding;
                     }
+
+                    //Checks if the enemy should stop chasing the player
                     StopChasing();
                 }
                 break;
 
             case State.isExploding:
                 {
+                    //Makes the enemy stand still
                     agent.destination = transform.position;
                 }
                 break;
@@ -116,13 +121,18 @@ public class BoombugMovement : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// Checks if the enemy should stop chasing the player and go back to its patroling states
+    /// </summary>
     private void StopChasing()
     {
+        //If enemy detects player, restart the timer for stop chasing the player
         if (enemyDetection.detected)
         {
             stopChasingTimer = stopChasingTimerReset;
         }
 
+        //Count down to stop chasing the player, if ir reaches 0 it stops
         if (stopChasingTimer > 0f)
         {
             stopChasingTimer -= Time.deltaTime;
@@ -133,6 +143,7 @@ public class BoombugMovement : MonoBehaviour
             Debug.Log("Boombug stopped chasing you");
         }
 
+        //Sets the enemy state to back to patrolling again
         if (!isChasing)
         {
             state = State.isPatrolling;

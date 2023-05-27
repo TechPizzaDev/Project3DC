@@ -1,26 +1,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// This class manages the enemy's health UI canvas.
+/// It updates the health slider based on the enemy's health value.
+/// </summary>
+/// 
 public class EnemyCanvas : MonoBehaviour
 {
     public Slider healthSlider;
 
     [SerializeField] private UnitHealth health;
 
-    // Start is called before the first frame update
     void Start()
-    {
+    {  
+        // If the health component is not assigned, get the health component from the same game object
         if (health == null)
         {
             health = GetComponent<UnitHealth>();
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Update the health slider value based on the enemy's health
         healthSlider.value = health.CalculateHealth();
 
+        // Set the health slider game object active or inactive based on the enemy's health
         if (health.CurrentHealth < health.MaxHealth)
         {
             healthSlider.gameObject.SetActive(true);
@@ -29,6 +36,5 @@ public class EnemyCanvas : MonoBehaviour
         {
             healthSlider.gameObject.SetActive(false);
         }
-        //healthSlider.gameObject.SetActive(health.damaged);
     }
 }

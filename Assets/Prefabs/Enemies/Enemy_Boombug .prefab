@@ -115,7 +115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8858131730245495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4239583, y: 1.6, z: 5.97}
+  m_LocalPosition: {x: 0, y: 2, z: 36.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -197,8 +197,8 @@ MonoBehaviour:
   maxHealth: 100
   damaged: 0
   killed: 0
-  dollar: {fileID: 0}
-  currencyDrop: 25
+  dollar: {fileID: 9045439510663045765, guid: 984da11527e3b9f458d60cc713e9ed48, type: 3}
+  currency: 25
 --- !u!114 &8858131730245489
 MonoBehaviour:
   m_ObjectHideFlags: 0

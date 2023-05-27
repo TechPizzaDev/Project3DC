@@ -92,7 +92,6 @@ public class Gun : ScriptableObject, ICloneable
 
             Vector3 spreadAmount = shootConfig.GetSpread();
             Vector3 shootDirection = Vector3.zero;
-
             if (shootConfig.shootType == ShootType.fromGun)
             {
                 shootDirection = shootSystem.transform.forward;
@@ -163,7 +162,7 @@ public class Gun : ScriptableObject, ICloneable
                 shootConfig.hitMask))
         {
             Vector3 directionToHit = (hit.point - shootSystem.transform.position).normalized;
-            model.transform.forward = directionToHit;
+            //model.transform.forward = directionToHit;
             shootDirection = directionToHit;
         }
 
@@ -235,14 +234,6 @@ public class Gun : ScriptableObject, ICloneable
         Vector3 hitNormal,
         Collider hitCollider)
     {
-        //SurfaceManager.Instance.HandleImpact(
-        //    hitCollider.gameObject,
-        //    hitLocation,
-        //    hitNormal,
-        //    ImpactType,
-        //    0
-        //);
-
         if (hitCollider.TryGetComponent(out IDamageable damageable))
         {
             Debug.Log("Hit Damageable");

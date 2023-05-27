@@ -19,6 +19,7 @@ public class AnimationShellshockScript : MonoBehaviour
 
         Killed();
 
+        //starts walking
         if (walking)
         {
             animator.SetBool("Walking", true);
@@ -28,6 +29,7 @@ public class AnimationShellshockScript : MonoBehaviour
             animator.SetBool("Walking", false);
         }
 
+        //starts running
         if (running)
         {
             animator.SetBool("Running", true);
@@ -37,6 +39,7 @@ public class AnimationShellshockScript : MonoBehaviour
             animator.SetBool("Running", false);
         }
 
+        //starts attacking
         if (attacking)
         {
             animator.SetBool("Attacking", true);
@@ -47,6 +50,9 @@ public class AnimationShellshockScript : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// Sets the bools right to make the Standing Still Animation starts
+    /// </summary>
     private void StandingStill()
     {
         animator.SetBool("Standing", true);
@@ -54,6 +60,9 @@ public class AnimationShellshockScript : MonoBehaviour
         animator.SetBool("Running", false);
         animator.SetBool("Attacking", false);
     }
+    /// <summary>
+    /// Sets the bools right so the Death Animation starts
+    /// </summary>
     private void Killed()
     {
         
