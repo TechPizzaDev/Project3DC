@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 2
   floatAmount: 1.5
   vector3Amount: {x: 0, y: 0, z: 0}
-  title: 
-  description: 
-  baseCost: 0
+  title: Fire Rate
+  description: Increases Fire Rate by 50%
+  baseCost: 300

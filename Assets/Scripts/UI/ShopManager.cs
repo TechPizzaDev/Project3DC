@@ -99,6 +99,18 @@ public class ShopManager : MonoBehaviour
         buyBtn[btnNo].interactable = false;
     }
 
+    public void RestoreHealth(int healthToRestore)
+    {
+        if (unitHealth.health + healthToRestore <= unitHealth.maxHealth)
+        {
+            unitHealth.health += healthToRestore;
+        }
+        else
+        {
+            unitHealth.health = unitHealth.maxHealth;
+        }
+    }
+
     public void ApplyUpgrade(ShopItem item)
     {
         switch (item.upgradeType)
@@ -112,7 +124,6 @@ public class ShopManager : MonoBehaviour
                     description = "Increases damage by " + item.floatAmount * 100 + "%"
                 };
                 damageModifier.Apply(gunSelector.activeGun);
-                Debug.Log(gunSelector.activeGun.damageConfig.DamageCurve.constant);
                 break;
             case
             UpgradeType.spread:

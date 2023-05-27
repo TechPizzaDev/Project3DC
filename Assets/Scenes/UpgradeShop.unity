@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -570,7 +570,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 223927291}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822772209}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: RestoreHealth
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 100
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &223927291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1395,7 +1407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 655503292}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822772209}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: RestoreHealth
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &655503292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,8 +2013,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e44d44e6f91d047baf06d03d5c5528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
+  health: 50
+  maxHealth: 100
   damaged: 0
   killed: 0
   dollar: {fileID: 0}
@@ -2779,6 +2803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dollarUI: {fileID: 757682141}
   healthUI: {fileID: 120743428}
+  allItems: []
   shopItem:
   - {fileID: 11400000, guid: 00b8a5821aec0804f9b4dab76c6ff1bd, type: 2}
   - {fileID: 11400000, guid: 25244395d6f5e154681fb044aab9d279, type: 2}
