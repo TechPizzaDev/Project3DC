@@ -262,8 +262,14 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+		/// <summary>
+		/// Takes a direction and Dash the player towards it
+		/// </summary>
+		/// <param name="direction"></param>
 		public void Dash(Vector2 direction)
 		{
+			//If dash cooldown reashes 0, and dash button is pressed combined with a movemnt button, player dashes towards the movement direction
 			if(dashCooldownTimer <= 0)
 			{
 				if (_input.Dash && direction != Vector2.zero)
@@ -281,6 +287,7 @@ namespace StarterAssets
 				dashCooldownTimer -= Time.deltaTime;
 			}
 
+			//Count down how long the dash lasts, and the dash speed fall of
 			if (dashDurationTimer > 0)
             {
                 dashDurationTimer -= Time.deltaTime;

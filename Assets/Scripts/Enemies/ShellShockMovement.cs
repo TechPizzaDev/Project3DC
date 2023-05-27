@@ -89,6 +89,7 @@ public class ShellShockMovement : MonoBehaviour
                     }
 
 
+                    //If enemy detects the player, set the enemy state to aggresiv and start chasing
                     if (enemyDetection.detected)
                     {
                         stopChasingTimer = stopChasingTimerReset;
@@ -102,10 +103,11 @@ public class ShellShockMovement : MonoBehaviour
 
             case State.isAggro:
                 {
+                    //Sets enemys destiantion to the players position and sets the speed
                     agent.destination = targetPosition;
-
                     agent.speed = aggressiveSpeed;
 
+                    //If the enemy is close enough, set enemy state to attacking and start shooting the player
                     if (distanceToPlayer < distanceToStartAttacking && enemyDetection.detected)
                     {
                         shellAnimation.running = false;
@@ -114,17 +116,21 @@ public class ShellShockMovement : MonoBehaviour
                         stopShootingTimer = stopShootingTimerReset;
                     }
 
+                    //Checks if the enemy should stop chasing the player
                     StopChasing();
                 }
                 break;
 
             case State.isAttacking:
                 {
+                    //Makes the enemy stand still and just rotate towards the player
                     agent.destination = transform.position;
                     LookAtPlayer();
 
+                    //If the player is to farm from the player or if the player is not in line of sigt for to long, it start to run path towards the player 
                     if (distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
                     {
+                        //Enemy needs to do the reloading animation done before it can start chasing after again
                         if (reloadAnimationDone)
                         {
                             shellAnimation.attacking = false;
@@ -135,6 +141,7 @@ public class ShellShockMovement : MonoBehaviour
                     }
                     reloadAnimationDone = false;
 
+                    //If the enemy can see the player the stop shooting timer starts
                     if (!enemyDetection.detected)
                     {
                         stopShootingTimer -= Time.deltaTime;
@@ -149,6 +156,7 @@ public class ShellShockMovement : MonoBehaviour
 
             case State.killed:
                 {
+                    //Makes the enemy stand still
                     agent.destination = transform.position;
 
                     shellAnimation.die = true;
@@ -161,7 +169,9 @@ public class ShellShockMovement : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Makes the enemy rotate towards the player
+    /// </summary>
     private void LookAtPlayer()
     {
         direction = enemyDetection.targetTransform.position - transform.position;
@@ -173,13 +183,18 @@ public class ShellShockMovement : MonoBehaviour
         transform.rotation = rotation;
     }
 
+    /// <summary>
+    /// Checks if the enemy should stop chasing the player and go back to its patroling states
+    /// </summary>
     private void StopChasing()
     {
+        //If enemy detects player, restart the timer for stop chasing the player
         if (enemyDetection.detected)
         {
             stopChasingTimer = stopChasingTimerReset;
         }
 
+        //Count down to stop chasing the player, if ir reaches 0 it stops
         if (stopChasingTimer > 0f)
         {
             stopChasingTimer -= Time.deltaTime;
@@ -190,6 +205,7 @@ public class ShellShockMovement : MonoBehaviour
             Debug.Log("ShellShock stopped chasing you");
         }
 
+        //Sets the enemy state to back to patrolling again
         if (!isChasing)
         {
             shellAnimation.running = false;
@@ -197,6 +213,9 @@ public class ShellShockMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Needed to en Animation Event for the reload to check if the enemy is reloading
+    /// </summary>
     public void ReloadAnimationDone()
     {
         reloadAnimationDone = true;

@@ -95,12 +95,6 @@ public class BoombugMovement : MonoBehaviour
                     agent.destination = enemyDetection.targetTransform.position;
                     agent.speed = aggressiveSpeed;
 
-                    //If the enemy stops chasing it goes back to its patroling state again
-                    if (!isChasing)
-                    {
-                        state = State.isPatrolling;
-                    }
-
                     //If enemy is close enough, set enemy state to exploding mode
                     if (boombugExplode.explosionMode)
                     {
