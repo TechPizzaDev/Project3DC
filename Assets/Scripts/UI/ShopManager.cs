@@ -96,6 +96,7 @@ public class ShopManager : MonoBehaviour
         unitHealth.currency = unitHealth.currency - shopItem[btnNo].baseCost;
         CheckBuyability();
         ApplyUpgrade(shopItem[btnNo]);
+        buyBtn[btnNo].interactable = false;
     }
 
     public void ApplyUpgrade(ShopItem item)

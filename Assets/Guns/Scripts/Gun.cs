@@ -92,7 +92,6 @@ public class Gun : ScriptableObject, ICloneable
 
             Vector3 spreadAmount = shootConfig.GetSpread();
             Vector3 shootDirection = Vector3.zero;
-
             if (shootConfig.shootType == ShootType.fromGun)
             {
                 shootDirection = shootSystem.transform.forward;
