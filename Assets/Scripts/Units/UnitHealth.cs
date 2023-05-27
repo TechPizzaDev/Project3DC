@@ -52,28 +52,26 @@ public class UnitHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        if (!godMode)
+        if (godMode)
         {
-            //Debug.Log("TakeDamage");
-            int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
+            return;
+        }
 
-            CurrentHealth -= damageTaken;
+        //Debug.Log("TakeDamage");
+        int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
 
-            if (damageTaken != 0)
-            {
-                OnTakeDamage?.Invoke(damageTaken);
-            }
+        CurrentHealth -= damageTaken;
 
-            if (CurrentHealth == 0 && damageTaken != 0)
-            {
-                OnDeath?.Invoke(transform.position);
-                DestroyObj();
-            }
+        if (damageTaken != 0)
+        {
+            OnTakeDamage?.Invoke(gameObject, damageTaken);
         }
     }
 
     public void DestroyObj()
     {
+        OnDeath?.Invoke(gameObject, transform.position);
+
         Destroy(gameObject);
         var currencyManager = Instantiate(dollar, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity); //Quaternion.identity = no rotation
 
