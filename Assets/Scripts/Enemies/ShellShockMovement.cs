@@ -68,10 +68,12 @@ public class ShellShockMovement : MonoBehaviour
                 {
                     shellAnimation.walking = true;
 
+                    //Checks the distence to enemys destination and sets the speed
                     distanceToTarget = Vector3.Distance(transform.position, walkingToPos);
                     agent.destination = walkingToPos;
                     agent.speed = regularSpeed;
 
+                    //If the enemy have reached the destination, set new location
                     if (Vector3.Distance(transform.position, walkingToPos) < margin)
                     {
                         if (reachedDestination)
@@ -85,6 +87,8 @@ public class ShellShockMovement : MonoBehaviour
                             reachedDestination = true;
                         }
                     }
+
+
                     if (enemyDetection.detected)
                     {
                         stopChasingTimer = stopChasingTimerReset;

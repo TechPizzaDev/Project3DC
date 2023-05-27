@@ -26,21 +26,25 @@ public class BoombugExplode : MonoBehaviour
 
     void Update()
     {
+        //Counts down till enemy explod
         if (explosionMode)
         {
             timer -= Time.deltaTime;
         }
 
+        //Enemy explodes
         if (timer <= 0)
         {
+            //Checks the distance of the player, Needed to see if player should take damage or not
             Transform target = enemyDetection.targetTransform;
             float distanceToPlayer = Vector3.Distance(transform.position, target.position);
 
             Debug.Log("Boom!");
 
-            Instantiate(explosionFX, transform.position, Quaternion.identity); //Quaternion.identity = no rotation
+            //Spawns an explotion where the enemy was
+            Instantiate(explosionFX, transform.position, Quaternion.identity);
             
-
+            //Checks if the player is in range for the expotion to take damage
             if (distanceToPlayer <= damageRange)
             {
                 if (target.TryGetComponent(out IDamageable damageable))
@@ -53,6 +57,10 @@ public class BoombugExplode : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Triggers when player is close enough to start expotion
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (enemyDetection.detected && other.transform == enemyDetection.targetTransform)
