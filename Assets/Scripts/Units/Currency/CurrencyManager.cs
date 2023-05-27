@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-
 
 public class CurrencyManager : MonoBehaviour
 {
@@ -14,10 +9,8 @@ public class CurrencyManager : MonoBehaviour
         unitHealth = GetComponent<UnitHealth>();
     }
 
-
     public void AquireDollars(int amount) //MakeItRain()
     {
         unitHealth.currency += amount;
     }
-
 }

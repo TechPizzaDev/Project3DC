@@ -1,8 +1,12 @@
+using System;
 using ProceduralRooms;
 using UnityEngine;
 
 public class RoomScript : MonoBehaviour
 {
+    public static event Action<RoomScript> OnOpen;
+    public static event Action<RoomScript> OnClose;
+
     private MobSpawner[] _mobSpawners;
     private ProximityDoor[] _doors;
 
@@ -22,12 +26,47 @@ public class RoomScript : MonoBehaviour
         _doors = RootObject.GetComponentsInChildren<ProximityDoor>();
     }
 
+    private void Update()
+    {
+        if (!IsOpen)
+        {
+            int currentCount = GetCurrentEnemyCount();
+            if (currentCount == 0)
+            {
+                OpenRoom();
+            }
+        }
+    }
+
+    public int GetCurrentEnemyCount()
+    {
+        int count = 0;
+        foreach (MobSpawner spawner in _mobSpawners)
+        {
+            count += spawner.CurrentMobCount;
+        }
+        return count;
+    }
+
+    public int GetMaxEnemyCount()
+    {
+        int count = 0;
+        foreach (MobSpawner spawner in _mobSpawners)
+        {
+            count += spawner.SpawnCount;
+        }
+        return count;
+    }
+
     public void OpenRoom()
     {
         foreach (ProximityDoor door in _doors)
         {
             door.ForcedState = ProximityDoorState.Open;
         }
+
+        IsOpen = true;
+        OnOpen?.Invoke(this);
     }
 
     public void CloseRoom()
@@ -38,6 +77,14 @@ public class RoomScript : MonoBehaviour
         {
             door.ForcedState = ProximityDoorState.Closed;
         }
+
+        foreach (MobSpawner spawner in _mobSpawners)
+        {
+            spawner.StartSpawning();
+        }
+
+        IsOpen = false;
+        OnClose?.Invoke(this);
     }
 
     public void OnEntranceTrigger(EntranceTrigger.Event ev)
@@ -46,7 +93,6 @@ public class RoomScript : MonoBehaviour
         {
             return;
         }
-        IsOpen = false;
 
         if (_mobSpawners.Length > 0)
         {

@@ -110,7 +110,7 @@ public class BoombugMovement : MonoBehaviour
 
             case State.killed:
                 {
-                    Destroy(gameObject);
+                    health.DestroyObj();
                 }
                 break;
         }

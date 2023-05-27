@@ -57,17 +57,14 @@ public class UnitHealth : MonoBehaviour, IDamageable
 
         if (damageTaken != 0)
         {
-            OnTakeDamage?.Invoke(damageTaken);
-        }
-
-        if (CurrentHealth == 0 && damageTaken != 0)
-        {
-            OnDeath?.Invoke(transform.position);
+            OnTakeDamage?.Invoke(gameObject, damageTaken);
         }
     }
 
     public void DestroyObj()
     {
+        OnDeath?.Invoke(gameObject, transform.position);
+
         Destroy(gameObject);
         var currencyManager = Instantiate(dollar, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity); //Quaternion.identity = no rotation
 
