@@ -81,7 +81,6 @@ GameObject:
   - component: {fileID: 3926773944017554758}
   - component: {fileID: 1263463632731647230}
   - component: {fileID: 1263463632731647231}
-  - component: {fileID: 1263463632731647207}
   - component: {fileID: 7761751084740252542}
   - component: {fileID: 3702087679433590492}
   m_Layer: 8
@@ -367,7 +366,7 @@ MonoBehaviour:
   damaged: 0
   killed: 0
   dollar: {fileID: 0}
-  currencyDrop: 0
+  currency: 0
 --- !u!114 &1263463632731647230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,19 +401,6 @@ MonoBehaviour:
   autoReload: 0
   playerAnimator: {fileID: 1263463632731647227}
   crosshair: {fileID: 0}
---- !u!114 &1263463632731647207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4749655179395279638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33891ea473fb9d04fbde1dc4b2cfa019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunSelector: {fileID: 1263463632731647230}
 --- !u!136 &7761751084740252542
 CapsuleCollider:
   m_ObjectHideFlags: 0

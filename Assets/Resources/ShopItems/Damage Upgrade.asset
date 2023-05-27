@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Damage Upgrade
   m_EditorClassIdentifier: 
   upgradeType: 0
-  floatAmount: 10
+  floatAmount: 1.5
   vector3Amount: {x: 0, y: 0, z: 0}
-  title: dmg upgrade
-  description: upgrades dmg
+  title: Damage
+  description: Increases damage
   baseCost: 100
