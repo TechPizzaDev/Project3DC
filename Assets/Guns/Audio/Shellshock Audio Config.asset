@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Shellshock Audio Config
   m_EditorClassIdentifier: 
   volume: 1
-  fireClips: []
+  fireClips:
+  - {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
   emptyClip: {fileID: 0}
   reloadClip: {fileID: 0}
   lastBulletClip: {fileID: 0}
