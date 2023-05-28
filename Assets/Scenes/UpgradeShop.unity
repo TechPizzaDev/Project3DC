@@ -2804,7 +2804,7 @@ MonoBehaviour:
   dollarUI: {fileID: 757682141}
   healthUI: {fileID: 120743428}
   allItems: []
-  shopItem:
+  shopItems:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
