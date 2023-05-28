@@ -24,6 +24,6 @@ MonoBehaviour:
   recoilRecoverySpeed: 1
   maxSpreadTime: 1
   spreadType: 1
-  Spread: {x: 0.1, y: 0.1, z: 0.1}
+  Spread: {x: 1, y: 1, z: 1}
   spreadMultiplier: 0.1
   spreadTexture: {fileID: 0}
