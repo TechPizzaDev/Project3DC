@@ -18,12 +18,12 @@ MonoBehaviour:
   bulletSpawnForce: 1000
   hitMask:
     serializedVersion: 2
-    m_Bits: 777
+    m_Bits: 4617
   fireRate: 0.25
   shootType: 1
   recoilRecoverySpeed: 1
   maxSpreadTime: 1
   spreadType: 1
-  spread: {x: 0.1, y: 0.1, z: 0.1}
+  Spread: {x: 0.1, y: 0.1, z: 0.1}
   spreadMultiplier: 0.1
   spreadTexture: {fileID: 0}
