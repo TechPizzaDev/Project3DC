@@ -114,7 +114,7 @@ public class Gun : ScriptableObject, ICloneable
             else
             {
                 shootDirection = activeCamera.transform.forward
-                    + activeCamera.transform.TransformDirection(shootDirection);
+                    + activeCamera.transform.TransformDirection(spreadAmount);
             }
 
             if (ammoConfig.ammoType != AmmoType.infinite)
