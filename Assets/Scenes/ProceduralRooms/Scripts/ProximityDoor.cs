@@ -86,20 +86,6 @@ namespace ProceduralRooms
                 leftPos = Vector3.Lerp(leftPos, leftEndPos, speed);
                 rightPos = Vector3.Lerp(rightPos, rightEndPos, speed);
 
-                if (closedTime == 0) // The door has started closing
-                {
-                    audioSource.clip = CloseClip;
-                    audioSource.Play();
-                    openPause = 0;
-                }
-                closedTime += delta;
-                openTime = 0;
-            }
-            else
-            {
-                leftPos = Vector3.Lerp(leftPos, leftStartPos, speed);
-                rightPos = Vector3.Lerp(rightPos, rightStartPos, speed);
-
                 if (openTime == 0) // The door has started opening
                 {
                     audioSource.clip = OpenClip;
@@ -108,6 +94,20 @@ namespace ProceduralRooms
                 }
                 openTime += delta;
                 closedTime = 0;
+            }
+            else
+            {
+                leftPos = Vector3.Lerp(leftPos, leftStartPos, speed);
+                rightPos = Vector3.Lerp(rightPos, rightStartPos, speed);
+
+                if (closedTime == 0) // The door has started closing
+                {
+                    audioSource.clip = CloseClip;
+                    audioSource.Play();
+                    openPause = 0;
+                }
+                closedTime += delta;
+                openTime = 0;
             }
 
             LeftDoor.transform.position = leftPos;

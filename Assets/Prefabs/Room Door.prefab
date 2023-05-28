@@ -52,11 +52,12 @@ MonoBehaviour:
   ProximityRadius: 6
   Expanse: 2.5
   Direction: 0
+  ForcedState: 0
   LeftDoor: {fileID: 5417048771063491038}
   RightDoor: {fileID: 5417048771063491032}
   TargetTransform: {fileID: 0}
   OpenClip: {fileID: 8300000, guid: b37809aab915b514abe6183e47966cc8, type: 3}
-  CloseClip: {fileID: 8300000, guid: b37809aab915b514abe6183e47966cc8, type: 3}
+  CloseClip: {fileID: 8300000, guid: d587e9f9062f0124caed4f10c00be1a4, type: 3}
 --- !u!82 &5652583697077854197
 AudioSource:
   m_ObjectHideFlags: 0
@@ -69,8 +70,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
-  m_Pitch: 2
+  m_Volume: 0.4
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
