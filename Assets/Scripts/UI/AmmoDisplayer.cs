@@ -18,9 +18,29 @@ public class AmmoDisplayer : MonoBehaviour
 
     private void Update()
     {
-        ammoText.SetText(
-            $"{gunSelector.activeGun.ammoConfig.currentClipAmmo} / " +    
-            $"{gunSelector.activeGun.ammoConfig.currentAmmo}"
-        );
+        switch (gunSelector.activeGun.ammoConfig.ammoType)
+        {
+            case AmmoType.infinite:
+                ammoText.SetText(
+                    $"Åá / Åá"
+                );
+                break;
+            case AmmoType.infiniteReserve:
+                ammoText.SetText(
+                    $"{gunSelector.activeGun.ammoConfig.currentClipAmmo} / " + $"Åá"
+                );
+                break;
+            case AmmoType.normal:
+                ammoText.SetText(
+                    $"{gunSelector.activeGun.ammoConfig.currentClipAmmo} / " +
+                    $"{gunSelector.activeGun.ammoConfig.currentAmmo}"
+                );
+                break;
+            default:
+                break;
+        }
+
+
+        
     }
 }
