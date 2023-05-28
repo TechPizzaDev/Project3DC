@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1658636dbad37c479e8a4374154d05c, type: 3}
   m_Name: Shellshock Audio Config
   m_EditorClassIdentifier: 
-  volume: 1
+  volume: 0.2
   fireClips:
   - {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
   emptyClip: {fileID: 0}

@@ -22,8 +22,8 @@ MonoBehaviour:
   fireRate: 0.5
   shootType: 0
   recoilRecoverySpeed: 1
-  maxSpreadTime: 1
+  maxSpreadTime: 3
   spreadType: 1
-  Spread: {x: 10, y: 10, z: 10}
+  Spread: {x: 0.3, y: 0.3, z: 0.3}
   spreadMultiplier: 2.41
   spreadTexture: {fileID: 2800000, guid: ef211f308efd09842a655408544ae2a0, type: 3}
