@@ -19,7 +19,7 @@ public class ShellShockMovement : MonoBehaviour
     [SerializeField] private float stopChasingTimerReset = 5f;
     [SerializeField] private float stopShootingTimer = 0f;
     [SerializeField] private float stopShootingTimerReset = 6f;
-    private float rotateSpeed = 5f;
+    private float rotateSpeed = 10f;
     [SerializeField] bool reachedDestination = false;
     [SerializeField] bool isChasing;
     [SerializeField] bool reloadAnimationDone;
@@ -49,9 +49,9 @@ public class ShellShockMovement : MonoBehaviour
         startingPos = transform.position;
         state = new State();
 
+        // fix animator not animating on instantiation
         gameObject.SetActive(false);
         gameObject.SetActive(true);
-
     }
 
     // Update is called once per frame
@@ -131,7 +131,7 @@ public class ShellShockMovement : MonoBehaviour
                     LookAtPlayer();
 
                     //If the player is to farm from the player or if the player is not in line of sigt for to long, it start to run path towards the player 
-                    if (distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0)
+                    if (distanceToPlayer > distancetoStartAggro || stopShootingTimer <= 0 || !enemyDetection.detected)
                     {
                         //Enemy needs to do the reloading animation done before it can start chasing after again
                         if (reloadAnimationDone)
