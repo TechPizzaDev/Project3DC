@@ -2150,6 +2150,11 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 446026441}
+    - target: {fileID: 3926773944017554758, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
+        type: 3}
+      propertyPath: godMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4749655179395279638, guid: f95b0a3a2acf3ea41bb1690ebc75ad59,
         type: 3}
       propertyPath: m_Name

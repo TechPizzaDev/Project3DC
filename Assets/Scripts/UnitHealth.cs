@@ -7,6 +7,8 @@ public class UnitHealth : MonoBehaviour, IDamageable
 
     public bool damaged;
     public bool killed;
+    [SerializeField]
+    private bool godMode;
 
     EnemyDetection enemyDetection;
 
@@ -51,19 +53,22 @@ public class UnitHealth : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         //Debug.Log("TakeDamage");
-        int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
-
-        CurrentHealth -= damageTaken;
-
-        if (damageTaken != 0)
+        if (!godMode) 
         {
-            OnTakeDamage?.Invoke(damageTaken);
-        }
+            int damageTaken = Mathf.Clamp(damage, 0, CurrentHealth);
 
-        if (CurrentHealth == 0 && damageTaken != 0)
-        {
-            OnDeath?.Invoke(transform.position);
-            DestroyObj();
+            CurrentHealth -= damageTaken;
+
+            if (damageTaken != 0)
+            {
+                OnTakeDamage?.Invoke(damageTaken);
+            }
+
+            if (CurrentHealth == 0 && damageTaken != 0)
+            {
+                OnDeath?.Invoke(transform.position);
+                DestroyObj();
+            }
         }
     }
 

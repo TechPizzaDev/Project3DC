@@ -106,6 +106,7 @@ public class Gun : ScriptableObject, ICloneable
 
             Vector3 spreadAmount = shootConfig.GetSpread(Time.time - initialClickTime);
             Vector3 shootDirection = Vector3.zero;
+            model.transform.forward += model.transform.TransformDirection(spreadAmount);
             if (shootConfig.shootType == ShootType.fromGun)
             {
                 shootDirection = shootSystem.transform.forward;
@@ -177,7 +178,7 @@ public class Gun : ScriptableObject, ICloneable
         {
             Debug.DrawRay(GetRaycastOrigin(), shootDirection * hit.distance, Color.red, 3f);
             Vector3 directionToHit = (hit.point - shootSystem.transform.position).normalized;
-            //model.transform.forward = directionToHit;
+            model.transform.forward = directionToHit;
             shootDirection = directionToHit;
         }
 
