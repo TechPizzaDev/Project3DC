@@ -188,7 +188,7 @@ public class ShopManager : MonoBehaviour
                 Vector3Modifier spreadModifier = new()
                 {
                     amount = item.vector3Amount,
-                    attributeName = "shootConfig/spread",
+                    attributeName = "shootConfig/Spread",
                     description = "Spread"
                 };
                 spreadModifier.Apply(gunSelector.activeGun);
