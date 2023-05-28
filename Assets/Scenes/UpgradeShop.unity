@@ -2804,10 +2804,10 @@ MonoBehaviour:
   dollarUI: {fileID: 757682141}
   healthUI: {fileID: 120743428}
   allItems: []
-  shopItem:
-  - {fileID: 11400000, guid: 00b8a5821aec0804f9b4dab76c6ff1bd, type: 2}
-  - {fileID: 11400000, guid: 25244395d6f5e154681fb044aab9d279, type: 2}
-  - {fileID: 11400000, guid: 0283b0d3239798c4593c5deea592cc95, type: 2}
+  shopItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shopTemplate:
   - {fileID: 3292496}
   - {fileID: 1917575492}
