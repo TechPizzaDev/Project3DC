@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2514ef81e4cde6409bffa7a5b16db14, type: 3}
   m_Name: Debug Trail
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 979aef027a1c86c42a15ce35fce366fa, type: 2}
+  material: {fileID: 2100000, guid: 39671d5153f441a4fa6c25a77a6ffd8e, type: 2}
   widthCurve:
     serializedVersion: 2
     m_Curve:

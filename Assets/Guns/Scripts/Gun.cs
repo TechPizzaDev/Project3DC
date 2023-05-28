@@ -175,7 +175,7 @@ public class Gun : ScriptableObject, ICloneable
                 float.MaxValue,
                 shootConfig.hitMask))
         {
-            Debug.DrawRay(GetRaycastOrigin(), shootDirection * hit.distance, Color.red, 1f);
+            Debug.DrawRay(GetRaycastOrigin(), shootDirection * hit.distance, Color.red, 3f);
             Vector3 directionToHit = (hit.point - shootSystem.transform.position).normalized;
             //model.transform.forward = directionToHit;
             shootDirection = directionToHit;
