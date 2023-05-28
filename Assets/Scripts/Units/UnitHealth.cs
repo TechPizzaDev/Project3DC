@@ -59,12 +59,6 @@ public class UnitHealth : MonoBehaviour, IDamageable
         {
             OnTakeDamage?.Invoke(gameObject, damageTaken);
         }
-
-        if (CurrentHealth == 0 && damageTaken != 0)
-        {
-            OnDeath?.Invoke(transform.position);
-            DestroyObj();
-        }
     }
 
     public void DestroyObj()
