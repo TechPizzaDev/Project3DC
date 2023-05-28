@@ -212,4 +212,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  explosionSfx: {fileID: 8300000, guid: f0e6df3f02617d34ab0fa4ee6add915f, type: 3}
+  explosionSfx: {fileID: 8300000, guid: 8524588a69a4f3e40bb597b6221138f1, type: 3}
