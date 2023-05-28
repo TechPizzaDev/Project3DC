@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSelector: {fileID: 1263463632731647230}
-  autoReload: 0
+  autoReload: 1
   playerAnimator: {fileID: 1263463632731647227}
   crosshair: {fileID: 0}
 --- !u!136 &7761751084740252542
