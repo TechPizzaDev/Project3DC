@@ -18,7 +18,7 @@ public class ShootConfig : ScriptableObject, System.ICloneable
     public float maxSpreadTime = 1f;
     public BulletSpreadType spreadType = BulletSpreadType.Simple;
     [Header("Simple Spread")]
-    public Vector3 spread = new Vector3 (0.1f, 0.1f, 0.1f);
+    public Vector3 Spread = new Vector3 (0.1f, 0.1f, 0.1f);
     [Header("Texture-Based Spread")]
     [Range(0.001f, 5f)]
     public float spreadMultiplier = 0.1f;
@@ -28,23 +28,22 @@ public class ShootConfig : ScriptableObject, System.ICloneable
     public Vector3 GetSpread(float shootTime = 0)
     {
         Vector3 spread = Vector3.zero;
-
         if (spreadType == BulletSpreadType.Simple)
         {
             spread = Vector3.Lerp(
                 Vector3.zero,
                 new Vector3(
                     Random.Range(
-                        -spread.x,
-                        spread.x
+                        -Spread.x,
+                        Spread.x
                     ),
                     Random.Range(
-                        -spread.y,
-                        spread.y
+                        -Spread.y,
+                        Spread.y
                     ),
                     Random.Range(
-                        -spread.z,
-                        spread.z
+                        -Spread.z,
+                        Spread.z
                     )
                 ),
                 Mathf.Clamp01(shootTime / maxSpreadTime)
@@ -56,6 +55,7 @@ public class ShootConfig : ScriptableObject, System.ICloneable
             spread *= spreadMultiplier;
         }
 
+        Debug.Log("spread " + spread);
         return spread;
     }
 

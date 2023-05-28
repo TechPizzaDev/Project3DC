@@ -77,6 +77,20 @@ public class Gun : ScriptableObject, ICloneable
 
     public void TryToShoot()
     {
+        if (Time.time - lastShootTime - shootConfig.fireRate > Time.deltaTime)
+        {
+            float lastDuration = Mathf.Clamp(
+                0,
+                (stopShootingTime - initialClickTime),
+                shootConfig.maxSpreadTime
+            );
+            float lerpTime = ( shootConfig.recoilRecoverySpeed - (Time.time - stopShootingTime))
+                / shootConfig.recoilRecoverySpeed;
+
+            initialClickTime = Time.time - Mathf.Lerp(0, lastDuration, Mathf.Clamp01(lerpTime));
+            Debug.Log("initialclicktime " + initialClickTime);
+        }
+
         if (Time.time > shootConfig.fireRate + lastShootTime)
         {
             lastShootTime = Time.time;
@@ -90,7 +104,7 @@ public class Gun : ScriptableObject, ICloneable
             audioConfig.PlayShootingClip(shootingAudioSource, ammoConfig.currentClipAmmo == 1);
             muzzleFlash.Play();
 
-            Vector3 spreadAmount = shootConfig.GetSpread();
+            Vector3 spreadAmount = shootConfig.GetSpread(Time.time - initialClickTime);
             Vector3 shootDirection = Vector3.zero;
             if (shootConfig.shootType == ShootType.fromGun)
             {
@@ -161,6 +175,7 @@ public class Gun : ScriptableObject, ICloneable
                 float.MaxValue,
                 shootConfig.hitMask))
         {
+            Debug.DrawRay(GetRaycastOrigin(), shootDirection * hit.distance, Color.red, 3f);
             Vector3 directionToHit = (hit.point - shootSystem.transform.position).normalized;
             //model.transform.forward = directionToHit;
             shootDirection = directionToHit;
