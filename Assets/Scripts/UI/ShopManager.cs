@@ -19,7 +19,7 @@ public class ShopManager : MonoBehaviour
     public TMP_Text healthUI;
 
     public ShopItem[] allItems; 
-    public ShopItem[] shopItem;
+    public ShopItem[] shopItems;
     public ShopTemplate[] shopTemplate;
     public GameObject[] shopTemplateGO;
 
@@ -33,14 +33,16 @@ public class ShopManager : MonoBehaviour
         // Activates shop templates for selected shop items
         // Loads items, loads templates, and checks buyability
 
-        for (int i = 0; i < shopItem.Length; i++)
+        for (int i = 0; i < shopItems.Length; i++)
         {
             shopTemplateGO[i].SetActive(true);
         }
 
         LoadItems();
         LoadTemplates();
-        CheckBuyability();
+        //CheckBuyability();
+        EnableItems();
+        DisableItems();
     }
 
     private void LoadItems()
@@ -48,13 +50,13 @@ public class ShopManager : MonoBehaviour
         allItems = Resources.LoadAll<ShopItem>("ShopItems/");
 
         //assign shop items to random items from all items
-        for (int i = 0; i < shopItem.Length;)
+        for (int i = 0; i < shopItems.Length;)
         {
             int rnd = Random.Range(0, allItems.Length);
 
-            if (!shopItem.Contains(allItems[rnd]))
+            if (!shopItems.Contains(allItems[rnd]))
             {
-                shopItem[i] = allItems[rnd];
+                shopItems[i] = allItems[rnd];
                 i++;
             }
         }
@@ -82,11 +84,11 @@ public class ShopManager : MonoBehaviour
     public void LoadTemplates()
     {
         // Sets the title, description, and price texts of shop templates based on shop items
-        for (int i = 0; i < shopItem.Length; i++)
+        for (int i = 0; i < shopItems.Length; i++)
         {
-            shopTemplate[i].titleTxt.text = shopItem[i].title;
-            shopTemplate[i].descriptionTxt.text = shopItem[i].description;
-            shopTemplate[i].priceTxt.text = "$ " + shopItem[i].baseCost.ToString();
+            shopTemplate[i].titleTxt.text = shopItems[i].title;
+            shopTemplate[i].descriptionTxt.text = shopItems[i].description;
+            shopTemplate[i].priceTxt.text = "$ " + shopItems[i].baseCost.ToString();
 
         }
     }
@@ -95,14 +97,36 @@ public class ShopManager : MonoBehaviour
     ///  Checks if shop items can be bought and enables/disables buy buttons accordingly.
     /// </summary>
 
+    public void EnableItems()
+    {
+        for (int i = 0; i < shopItems.Length; i++)
+        {
+            if (unitHealth.currency >= shopItems[i].baseCost)
+            {
+                buyBtn[i].interactable = true;
+            }
+        }
+    }
+
+    public void DisableItems()
+    {
+        for (int i = 0; i < shopItems.Length; i++)
+        {
+            if (unitHealth.currency < shopItems[i].baseCost)
+            {
+                buyBtn[i].interactable = false;
+            }
+        }
+    }
+
     public void CheckBuyability()
     {
         // Checks if the player has enough currency to buy each shop item
         // Enables or disables buy buttons based on buyability
 
-        for (int i = 0; i < shopItem.Length; i++)
+        for (int i = 0; i < shopItems.Length; i++)
         {
-            if (unitHealth.currency < shopItem[i].baseCost)
+            if (unitHealth.currency < shopItems[i].baseCost)
             {
                 buyBtn[i].interactable = false;
             }
@@ -119,9 +143,10 @@ public class ShopManager : MonoBehaviour
     public void PurchaseItem(int btnNo)
     {
         // Reduces player's currency, updates buyability, and applies upgrade of the selected shop item
-        unitHealth.currency = unitHealth.currency - shopItem[btnNo].baseCost;
-        CheckBuyability();
-        ApplyUpgrade(shopItem[btnNo]);
+        unitHealth.currency = unitHealth.currency - shopItems[btnNo].baseCost;
+        //CheckBuyability();
+        DisableItems();
+        ApplyUpgrade(shopItems[btnNo]);
         buyBtn[btnNo].interactable = false;
     }
 
