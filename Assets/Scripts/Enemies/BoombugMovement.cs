@@ -49,7 +49,7 @@ public class BoombugMovement : MonoBehaviour
     void Update()
     {
         //If enemys health bar reached 0, its dies
-        if (health.CurrentHealth <= 0)
+        if (health.killed)
         {
             state = State.killed;
         }
@@ -115,7 +115,7 @@ public class BoombugMovement : MonoBehaviour
 
             case State.killed:
                 {
-                    Destroy(gameObject);
+                    health.DestroyObj();
                 }
                 break;
         }

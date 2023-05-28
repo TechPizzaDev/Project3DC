@@ -67,7 +67,7 @@ public class UnitHealth : MonoBehaviour, IDamageable
             if (CurrentHealth == 0 && damageTaken != 0)
             {
                 OnDeath?.Invoke(transform.position);
-                DestroyObj();
+                killed = true;
             }
         }
     }

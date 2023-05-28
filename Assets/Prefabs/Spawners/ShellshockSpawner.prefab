@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3108125724578306580}
   - component: {fileID: 7258480268902209062}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShellshockSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
