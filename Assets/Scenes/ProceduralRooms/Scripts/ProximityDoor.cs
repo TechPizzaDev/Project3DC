@@ -44,9 +44,13 @@ namespace ProceduralRooms
             audioSource = GetComponent<AudioSource>();
 
             Quaternion rotation = transform.rotation;
-            leftStartPos = LeftDoor.transform.position;
+
+            if (LeftDoor != null)
+                leftStartPos = LeftDoor.transform.position;
             leftEndPos = leftStartPos + rotation * new Vector3(0, 0, Expanse);
-            rightStartPos = RightDoor.transform.position;
+
+            if (RightDoor != null)
+                rightStartPos = RightDoor.transform.position;
             rightEndPos = rightStartPos - rotation * new Vector3(0, 0, Expanse);
 
             // prevent audio playing on start
@@ -57,8 +61,8 @@ namespace ProceduralRooms
         // Update is called once per frame
         void Update()
         {
-            Vector3 leftPos = LeftDoor.transform.position;
-            Vector3 rightPos = RightDoor.transform.position;
+            Vector3 leftPos = LeftDoor != null ? LeftDoor.transform.position : default;
+            Vector3 rightPos = RightDoor != null ? RightDoor.transform.position : default;
             float delta = Time.deltaTime;
 
             openPause += delta;
@@ -110,8 +114,10 @@ namespace ProceduralRooms
                 openTime = 0;
             }
 
-            LeftDoor.transform.position = leftPos;
-            RightDoor.transform.position = rightPos;
+            if (LeftDoor != null)
+                LeftDoor.transform.position = leftPos;
+            if (RightDoor != null)
+                RightDoor.transform.position = rightPos;
         }
     }
 }
