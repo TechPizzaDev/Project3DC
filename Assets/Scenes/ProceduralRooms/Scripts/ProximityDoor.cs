@@ -16,12 +16,18 @@ namespace ProceduralRooms
 
         public GameObject LeftDoor;
         public GameObject RightDoor;
+        public GameObject Frame;
 
         public Transform TargetTransform;
+
+        public Material NormalFrameMaterial;
+        public Material ForcedFrameMaterial;
+
         public AudioClip OpenClip;
         public AudioClip CloseClip;
 
         private AudioSource audioSource;
+        private MeshRenderer frameMeshRenderer;
 
         private Vector3 leftStartPos;
         private Vector3 leftEndPos;
@@ -42,6 +48,7 @@ namespace ProceduralRooms
             }
 
             audioSource = GetComponent<AudioSource>();
+            frameMeshRenderer = Frame.GetComponent<MeshRenderer>();
 
             Quaternion rotation = transform.rotation;
 
@@ -92,6 +99,8 @@ namespace ProceduralRooms
 
                 if (openTime == 0) // The door has started opening
                 {
+                    UpdateMaterial();
+
                     audioSource.clip = OpenClip;
                     audioSource.Play();
                     openPause = 0;
@@ -106,6 +115,8 @@ namespace ProceduralRooms
 
                 if (closedTime == 0) // The door has started closing
                 {
+                    UpdateMaterial();
+
                     audioSource.clip = CloseClip;
                     audioSource.Play();
                     openPause = 0;
@@ -118,6 +129,18 @@ namespace ProceduralRooms
                 LeftDoor.transform.position = leftPos;
             if (RightDoor != null)
                 RightDoor.transform.position = rightPos;
+        }
+
+        public void UpdateMaterial()
+        {
+            if (ForcedState != ProximityDoorState.Unset)
+            {
+                frameMeshRenderer.material = ForcedFrameMaterial;
+            }
+            else
+            {
+                frameMeshRenderer.material = NormalFrameMaterial;
+            }
         }
     }
 }

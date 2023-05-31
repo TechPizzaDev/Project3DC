@@ -31,6 +31,7 @@ namespace ProceduralRooms
             foreach (ProximityDoor door in _doors)
             {
                 door.ForcedState = ProximityDoorState.Open;
+                door.UpdateMaterial();
             }
 
             IsOpen = true;
@@ -41,6 +42,7 @@ namespace ProceduralRooms
             foreach (ProximityDoor door in _doors)
             {
                 door.ForcedState = ProximityDoorState.Closed;
+                door.UpdateMaterial();
             }
 
             IsOpen = false;
