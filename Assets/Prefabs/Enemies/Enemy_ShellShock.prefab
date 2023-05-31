@@ -1465,6 +1465,8 @@ MonoBehaviour:
   maxHealth: 200
   damaged: 0
   killed: 0
+  godMode: 0
+  destroy: 0
   dollar: {fileID: 9045439510663045765, guid: 984da11527e3b9f458d60cc713e9ed48, type: 3}
   currency: 50
 --- !u!114 &6415075113222443612

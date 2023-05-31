@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 0
   floatAmount: 10
   vector3Amount: {x: 0, y: 0, z: 0}
-  title: dmg upgrade
-  description: upgrades dmg
+  title: Dmg upgrade
+  description: Upgrades dmg
   baseCost: 100

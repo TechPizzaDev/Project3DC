@@ -64,24 +64,31 @@ public class ScreenManager : MonoBehaviour
 
     public void GoToMainMenuScene()
     {
-        UnlockCursor();
-        SceneManager.LoadSceneAsync(MainMenuScene.BuildIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(MainMenuScene.BuildIndex, LoadSceneMode.Single).completed += (ev) => UnlockCursor();
     }
 
     public void OpenControlsMenuScene()
     {
-        UnlockCursor();
         SceneManager.LoadSceneAsync(ControlsMenuScene.BuildIndex, LoadSceneMode.Additive);
     }
 
     public void GoToGameplayScene()
     {
+        if (Player != null)
+        {
+            var levelState = LevelState.Instance;
+            levelState.PlayerHealth = Player.health;
+            levelState.PlayerMaxHealth = Player.maxHealth;
+            levelState.PlayerCurrency = Player.currency;
+        }
+
         var op = SceneManager.LoadSceneAsync(GameplayScene.BuildIndex, LoadSceneMode.Single);
         op.completed += ScreenManager_GameplayLoadCompleted;
     }
 
-    private void ScreenManager_GameplayLoadCompleted(AsyncOperation obj)
+    private void AssignPlayerValues()
     {
+
         RefreshPlayer();
 
         if (Player != null)
@@ -91,6 +98,15 @@ public class ScreenManager : MonoBehaviour
             Player.maxHealth = levelState.PlayerMaxHealth;
             Player.currency = levelState.PlayerCurrency;
         }
+
+    }
+
+    private void ScreenManager_GameplayLoadCompleted(AsyncOperation obj)
+    {
+        AssignPlayerValues();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void GoToShopMenuScene()
@@ -100,19 +116,23 @@ public class ScreenManager : MonoBehaviour
         levelState.PlayerMaxHealth = Player.maxHealth;
         levelState.PlayerCurrency = Player.currency;
 
-        SceneManager.LoadSceneAsync(ShopMenuScene.BuildIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(ShopMenuScene.BuildIndex, LoadSceneMode.Single).completed += ScreenManager_completed;
+    }
+
+    private void ScreenManager_completed(AsyncOperation obj)
+    {
+        AssignPlayerValues();
+        UnlockCursor();
     }
 
     public void GoToWinScene()
     {
-        UnlockCursor();
-        SceneManager.LoadSceneAsync(WinScene.BuildIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(WinScene.BuildIndex, LoadSceneMode.Single).completed += (ev) => UnlockCursor(); ;
     }
 
     public void GoToGameOverScene()
     {
-        UnlockCursor();
-        SceneManager.LoadSceneAsync(GameOverScene.BuildIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(GameOverScene.BuildIndex, LoadSceneMode.Single).completed += (ev) => UnlockCursor(); ;
     }
 
     public void RestartGameplay()

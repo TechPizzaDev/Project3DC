@@ -1994,9 +1994,9 @@ GameObject:
   - component: {fileID: 965080209}
   - component: {fileID: 965080208}
   - component: {fileID: 965080210}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2017,6 +2017,8 @@ MonoBehaviour:
   maxHealth: 100
   damaged: 0
   killed: 0
+  godMode: 0
+  destroy: 1
   dollar: {fileID: 0}
   currency: 10000
 --- !u!4 &965080209

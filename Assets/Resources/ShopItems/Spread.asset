@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 1
   floatAmount: 0
   vector3Amount: {x: 0.8, y: 0.8, z: 0.8}
-  title: 
+  title: Improve Spread
   description: Reduces spread by 20%
   baseCost: 200

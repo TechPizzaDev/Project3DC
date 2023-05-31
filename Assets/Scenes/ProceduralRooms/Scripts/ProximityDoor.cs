@@ -135,11 +135,11 @@ namespace ProceduralRooms
         {
             if (ForcedState != ProximityDoorState.Unset)
             {
-                frameMeshRenderer.material = ForcedFrameMaterial;
+                frameMeshRenderer.sharedMaterial = ForcedFrameMaterial;
             }
             else
             {
-                frameMeshRenderer.material = NormalFrameMaterial;
+                frameMeshRenderer.sharedMaterial = NormalFrameMaterial;
             }
         }
     }
