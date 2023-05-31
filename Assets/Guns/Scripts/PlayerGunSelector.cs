@@ -29,4 +29,12 @@ public class PlayerGunSelector : MonoBehaviour
         activeGun = gun.Clone() as Gun;
         activeGun.Spawn(gunParent, this, camera);
     }
+
+    private void Start()
+    {
+        foreach (ShopItem item in LevelState.Instance.AcquiredShopItems)
+        {
+            ShopManager.ApplyUpgrade(this, item);
+        }
+    }
 }

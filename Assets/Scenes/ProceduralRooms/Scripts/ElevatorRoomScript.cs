@@ -10,6 +10,8 @@ namespace ProceduralRooms
 
         public bool IsOpen = true;
 
+        public GameObject EntranceCollider;
+
         void Awake()
         {
             if (RootObject == null)
@@ -33,6 +35,8 @@ namespace ProceduralRooms
                 door.ForcedState = ProximityDoorState.Open;
                 door.UpdateMaterial();
             }
+
+            EntranceCollider.SetActive(true);
 
             IsOpen = true;
         }

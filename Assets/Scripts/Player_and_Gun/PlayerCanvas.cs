@@ -31,6 +31,16 @@ public class PlayerCanvas : MonoBehaviour
 
         enemyCounterTxt.enabled = false;
         levelStateTxt.text = "";
+
+        var elevatorScript = roomGenerator.RoomState.SpawnedRooms.Values
+            .OfType<ElevatorGenItem>()
+            .First()
+            .GetUniqueComponent<ElevatorRoomScript>();
+
+        elevatorScript.EntranceCollider.GetComponent<EntranceTrigger>().Enter.AddListener((ev) =>
+        {
+            ScreenManager.Instance.GoToShopMenuScene();
+        });
     }
 
     private void RoomScript_OnOpen(RoomScript obj)

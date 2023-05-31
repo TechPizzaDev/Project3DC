@@ -32,7 +32,6 @@ namespace ProceduralRooms
 
         void OnEnable()
         {
-            _navMesh = new NavMeshData();
             _navInstance = NavMesh.AddNavMeshData(_navMesh);
         }
 
@@ -42,9 +41,10 @@ namespace ProceduralRooms
             _navInstance.Remove();
         }
 
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
+            _navMesh = new NavMeshData();
+
             // TODO: limited aggregation algo?
             RoomGeneratorState state = new(transform, Seed)
             {

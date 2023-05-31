@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class CurrencyManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     UnitHealth unitHealth;
 
-    public void Start()
+    void Awake()
     {
         unitHealth = GetComponent<UnitHealth>();
     }
 
-
-    public void AquireDollars(int amount) 
+    public void AquireDollars(int amount)
     {
         unitHealth.currency += amount;
     }
