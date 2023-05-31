@@ -43,7 +43,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88647137380472742}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -6787,7 +6787,7 @@ GameObject:
   - component: {fileID: 5934234578946685480}
   - component: {fileID: 862435265132040478}
   - component: {fileID: 2264369271031162035}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Center Cube 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6892,7 +6892,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191595705577237649}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -13636,7 +13636,7 @@ GameObject:
   - component: {fileID: 5852542639954181832}
   - component: {fileID: 2206452079551011286}
   - component: {fileID: 2028886418765551650}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: NX NZ Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13741,7 +13741,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2722557733581969150}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -32644,7 +32644,7 @@ GameObject:
   - component: {fileID: 3729872641298828026}
   - component: {fileID: 3487220973188285936}
   - component: {fileID: 3881220001424978088}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: PX PZ Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32715,7 +32715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1855721636499052832}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Entrance Triggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32754,7 +32754,7 @@ GameObject:
   - component: {fileID: 2777239678874419240}
   - component: {fileID: 5025587040956053874}
   - component: {fileID: 4786744413698698713}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: PX NZ Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32827,7 +32827,7 @@ GameObject:
   - component: {fileID: 6079128889553002232}
   - component: {fileID: 678769354061798095}
   - component: {fileID: 7652953290900803995}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: NX PZ Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32945,6 +32945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntranceColliderGroup: {fileID: 5569048991775774923}
+  RootObject: {fileID: 0}
   IsOpen: 1
 --- !u!1 &7865232687395616872
 GameObject:
@@ -32989,7 +32990,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7865232687395616872}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -39765,7 +39766,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8428474725018223052}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -46509,7 +46510,7 @@ GameObject:
   - component: {fileID: 18846131523508627}
   - component: {fileID: 2728170731780146080}
   - component: {fileID: 7861389232472347752}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Center Cube 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46614,7 +46615,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8884928985225262774}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

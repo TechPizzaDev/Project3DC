@@ -14,11 +14,10 @@ using System.Linq;
 
 public class ShopManager : MonoBehaviour
 {
-
     public TMP_Text dollarUI;
     public TMP_Text healthUI;
 
-    public ShopItem[] allItems; 
+    public ShopItem[] allItems;
     public ShopItem[] shopItems;
     public ShopTemplate[] shopTemplate;
     public GameObject[] shopTemplateGO;
@@ -142,12 +141,16 @@ public class ShopManager : MonoBehaviour
     /// </summary>
     public void PurchaseItem(int btnNo)
     {
+        ShopItem upgrade = shopItems[btnNo];
+
         // Reduces player's currency, updates buyability, and applies upgrade of the selected shop item
-        unitHealth.currency = unitHealth.currency - shopItems[btnNo].baseCost;
+        unitHealth.currency = unitHealth.currency - upgrade.baseCost;
         //CheckBuyability();
         DisableItems();
-        ApplyUpgrade(shopItems[btnNo]);
+        ApplyUpgrade(gunSelector, upgrade);
         buyBtn[btnNo].interactable = false;
+
+        LevelState.Instance.AcquiredShopItems.Add(upgrade);
     }
 
     /// <summary>
@@ -168,13 +171,12 @@ public class ShopManager : MonoBehaviour
     /// <summary>
     /// Applies the upgrade of the selected shop item to the player's gun
     /// </summary>
-    public void ApplyUpgrade(ShopItem item)
+    public static void ApplyUpgrade(PlayerGunSelector gunSelector, ShopItem item)
     {
         // Applies different modifiers to the player's gun based on the upgrade type of the shop item
         switch (item.upgradeType)
         {
-            case
-            UpgradeType.damage:
+            case UpgradeType.damage:
                 DamageModifier damageModifier = new()
                 {
                     amount = item.floatAmount,
@@ -183,8 +185,8 @@ public class ShopManager : MonoBehaviour
                 };
                 damageModifier.Apply(gunSelector.activeGun);
                 break;
-            case
-            UpgradeType.spread:
+
+            case UpgradeType.spread:
                 Vector3Modifier spreadModifier = new()
                 {
                     amount = item.vector3Amount,
@@ -193,8 +195,8 @@ public class ShopManager : MonoBehaviour
                 };
                 spreadModifier.Apply(gunSelector.activeGun);
                 break;
-            case
-            UpgradeType.fireRate:
+
+            case UpgradeType.fireRate:
                 FloatModifier fireRateModifier = new()
                 {
                     amount = item.floatAmount,
@@ -203,8 +205,8 @@ public class ShopManager : MonoBehaviour
                 };
                 fireRateModifier.Apply(gunSelector.activeGun);
                 break;
-            case
-            UpgradeType.magSize:
+
+            case UpgradeType.magSize:
                 FloatModifier magSizeModifier = new()
                 {
                     amount = item.floatAmount,
@@ -213,6 +215,7 @@ public class ShopManager : MonoBehaviour
                 };
                 magSizeModifier.Apply(gunSelector.activeGun);
                 break;
+
             //case
             //UpgradeType.reloadTime:
             //    FloatModifier reloadTimeModifier = new()
@@ -223,8 +226,8 @@ public class ShopManager : MonoBehaviour
             //    };
             //    reloadTimeModifier.Apply(gunSelector.activeGun);
             //    break;
-            case
-            UpgradeType.bulletSpeed:
+
+            case UpgradeType.bulletSpeed:
                 FloatModifier bulletSpeedModifier = new()
                 {
                     amount = item.floatAmount,
@@ -233,10 +236,9 @@ public class ShopManager : MonoBehaviour
                 };
                 bulletSpeedModifier.Apply(gunSelector.activeGun);
                 break;
+
             default:
                 break;
         }
     }
-
-
 }

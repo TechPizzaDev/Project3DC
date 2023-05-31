@@ -34,7 +34,6 @@ public class EnemyHealth : MonoBehaviour// IDamageable
         else if (health == maxHealth)
         {
             healthBarUI.SetActive(false);
-
         }
         if (health <= 0)
         {

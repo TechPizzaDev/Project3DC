@@ -16,12 +16,18 @@ namespace ProceduralRooms
 
         public GameObject LeftDoor;
         public GameObject RightDoor;
+        public GameObject Frame;
 
         public Transform TargetTransform;
+
+        public Material NormalFrameMaterial;
+        public Material ForcedFrameMaterial;
+
         public AudioClip OpenClip;
         public AudioClip CloseClip;
 
         private AudioSource audioSource;
+        private MeshRenderer frameMeshRenderer;
 
         private Vector3 leftStartPos;
         private Vector3 leftEndPos;
@@ -42,11 +48,16 @@ namespace ProceduralRooms
             }
 
             audioSource = GetComponent<AudioSource>();
+            frameMeshRenderer = Frame.GetComponent<MeshRenderer>();
 
             Quaternion rotation = transform.rotation;
-            leftStartPos = LeftDoor.transform.position;
+
+            if (LeftDoor != null)
+                leftStartPos = LeftDoor.transform.position;
             leftEndPos = leftStartPos + rotation * new Vector3(0, 0, Expanse);
-            rightStartPos = RightDoor.transform.position;
+
+            if (RightDoor != null)
+                rightStartPos = RightDoor.transform.position;
             rightEndPos = rightStartPos - rotation * new Vector3(0, 0, Expanse);
 
             // prevent audio playing on start
@@ -57,8 +68,8 @@ namespace ProceduralRooms
         // Update is called once per frame
         void Update()
         {
-            Vector3 leftPos = LeftDoor.transform.position;
-            Vector3 rightPos = RightDoor.transform.position;
+            Vector3 leftPos = LeftDoor != null ? LeftDoor.transform.position : default;
+            Vector3 rightPos = RightDoor != null ? RightDoor.transform.position : default;
             float delta = Time.deltaTime;
 
             openPause += delta;
@@ -88,6 +99,8 @@ namespace ProceduralRooms
 
                 if (openTime == 0) // The door has started opening
                 {
+                    UpdateMaterial();
+
                     audioSource.clip = OpenClip;
                     audioSource.Play();
                     openPause = 0;
@@ -102,6 +115,8 @@ namespace ProceduralRooms
 
                 if (closedTime == 0) // The door has started closing
                 {
+                    UpdateMaterial();
+
                     audioSource.clip = CloseClip;
                     audioSource.Play();
                     openPause = 0;
@@ -110,8 +125,22 @@ namespace ProceduralRooms
                 openTime = 0;
             }
 
-            LeftDoor.transform.position = leftPos;
-            RightDoor.transform.position = rightPos;
+            if (LeftDoor != null)
+                LeftDoor.transform.position = leftPos;
+            if (RightDoor != null)
+                RightDoor.transform.position = rightPos;
+        }
+
+        public void UpdateMaterial()
+        {
+            if (ForcedState != ProximityDoorState.Unset)
+            {
+                frameMeshRenderer.material = ForcedFrameMaterial;
+            }
+            else
+            {
+                frameMeshRenderer.material = NormalFrameMaterial;
+            }
         }
     }
 }

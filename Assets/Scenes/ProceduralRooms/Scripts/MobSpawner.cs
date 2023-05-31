@@ -9,8 +9,12 @@ public class MobSpawner : MonoBehaviour
     public int RngSeed = 1234;
     public int SpawnCount = 1;
     public float SpawnDelay = 0.5f;
+    public bool SpawnOnStart = false;
 
     public GameObject[] Prefabs;
+
+    public int CurrentMobCount { get; private set; }
+    public bool HasSpawned { get; private set; }
 
     private void Awake()
     {
@@ -20,7 +24,10 @@ public class MobSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnEnemies());
+        if (SpawnOnStart)
+        {
+            StartSpawning();
+        }
     }
 
     // Update is called once per frame
@@ -29,15 +36,30 @@ public class MobSpawner : MonoBehaviour
 
     }
 
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnEnemies());
+    }
+
     IEnumerator SpawnEnemies()
     {
+        CurrentMobCount = SpawnCount;
+        HasSpawned = true;
+
         for (int i = 0; i < SpawnCount; i++)
         {
             yield return new WaitForSeconds(SpawnDelay);
 
             GameObject obj = GetRandomPrefab();
             GameObject instance = Instantiate(obj, transform.position, transform.rotation, transform);
+
+            instance.GetComponent<UnitHealth>().OnDeath += MobSpawner_OnDeath;
         }
+    }
+
+    private void MobSpawner_OnDeath(GameObject sender, Vector3 position)
+    {
+        CurrentMobCount--;
     }
 
     GameObject GetRandomPrefab()

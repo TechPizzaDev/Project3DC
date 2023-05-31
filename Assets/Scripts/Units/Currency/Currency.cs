@@ -18,7 +18,7 @@ public class Currency : MonoBehaviour
     {
         // Checks if the game object and the other game object have the required components
         // to handle currency management.
-        if (gameObject != null && other.gameObject.TryGetComponent(out CurrencyManager manager))
+        if (gameObject != null && other.gameObject.TryGetComponent(out PlayerManager manager))
         {
             // Calls the AquireDollars() method of the CurrencyManager to add the acquired dollars.
             // Then destroys the currency pickup game object.

@@ -55,7 +55,10 @@ MonoBehaviour:
   ForcedState: 0
   LeftDoor: {fileID: 5417048771063491038}
   RightDoor: {fileID: 5417048771063491032}
+  Frame: {fileID: 5417048771063491034}
   TargetTransform: {fileID: 0}
+  NormalFrameMaterial: {fileID: 2100000, guid: 7474aa6baee1fc84ea7882a1a652b09c, type: 2}
+  ForcedFrameMaterial: {fileID: 2100000, guid: 5d4e882853d9bff4aa0241e4a3361d83, type: 2}
   OpenClip: {fileID: 8300000, guid: b37809aab915b514abe6183e47966cc8, type: 3}
   CloseClip: {fileID: 8300000, guid: d587e9f9062f0124caed4f10c00be1a4, type: 3}
 --- !u!82 &5652583697077854197
