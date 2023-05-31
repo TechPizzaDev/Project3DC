@@ -7,9 +7,12 @@ using UnityEditor;
 
 public class ScreenManager : MonoBehaviour
 {
+    private static GameObject musicInstance;
+
     public static ScreenManager Instance { get; private set; }
 
     public GameObject LevelStatePrefab;
+    public GameObject MusicPrefab;
 
     public SceneReference MainMenuScene;
     public SceneReference ControlsMenuScene;
@@ -32,6 +35,12 @@ public class ScreenManager : MonoBehaviour
         {
             LevelStateInstance = Instantiate(LevelStatePrefab);
             DontDestroyOnLoad(LevelStateInstance);
+        }
+
+        if (musicInstance == null)
+        {
+            musicInstance = Instantiate(MusicPrefab);
+            DontDestroyOnLoad(musicInstance);
         }
 
         RefreshPlayer();

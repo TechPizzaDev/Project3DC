@@ -4695,6 +4695,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1491470155174899814, guid: 008103984fda0984ab06bc1b561e3fb9,
         type: 3}
+      propertyPath: MusicPrefab
+      value: 
+      objectReference: {fileID: 1186922734081361188, guid: 3a86cdc0decb13844910454c147108e2,
+        type: 3}
+    - target: {fileID: 1491470155174899814, guid: 008103984fda0984ab06bc1b561e3fb9,
+        type: 3}
       propertyPath: LevelStatePrefab
       value: 
       objectReference: {fileID: 6670982733356806979, guid: 2db3f030e44f888459207337c6874bb1,
@@ -7071,9 +7077,16 @@ MonoBehaviour:
   Elevators:
   - {fileID: 1101475418}
   Rooms:
-  - {fileID: 5413457443688304018, guid: d6ee4349b45449b4a8c97c14fcd05339, type: 3}
-  - {fileID: 5413457443688304018, guid: a63ce8f40e1a0d447b1eaf367101052d, type: 3}
-  - {fileID: 5413457443688304018, guid: ee4bf2b694121094f8c51c4c35b1f607, type: 3}
+  - {fileID: 9067487147338404995, guid: 890acaee4846d59469d0903803e603a4, type: 3}
+  - {fileID: 3915090866724347302, guid: a26626db07b6f844f977f62d09fe2dc0, type: 3}
+  - {fileID: 6484877528411579388, guid: fec59076d8a57bd49a105aee6f326226, type: 3}
+  - {fileID: 881412298206281757, guid: d5bebd8d53a840b4e9652c9d29920887, type: 3}
+  - {fileID: 8342748510381707924, guid: ddf464ee1a90db54fb963fdaab11e0d5, type: 3}
+  - {fileID: 3162385154515443517, guid: bf76886608323a4418c0b78834723492, type: 3}
+  - {fileID: 7384468464965997925, guid: c726325626eaa1b4884ebcebee2df7b2, type: 3}
+  - {fileID: 3271624348878099000, guid: a9c2157f3d9b17b4ca0375fc6abd35a6, type: 3}
+  - {fileID: 3471057396201273041, guid: 2b9e8039aea530a49a36a6306486fba1, type: 3}
+  - {fileID: 2302324686173611190, guid: 593eda7c2919908469c6275fd4166685, type: 3}
   Tunnels:
   - {fileID: 660009867170215542, guid: 0b8f446a64c1fd345b8f55bab5575de5, type: 3}
 --- !u!43 &1341446674

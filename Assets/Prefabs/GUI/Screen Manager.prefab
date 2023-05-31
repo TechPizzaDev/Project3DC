@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelStatePrefab: {fileID: 6670982733356806979, guid: 2db3f030e44f888459207337c6874bb1,
     type: 3}
+  MusicPrefab: {fileID: 1186922734081361188, guid: 3a86cdc0decb13844910454c147108e2,
+    type: 3}
   MainMenuScene:
     asset: {fileID: 102900000, guid: 8f8ff8b8d190f54489300d68f8aa1fed, type: 3}
     guid: 8f8ff8b8d190f54489300d68f8aa1fed
