@@ -14,6 +14,11 @@ public class AmmoConfig : ScriptableObject, System.ICloneable
     public int currentAmmo = 120;
     public int currentClipAmmo = 30;
 
+    /// <summary>
+    /// Reloads weapon conserving ammo left in the magazine.
+    /// Meaning it will only subtract the difference between clipSize and currentClipAmmo from currentAmmo
+    /// If ammoType is AmmoType.normal, other ammo types do not subtract ammo from currentAmmo
+    /// </summary>
     public void Reload()
     {
         int maxReloadAmount = Mathf.Min(clipSize, currentAmmo);
@@ -27,11 +32,18 @@ public class AmmoConfig : ScriptableObject, System.ICloneable
         }
     }
 
+    /// <summary>
+    /// Checks if the weapon can be reloaded
+    /// </summary>
+    /// <returns></returns>
     public bool CanReload()
     {
         return currentClipAmmo < clipSize && currentAmmo > 0;
     }
 
+    /// <summary>
+    /// Creates a new instance of AmmoConfig and copies the values from this instance to the new one
+    /// </summary>
     public object Clone()
     {
         AmmoConfig config = CreateInstance<AmmoConfig>();
@@ -40,4 +52,5 @@ public class AmmoConfig : ScriptableObject, System.ICloneable
 
         return config;
     }
+    
 }

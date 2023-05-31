@@ -35,6 +35,12 @@ public class Gun : ScriptableObject, ICloneable
     private VisualEffect muzzleFlash;
     private ObjectPool<TrailRenderer> trailPool;
 
+    /// <summary>
+    /// Spawns the gun model and sets up the gun
+    /// </summary>
+    /// <param name="parent">Parent for the gun model</param>
+    /// <param name="activeMonoBehaviour">An active MonoBehaviour that can have Coroutines attached</param>
+    /// <param name="activeCamera">The camera to raycast from. Required if <see cref="ShootConfig.shootType"/> = <see cref="ShootType.fromCamera"/></param>
     public void Spawn(Transform parent, MonoBehaviour activeMonoBehaviour, Camera activeCamera = null)
     {
         this.activeMonoBehaviour = activeMonoBehaviour;
@@ -70,11 +76,18 @@ public class Gun : ScriptableObject, ICloneable
         muzzleFlash = model.GetComponentInChildren<VisualEffect>();
     }
 
+    /// <summary>
+    /// used to override the Camera provided in <see cref="Spawn(Transform, MonoBehaviour, Camera)"/>
+    /// </summary>
+    /// <param name="activeCamera"></param>
     public void UpdateCamera(Camera activeCamera)
     {
         this.activeCamera = activeCamera;
     }
 
+    /// <summary>
+    /// shoots the gun based on firerate. Also applies bullet spread, plays audio based on audioconfig and plays muzzleflash
+    /// </summary>
     public void TryToShoot()
     {
         if (Time.time - lastShootTime - shootConfig.fireRate > Time.deltaTime)
@@ -133,6 +146,12 @@ public class Gun : ScriptableObject, ICloneable
         }
     }
 
+    /// <summary>
+    /// Performs a raycast to determine if the bullet hits something. Spawns a trailrenderer and will apply
+    /// damage after the trailrenderer has finished playing
+    /// See <see cref="PlayTrail(Vector3, Vector3, RaycastHit)"/> for impact logic
+    /// </summary>
+    /// <param name="shootDirection"></param>
     private void DoHitscanShoot(Vector3 shootDirection)
     {
         if (Physics.Raycast(
@@ -163,12 +182,19 @@ public class Gun : ScriptableObject, ICloneable
         }
     }
 
+    /// <summary>
+    /// Creates a bullet instance that is launched in the direction of <paramref name="shootDirection"/>
+    /// with the velocity of <see cref="ShootConfig.bulletSpawnForce"/>
+    /// </summary>
+    /// <param name="shootDirection"></param>
     private void DoProjectileShoot(Vector3 shootDirection)
     {
         Bullet bullet = bulletPool.Get();
         bullet.gameObject.SetActive(true);
         bullet.OnCollision += HandleBulletCollision;
 
+        //When shooting real projectiles from the camera the gun needs to be turned towards the hit point
+        //of the raycast from the camera. Otherwise aim is off.
         if (shootConfig.shootType == ShootType.fromCamera
             && Physics.Raycast(GetRaycastOrigin(), 
                 shootDirection,
@@ -196,6 +222,10 @@ public class Gun : ScriptableObject, ICloneable
 
     }
 
+    /// <summary>
+    /// returns the origin of the raycast based on the <see cref="ShootConfig.shootType"/>
+    /// </summary>
+    /// <returns></returns>
     public Vector3 GetRaycastOrigin()
     {
         Vector3 origin = shootSystem.transform.position;
@@ -213,11 +243,21 @@ public class Gun : ScriptableObject, ICloneable
         return origin;
     }
 
+    /// <summary>
+    /// returns the forward direction of the gun model
+    /// </summary>
+    /// <returns></returns>
     public Vector3 GetGunForward()
     {
         return model.transform.forward;
     }
 
+    /// <summary>
+    /// Callback handler for <see cref="Bullet.OnCollision"/>. Disables the TrailRenderer,
+    /// releases the bullet from bulletpool and applies impact effects if <paramref name="collision"/> is not null.
+    /// </summary>
+    /// <param name="bullet"></param>
+    /// <param name="collision"></param>
     private void HandleBulletCollision(Bullet bullet, Collision collision)
     {
         TrailRenderer trail = bullet.GetComponentInChildren<TrailRenderer>();
@@ -243,7 +283,13 @@ public class Gun : ScriptableObject, ICloneable
         }
     }
 
-    //stuff for when surface manager and damage is implemented
+    /// <summary>
+    /// Applies damage if a damageable object was hit
+    /// </summary>
+    /// <param name="distanceTraveled"></param>
+    /// <param name="hitLocation"></param>
+    /// <param name="hitNormal"></param>
+    /// <param name="hitCollider"></param>
     private void HandleBulletImpact(
         float distanceTraveled,
         Vector3 hitLocation,
@@ -255,7 +301,7 @@ public class Gun : ScriptableObject, ICloneable
             Debug.Log("Hit Damageable");
             damageable.TakeDamage(damageConfig.GetDamage(distanceTraveled));
 
-            //if damageable is on enemy layer, do detection
+            //if damageable is an enemy, call detection
             if (hitCollider.gameObject.layer == 11)
             {
                 Debug.Log("Hit Enemy");
@@ -264,21 +310,36 @@ public class Gun : ScriptableObject, ICloneable
         }
     }
 
+    /// <summary>
+    /// Checks if gun can be reloaded
+    /// </summary>
+    /// <returns></returns>
     public bool CanReload()
     {
         return ammoConfig.CanReload();
     }
 
+    /// <summary>
+    /// Plays the reloading audio clip if assigned.
+    /// Expected to be called on the first frame of the reload animation.
+    /// </summary>
     public void StartReloading()
     {
         audioConfig.PlayReloadClip(shootingAudioSource);
     }
 
+    /// <summary>
+    /// Handle ammo after reload animation
+    /// </summary>
     public void EndReload()
     {
         ammoConfig.Reload();
     }
 
+    /// <summary>
+    /// Expected to be called every frame
+    /// </summary>
+    /// <param name="wantsToShoot">Whether the player is trying to shoot or not</param>
     public void Tick(bool wantsToShoot)
     {
         if (wantsToShoot)
@@ -293,6 +354,13 @@ public class Gun : ScriptableObject, ICloneable
         }
     }
 
+    /// <summary>
+    /// Plays a bullet trail from the start point to the end point.
+    /// </summary>
+    /// <param name="startPoint">Starting point for trail</param>
+    /// <param name="endPoint">End point for trail</param>
+    /// <param name="hit">The hit object</param>
+    /// <returns></returns>
     private IEnumerator PlayTrail(Vector3 startPoint, Vector3 endPoint, RaycastHit hit)
     {
         TrailRenderer instance = trailPool.Get();
@@ -330,6 +398,12 @@ public class Gun : ScriptableObject, ICloneable
         trailPool.Release(instance);
     }
 
+    /// <summary>
+    /// Disables the trail after <see cref="TrailConfig.duration"/> seconds and
+    /// releases it from the <see cref="trailPool"/>
+    /// </summary>
+    /// <param name="trail"></param>
+    /// <returns></returns>
     private IEnumerator DelayedDisableTrail(TrailRenderer trail)
     {
         yield return new WaitForSeconds(trailConfig.duration);
@@ -339,6 +413,10 @@ public class Gun : ScriptableObject, ICloneable
         trailPool.Release(trail);
     }
 
+    /// <summary>
+    /// Creates a trail renderer for use in the object pool
+    /// </summary>
+    /// <returns>A live TrailRenderer GameObject</returns>
     private TrailRenderer CreateTrail()
     {
         GameObject instance = new GameObject("Bullet Trail");
@@ -355,6 +433,10 @@ public class Gun : ScriptableObject, ICloneable
         return trail;
     }
 
+    /// <summary>
+    /// Creates a bullet for use in the object pool
+    /// </summary>
+    /// <returns>A live bullet GameObject</returns>
     private Bullet CreateBullet()
     {
         return Instantiate(shootConfig.bulletPrefab);
@@ -363,8 +445,7 @@ public class Gun : ScriptableObject, ICloneable
     public object Clone()
     {
         Gun config = CreateInstance<Gun>();
-
-        //config.impactType = impactType;
+        
         config.type = type;
         config.gunName = gunName;
         config.damageConfig = damageConfig.Clone() as DamageConfig;
