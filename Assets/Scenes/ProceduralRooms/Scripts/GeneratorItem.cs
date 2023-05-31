@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProceduralRooms
@@ -8,10 +9,28 @@ namespace ProceduralRooms
         public Vector3Int Position { get; }
         public RoomDoorDirection OpenDoors { get; }
 
+        public List<GameObject> GeneratedObjects { get; }
+
         protected GeneratorItem(Vector3Int position, RoomDoorDirection openDoors)
         {
             Position = position;
             OpenDoors = openDoors;
+
+            GeneratedObjects = new List<GameObject>();
+        }
+
+        public T GetUniqueComponent<T>()
+            where T : Component
+        {
+            foreach (GameObject obj in GeneratedObjects)
+            {
+                var comp = obj.GetComponentInChildren<T>();
+                if (comp != null)
+                {
+                    return comp;
+                }
+            }
+            return null;
         }
 
         public virtual void Generate(RoomGeneratorState state)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -59,6 +60,12 @@ namespace ProceduralRooms
             while (state.ItemStack.TryPop(out GeneratorItem generatorItem))
             {
                 generatorItem.Generate(state);
+            }
+
+            foreach (ElevatorGenItem elevator in state.SpawnedRooms.Values.OfType<ElevatorGenItem>())
+            {
+                var elevatorScript = elevator.GetUniqueComponent<ElevatorRoomScript>();
+                RoomScript.OnClose += (room) => elevatorScript.CloseRoom();
             }
 
             var sources = new List<NavMeshBuildSource>();

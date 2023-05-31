@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace ProceduralRooms
 {
@@ -13,7 +14,7 @@ namespace ProceduralRooms
             base.Generate(state);
 
             Vector3Int roomPosition = Position * state.GetRoomSizeVector();
-            state.InstantiateElevator(state.Root, roomPosition);
+            GeneratedObjects.Add(state.InstantiateElevator(state.Root, roomPosition));
 
             Vector3Int tunnelVec = GetVector(RoomDoorDirection.Forward);
             Vector3Int roomSize = state.GetRoomSizeVector();
@@ -21,7 +22,7 @@ namespace ProceduralRooms
                 roomSize.x * tunnelVec.x / 2f,
                 0,
                 roomSize.z * tunnelVec.z / 2f);
-            state.InstantiateTunnel(state.Root, tunnelCenter, RoomDoorDirection.Forward);
+            GeneratedObjects.Add(state.InstantiateTunnel(state.Root, tunnelCenter, RoomDoorDirection.Forward));
 
             state.ItemStack.Push(new RoomGenItem(tunnelVec, RoomDoorDirection.All));
         }
