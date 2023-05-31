@@ -8,6 +8,8 @@ using System;
 
 public class PlayerCanvas : MonoBehaviour
 {
+    public float ElevatorOpenThreshold = 0.5f;
+
     public Slider healthSlider;
     public TMP_Text dollarUI;
     public TMP_Text enemyCounterTxt;
@@ -19,6 +21,7 @@ public class PlayerCanvas : MonoBehaviour
     public RoomGenerator roomGenerator;
 
     private List<RoomScript> rooms;
+    private bool hasOpenedElevator;
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +69,26 @@ public class PlayerCanvas : MonoBehaviour
             int totalEnemiesToSlay = rooms.Select(room => room.GetMaxEnemyCount()).Sum();
             float percent = 1f - (enemiesRemaining / (float)totalEnemiesToSlay);
 
-            levelStateTxt.text = $"{enemiesRemaining} / {totalEnemiesToSlay}; {(int)MathF.Round(percent * 100)}%";
+            bool openElevator = percent >= ElevatorOpenThreshold;
+
+            string stateStr = $"{enemiesRemaining} / {totalEnemiesToSlay}; {(int)MathF.Round(percent * 100)}%";
+            if (openElevator)
+            {
+                stateStr += "\nThe elevator is open!";
+            }
+            levelStateTxt.text = stateStr;
+
+            if (openElevator && !hasOpenedElevator)
+            {
+                hasOpenedElevator = true;
+
+                var elevatorScript = roomState.SpawnedRooms.Values
+                    .OfType<ElevatorGenItem>()
+                    .First()
+                    .GetUniqueComponent<ElevatorRoomScript>();
+
+                elevatorScript.OpenRoom();
+            }
         }
     }
 
