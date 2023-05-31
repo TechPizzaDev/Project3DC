@@ -14,6 +14,7 @@ public class MobSpawner : MonoBehaviour
     public GameObject[] Prefabs;
 
     public int CurrentMobCount { get; private set; }
+    public bool HasSpawned { get; private set; }
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class MobSpawner : MonoBehaviour
     IEnumerator SpawnEnemies()
     {
         CurrentMobCount = SpawnCount;
+        HasSpawned = true;
 
         for (int i = 0; i < SpawnCount; i++)
         {

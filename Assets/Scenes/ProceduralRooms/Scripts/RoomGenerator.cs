@@ -25,6 +25,8 @@ namespace ProceduralRooms
 
         public GameObject[] Tunnels;
 
+        public RoomGeneratorState RoomState { get; private set; }
+
         NavMeshData _navMesh;
         NavMeshDataInstance _navInstance;
 
@@ -76,6 +78,8 @@ namespace ProceduralRooms
 
             var bounds = new Bounds(new Vector3(0, -10, 0), new Vector3(10000, 100, 10000));
             NavMeshBuilder.UpdateNavMeshData(_navMesh, defaultBuildSettings, sources, bounds);
+
+            RoomState = state;
         }
     }
 }

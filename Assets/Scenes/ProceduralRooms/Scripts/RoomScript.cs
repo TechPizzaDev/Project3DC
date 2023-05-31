@@ -38,6 +38,23 @@ public class RoomScript : MonoBehaviour
         }
     }
 
+    public int GetExpectedEnemyCount()
+    {
+        int count = 0;
+        foreach (MobSpawner spawner in _mobSpawners)
+        {
+            if (spawner.HasSpawned)
+            {
+                count += spawner.CurrentMobCount;
+            }
+            else
+            {
+                count += spawner.SpawnCount;
+            }
+        }
+        return count;
+    }
+
     public int GetCurrentEnemyCount()
     {
         int count = 0;

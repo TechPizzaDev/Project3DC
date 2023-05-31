@@ -15,6 +15,7 @@ namespace ProceduralRooms
 
             Vector3Int roomPosition = Position * state.GetRoomSizeVector();
             GameObject roomObj = state.InstantiateRoom(state.Root, roomPosition, OpenDoors);
+            GeneratedObjects.Add(roomObj);
 
             ProximityDoor[] doors = roomObj.GetComponentsInChildren<ProximityDoor>();
 
@@ -41,6 +42,7 @@ namespace ProceduralRooms
                     0,
                     roomSize.z * tunnelVec.z / 2f);
                 GameObject tunnelObj = state.InstantiateTunnel(state.Root, tunnelCenter, door);
+                GeneratedObjects.Add(tunnelObj);
 
                 RoomDoorDirection extraDoors = RoomDoorDirection.None;
                 for (int j = 0; j < 4; j++)
