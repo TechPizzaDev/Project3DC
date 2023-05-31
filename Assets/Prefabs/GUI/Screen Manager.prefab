@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afb0e0ec57f24d4f9cb877396c06ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelStatePrefab: {fileID: 6670982733356806979, guid: 2db3f030e44f888459207337c6874bb1,
+    type: 3}
   MainMenuScene:
     asset: {fileID: 102900000, guid: 8f8ff8b8d190f54489300d68f8aa1fed, type: 3}
     guid: 8f8ff8b8d190f54489300d68f8aa1fed

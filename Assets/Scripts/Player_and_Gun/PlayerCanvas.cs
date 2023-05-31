@@ -100,6 +100,11 @@ public class PlayerCanvas : MonoBehaviour
                 elevatorScript.OpenRoom();
             }
         }
+
+        if (health.killed)
+        {
+            ScreenManager.Instance.GoToGameOverScene();
+        }
     }
 
     private void RefreshRooms(RoomGeneratorState roomState)

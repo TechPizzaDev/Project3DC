@@ -47,13 +47,21 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    void UnlockCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void GoToMainMenuScene()
     {
+        UnlockCursor();
         SceneManager.LoadSceneAsync(MainMenuScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void OpenControlsMenuScene()
     {
+        UnlockCursor();
         SceneManager.LoadSceneAsync(ControlsMenuScene.BuildIndex, LoadSceneMode.Additive);
     }
 
@@ -88,11 +96,13 @@ public class ScreenManager : MonoBehaviour
 
     public void GoToWinScene()
     {
+        UnlockCursor();
         SceneManager.LoadSceneAsync(WinScene.BuildIndex, LoadSceneMode.Single);
     }
 
     public void GoToGameOverScene()
     {
+        UnlockCursor();
         SceneManager.LoadSceneAsync(GameOverScene.BuildIndex, LoadSceneMode.Single);
     }
 

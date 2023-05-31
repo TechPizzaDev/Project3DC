@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +13,8 @@ public class LevelState : MonoBehaviour
 
     public List<ShopItem> AcquiredShopItems { get; } = new();
 
-    public float PlayerHealth;
-    public float PlayerMaxHealth;
-    public int PlayerCurrency;
+    public float PlayerHealth = 100;
+    public float PlayerMaxHealth = 100;
+    public int PlayerCurrency = 0;
 }
+

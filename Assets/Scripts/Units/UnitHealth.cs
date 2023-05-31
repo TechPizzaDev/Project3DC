@@ -10,6 +10,8 @@ public class UnitHealth : MonoBehaviour, IDamageable
     [SerializeField]
     private bool godMode = false;
 
+    public bool destroy = true;
+
     EnemyDetection enemyDetection;
 
     public int CurrentHealth { get => (int)health; private set => health = value; }
@@ -66,13 +68,23 @@ public class UnitHealth : MonoBehaviour, IDamageable
         {
             OnTakeDamage?.Invoke(gameObject, damageTaken);
         }
+
+        if (CurrentHealth == 0 && damageTaken != 0)
+        {
+            DestroyObj();
+        }
     }
 
     public void DestroyObj()
     {
         OnDeath?.Invoke(gameObject, transform.position);
+        killed = true;
 
-        Destroy(gameObject);
+        if (destroy)
+        {
+            Destroy(gameObject);
+        }
+
         var currencyManager = Instantiate(dollar, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity); //Quaternion.identity = no rotation
 
         currencyManager.GetComponent<Currency>().dollars = currency;
