@@ -10,7 +10,7 @@ public class BoombugMovement : MonoBehaviour
     [SerializeField] private Vector3 walkingToPos;
 
     public NavMeshAgent agent;
-    [SerializeField] private float margin = 5f;
+    [SerializeField] private float margin = 2f;
     [SerializeField] public float distanceToTarget;
     [SerializeField] private float stopChasingTimer = 0f;
     [SerializeField] private float stopChasingTimerReset = 5f;
@@ -39,8 +39,9 @@ public class BoombugMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<UnitHealth>();
 
-        walkingToPos = endPos;
         startingPos = transform.position;
+        endPos = new Vector3(RandomNumberPos(startingPos.x), 0, RandomNumberPos(startingPos.z));
+        walkingToPos = endPos;
         state = new State();
 
     }
@@ -148,5 +149,15 @@ public class BoombugMovement : MonoBehaviour
         {
             state = State.isPatrolling;
         }
+    }
+    public float RandomNumberPos(float pos)
+    {
+        var negOrPos = Random.Range(0, 2);
+        var value = Random.Range(6, 11);
+        if (negOrPos == 0) { negOrPos = -1; }
+        pos += (value * negOrPos);
+        Debug.Log("negOrPos = " + negOrPos);
+        Debug.Log("value = " + value);
+        return pos;
     }
 }

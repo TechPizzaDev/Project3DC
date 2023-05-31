@@ -10,7 +10,7 @@ public class ShellShockMovement : MonoBehaviour
     AnimationShellshockScript shellAnimation;
 
     public NavMeshAgent agent;
-    [SerializeField] private float margin = 5f;
+    [SerializeField] private float margin = 2f;
     [SerializeField] public float distanceToTarget;
     [SerializeField] public float distanceToPlayer;
     [SerializeField] private float distanceToStartAttacking = 10f;
@@ -45,8 +45,9 @@ public class ShellShockMovement : MonoBehaviour
         shellAnimation = GetComponent<AnimationShellshockScript>();
         health = GetComponent<UnitHealth>();
 
-        walkingToPos = endPos;
         startingPos = transform.position;
+        endPos = new Vector3 (RandomNumberPos(startingPos.x),0 , RandomNumberPos(startingPos.z));
+        walkingToPos = endPos;
         state = new State();
 
         // fix animator not animating on instantiation
@@ -222,5 +223,13 @@ public class ShellShockMovement : MonoBehaviour
     public void ReloadAnimationDone()
     {
         reloadAnimationDone = true;
+    }
+    public float RandomNumberPos(float pos)
+    {
+        var negOrPos = Random.Range(0, 2);
+        var value = Random.Range(6, 11);
+        if(negOrPos == 0) { negOrPos = -1; }
+        pos += (value * negOrPos);
+        return pos;
     }
 }
