@@ -33,6 +33,13 @@ namespace ProceduralRooms
             return null;
         }
 
+        /// <summary>
+        /// Implemented by rooms to perform the main generation step.
+        /// </summary>
+        /// <remarks>
+        /// Spawned objects shall be registered by adding them to <see cref="GeneratedObjects"/>.
+        /// </remarks>
+        /// <param name="state">All state used for generating rooms.</param>
         public virtual void Generate(RoomGeneratorState state)
         {
             state.SpawnedRooms.Add(Position, this);

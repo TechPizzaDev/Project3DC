@@ -24,6 +24,7 @@ namespace ProceduralRooms
                 roomSize.z * tunnelVec.z / 2f);
             GeneratedObjects.Add(state.InstantiateTunnel(state.Root, tunnelCenter, RoomDoorDirection.Forward));
 
+            // Make the room in front of the elevator room have doors open in all directions.
             state.ItemStack.Push(new RoomGenItem(tunnelVec, RoomDoorDirection.All));
         }
     }

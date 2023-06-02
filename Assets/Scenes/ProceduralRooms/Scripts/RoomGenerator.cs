@@ -57,6 +57,7 @@ namespace ProceduralRooms
                 Tunnels = Tunnels
             };
 
+            // Enqueue the first generator item.
             state.ItemStack.Push(new ElevatorGenItem(Vector3Int.zero));
 
             while (state.ItemStack.TryPop(out GeneratorItem generatorItem))
@@ -64,14 +65,16 @@ namespace ProceduralRooms
                 generatorItem.Generate(state);
             }
 
+            // Register all elevators after generation.
             foreach (ElevatorGenItem elevator in state.SpawnedRooms.Values.OfType<ElevatorGenItem>())
             {
                 var elevatorScript = elevator.GetUniqueComponent<ElevatorRoomScript>();
                 RoomScript.OnClose += (room) => elevatorScript.CloseRoom();
             }
 
+            // Generate navmesh by collecting all generated attached to the RoomGeneratorState.Root transform.
             var sources = new List<NavMeshBuildSource>();
-            NavMeshBuilder.CollectSources(transform, NavLayerMask.value, NavMeshCollectGeometry.PhysicsColliders, 0, new List<NavMeshBuildMarkup>(), sources);
+            NavMeshBuilder.CollectSources(state.Root, NavLayerMask.value, NavMeshCollectGeometry.PhysicsColliders, 0, new List<NavMeshBuildMarkup>(), sources);
 
             var defaultBuildSettings = NavMesh.GetSettingsByID(0);
             defaultBuildSettings.agentRadius = 1;
