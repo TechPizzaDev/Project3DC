@@ -17,14 +17,35 @@ public class ShootConfig : ScriptableObject, System.ICloneable
     public float recoilRecoverySpeed = 1f;
     public float maxSpreadTime = 1f;
     public BulletSpreadType spreadType = BulletSpreadType.Simple;
+
+    /// <summary>
+    /// When <see cref="spreadType"/> is <see cref="BulletSpreadType.Simple"/>, this value is used to calculate bullet spread.
+    /// This defines the maximum offset in any direction that a shot can offset the forward of the gun.
+    /// Ranges from -x to x, -y to y, -z to z.
+    /// </summary>
     [Header("Simple Spread")]
     public Vector3 Spread = new Vector3 (0.1f, 0.1f, 0.1f);
+
+    /// <summary>
+    /// Multiplier applied to the vector from the center of <see cref="spreadTexture"/> and the chosen pixel.
+    /// Lower value = less spread.
+    /// </summary>
     [Header("Texture-Based Spread")]
     [Range(0.001f, 5f)]
     public float spreadMultiplier = 0.1f;
+    /// <summary>
+    /// Weighted random values based on the alpha value of each pixel, originating from the center of the texture is used to calculate the spread offset.
+    /// </summary>
     public Texture2D spreadTexture;
 
-
+    /// <summary>
+    /// Calculates and returns the offset from "forward" that should be applied to the bullet
+    /// based on <paramref name="shootTime"/>. The closer to <see cref="maxSpreadTime"/> this is,
+    /// the larger area of <see cref="spreadTexture"/> is read, or wider range of <see cref="Spread"/> is used,
+    /// depending on <see cref="spreadType"/>.
+    /// </summary>
+    /// <param name="shootTime"></param>
+    /// <returns></returns>
     public Vector3 GetSpread(float shootTime = 0)
     {
         Vector3 spread = Vector3.zero;
@@ -59,6 +80,13 @@ public class ShootConfig : ScriptableObject, System.ICloneable
         return spread;
     }
 
+    /// <summary>
+    /// Reads provided <see cref="spreadTexture"/> and uses a weighted random algorithm to determine the spread.
+    /// <paramref name="shootTime"/> indicates how long the player has beeen shooting, larger values,
+    /// closer to <see cref="maxSpreadTime"/> will sample larger areas of the texture.
+    /// </summary>
+    /// <param name="shootTime"></param>
+    /// <returns></returns>
     private Vector3 GetTextureDirection(float shootTime)
     {
         Vector2 halfSize = new Vector2(spreadTexture.width / 2f, spreadTexture.height / 2f);
