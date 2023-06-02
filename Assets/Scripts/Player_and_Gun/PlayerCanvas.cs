@@ -32,6 +32,9 @@ public class PlayerCanvas : MonoBehaviour
         enemyCounterTxt.enabled = false;
         levelStateTxt.text = "";
 
+        // FIXME: Room management code.
+        // Since rooms are generated at runtime, there was no way to link the ScreenManager
+        // to the elevator room in the inspector.
         var elevatorScript = roomGenerator.RoomState.SpawnedRooms.Values
             .OfType<ElevatorGenItem>()
             .First()
@@ -88,6 +91,7 @@ public class PlayerCanvas : MonoBehaviour
             }
             levelStateTxt.text = stateStr;
 
+            // FIXME: Room management code. Should probably be in a gameplay manager or similar.
             if (openElevator && !hasOpenedElevator)
             {
                 hasOpenedElevator = true;
@@ -101,12 +105,14 @@ public class PlayerCanvas : MonoBehaviour
             }
         }
 
+        // FIXME: Room management code.
         if (health.killed)
         {
             ScreenManager.Instance.GoToGameOverScene();
         }
     }
 
+    // FIXME: Room management code.
     private void RefreshRooms(RoomGeneratorState roomState)
     {
         rooms = roomState.SpawnedRooms.Values

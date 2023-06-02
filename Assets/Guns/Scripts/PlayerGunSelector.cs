@@ -32,6 +32,7 @@ public class PlayerGunSelector : MonoBehaviour
 
     private void Start()
     {
+        // FIXME: Scene management code that should probably be in a centralized location.
         foreach (ShopItem item in LevelState.Instance.AcquiredShopItems)
         {
             ShopManager.ApplyUpgrade(this, item);

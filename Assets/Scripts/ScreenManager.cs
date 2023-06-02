@@ -5,8 +5,17 @@ using Eflatun.SceneReference;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// The screen manager provides functions for transitions between scenes.
+/// </summary>
+/// <remarks>
+/// Since scene transitions are destructive, 
+/// we also need <see cref="LevelStateInstance"/> to keep track of state between scenes.
+/// </remarks>
 public class ScreenManager : MonoBehaviour
 {
+    // TODO: look into cleaning up/handling LoadSceneAsync.completed events in an organized matter
+
     private static GameObject musicInstance;
 
     public static ScreenManager Instance { get; private set; }
@@ -23,6 +32,7 @@ public class ScreenManager : MonoBehaviour
     public SceneReference WinScene;
     public SceneReference GameOverScene;
 
+    // FIXME: The current code that manages actually saves/restores state is dirty and all over the place
     public static GameObject LevelStateInstance { get; private set; }
 
     private UnitHealth Player;
@@ -56,6 +66,11 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    // TODO: Unity Input system is behaving strangely between scenes,
+    // and scenes that don't have an input manager can't unlock their cursor,
+    // but the input manager could not exist without a player,
+    // and a player instance behind e.g. the shop caused problems, 
+    // so this is the current workaround.
     void UnlockCursor()
     {
         Cursor.visible = true;
@@ -88,7 +103,6 @@ public class ScreenManager : MonoBehaviour
 
     private void AssignPlayerValues()
     {
-
         RefreshPlayer();
 
         if (Player != null)
@@ -98,7 +112,6 @@ public class ScreenManager : MonoBehaviour
             Player.maxHealth = levelState.PlayerMaxHealth;
             Player.currency = levelState.PlayerCurrency;
         }
-
     }
 
     private void ScreenManager_GameplayLoadCompleted(AsyncOperation obj)
